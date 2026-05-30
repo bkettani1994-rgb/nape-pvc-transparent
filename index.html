@@ -1,0 +1,2102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NappeLux — Nappes PVC Sur Mesure | Transparent & Doré</title>
+  <meta name="description" content="Nappes en PVC transparent et doré sur mesure pour toutes les formes : carré, rectangulaire, ronde, ovale, octogone. Livraison rapide partout en France." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── DESIGN SYSTEM ─────────────────────────────────────── */
+    :root {
+      --gold:        #CA8A04;
+      --gold-light:  #F59E0B;
+      --gold-pale:   #FEF9EE;
+      --gold-shine:  #FBBF24;
+      --dark:        #1C1917;
+      --dark-2:      #44403C;
+      --cream:       #FAFAF9;
+      --text:        #0C0A09;
+      --glass-bg:    rgba(255,255,255,0.12);
+      --glass-border:rgba(255,255,255,0.25);
+      --blur:        16px;
+      --radius-lg:   20px;
+      --radius-xl:   32px;
+      --shadow-gold: 0 8px 40px rgba(202,138,4,0.3);
+      --shadow-card: 0 4px 24px rgba(28,25,23,0.12);
+      --ease:        cubic-bezier(0.4,0,0.2,1);
+      --dur:         0.35s;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    h1,h2,h3,h4 { font-family: 'Cormorant', serif; line-height: 1.15; }
+
+    /* ─── PARTICLES BG ──────────────────────────────────────── */
+    #particles-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    /* ─── NAV ───────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(28,25,23,0.72);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border-bottom: 1px solid rgba(202,138,4,0.2);
+      transition: all var(--dur) var(--ease);
+    }
+
+    nav.scrolled {
+      padding: 0.65rem 2rem;
+      background: rgba(28,25,23,0.92);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant', serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: #fff; }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color var(--dur) var(--ease);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold-light);
+      transition: width var(--dur) var(--ease);
+    }
+
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
+      color: var(--dark) !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 600 !important;
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(202,138,4,0.5) !important;
+    }
+
+    .nav-cta::after { display: none !important; }
+
+    /* ─── HAMBURGER ─────────────────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--gold-light);
+      transition: all 0.3s;
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1C1917 0%, #292524 40%, #1C1917 100%);
+    }
+
+    .hero-bg-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(202,138,4,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(251,191,36,0.1) 0%, transparent 50%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(202,138,4,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(202,138,4,0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      max-width: 900px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(202,138,4,0.15);
+      border: 1px solid rgba(202,138,4,0.4);
+      color: var(--gold-light);
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+      animation: fadeDown 0.8s var(--ease) both;
+    }
+
+    .hero-badge svg { width: 14px; height: 14px; }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.6rem;
+      animation: fadeUp 0.9s 0.1s var(--ease) both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-shine));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255,255,255,0.65);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+      animation: fadeUp 0.9s 0.2s var(--ease) both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.9s 0.3s var(--ease) both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
+      color: var(--dark);
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(202,138,4,0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      color: #fff;
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* floating tablecloth visual */
+    .hero-visual {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(400px, 35vw);
+      aspect-ratio: 1;
+      animation: float 6s ease-in-out infinite;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(-50%) translateY(0); }
+      50% { transform: translateY(-50%) translateY(-18px); }
+    }
+
+    /* scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: fadeIn 1.2s 0.8s both;
+    }
+
+    .scroll-mouse {
+      width: 22px; height: 34px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .scroll-mouse::after {
+      content: '';
+      position: absolute;
+      top: 5px; left: 50%;
+      transform: translateX(-50%);
+      width: 3px; height: 7px;
+      background: var(--gold-light);
+      border-radius: 2px;
+      animation: scrollDot 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollDot {
+      0%,100% { opacity: 1; top: 5px; }
+      50% { opacity: 0; top: 16px; }
+    }
+
+    /* ─── STATS STRIP ───────────────────────────────────────── */
+    .stats-strip {
+      background: var(--dark);
+      padding: 2rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid rgba(202,138,4,0.25);
+      border-bottom: 1px solid rgba(202,138,4,0.25);
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-num {
+      font-family: 'Cormorant', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    /* ─── SECTION GENERIC ───────────────────────────────────── */
+    section { position: relative; z-index: 2; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--dark-2);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    /* ─── MATERIALS ─────────────────────────────────────────── */
+    .materials {
+      padding: 6rem 0;
+      background: var(--cream);
+    }
+
+    .materials-header { margin-bottom: 3.5rem; }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .material-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+      cursor: pointer;
+    }
+
+    .material-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(28,25,23,0.16);
+    }
+
+    .material-preview {
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* PVC Transparent */
+    .preview-transparent {
+      background:
+        repeating-linear-gradient(
+          45deg,
+          rgba(255,255,255,0.4) 0px,
+          rgba(255,255,255,0.4) 2px,
+          transparent 2px,
+          transparent 12px
+        ),
+        linear-gradient(135deg, #dbeafe 0%, #e0f2fe 40%, #f0fdf4 100%);
+    }
+
+    .preview-transparent::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.7) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 70%, rgba(200,230,255,0.4) 0%, transparent 50%);
+      animation: shimmer 4s ease-in-out infinite;
+    }
+
+    /* PVC Doré */
+    .preview-gold {
+      background: linear-gradient(135deg, #78350f 0%, #92400e 30%, #ca8a04 60%, #fbbf24 80%, #d97706 100%);
+    }
+
+    .preview-gold::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          rgba(255,255,255,0) 0px,
+          rgba(255,255,255,0) 8px,
+          rgba(255,255,255,0.18) 8px,
+          rgba(255,255,255,0.18) 10px
+        );
+      animation: goldShimmer 3s ease-in-out infinite;
+    }
+
+    /* PVC Cristal */
+    .preview-crystal {
+      background: linear-gradient(135deg, #e0e7ff 0%, #ddd6fe 40%, #fce7f3 100%);
+    }
+
+    .preview-crystal::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.9) 0%, transparent 40%),
+        radial-gradient(circle at 80% 60%, rgba(200,180,255,0.5) 0%, transparent 40%);
+      animation: crystalShimmer 5s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%,100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+    @keyframes goldShimmer {
+      0% { transform: translateX(-100%); opacity: 0.5; }
+      100% { transform: translateX(100%); opacity: 0.5; }
+    }
+    @keyframes crystalShimmer {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .material-badge {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: rgba(28,25,23,0.75);
+      backdrop-filter: blur(8px);
+      color: var(--gold-light);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    .material-body { padding: 1.5rem; }
+
+    .material-body h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .material-body p {
+      font-size: 0.87rem;
+      color: var(--dark-2);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+
+    .material-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .feature-chip {
+      background: var(--gold-pale);
+      color: var(--gold);
+      padding: 0.2rem 0.65rem;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    /* ─── CONFIGURATOR ──────────────────────────────────────── */
+    .configurator {
+      padding: 6rem 0;
+      background: var(--dark);
+      overflow: hidden;
+    }
+
+    .configurator-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .configurator-header { color: #fff; margin-bottom: 2.5rem; }
+    .configurator-header .section-title { color: #fff; }
+    .configurator-header .section-desc { color: rgba(255,255,255,0.6); }
+
+    /* Shape selector */
+    .shape-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .shape-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 0.5rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all 0.25s;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .shape-btn svg { width: 36px; height: 36px; fill: currentColor; transition: fill 0.25s; }
+
+    .shape-btn:hover {
+      background: rgba(202,138,4,0.12);
+      border-color: rgba(202,138,4,0.4);
+      color: var(--gold-light);
+    }
+
+    .shape-btn.active {
+      background: rgba(202,138,4,0.18);
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+      box-shadow: 0 0 20px rgba(202,138,4,0.2);
+    }
+
+    /* Dimension fields */
+    .dim-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .field-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .field-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+    }
+
+    .field-input {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .field-input:focus-within {
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 3px rgba(202,138,4,0.15);
+    }
+
+    .field-input input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      padding: 0.85rem 1rem;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .field-unit {
+      padding: 0 1rem;
+      color: var(--gold-light);
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-left: 1px solid rgba(255,255,255,0.1);
+      white-space: nowrap;
+    }
+
+    /* Range slider */
+    .range-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .range-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .range-val { color: var(--gold-light); font-weight: 700; }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 2px;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px; height: 18px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(202,138,4,0.5);
+    }
+
+    /* Material selector */
+    .mat-selector {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .mat-btn {
+      flex: 1;
+      min-width: 100px;
+      padding: 0.75rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      cursor: pointer;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.25s;
+    }
+
+    .mat-btn.active {
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+      background: rgba(202,138,4,0.12);
+    }
+
+    .mat-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 0.3rem;
+      vertical-align: middle;
+    }
+
+    /* Price display */
+    .price-box {
+      background: rgba(202,138,4,0.1);
+      border: 1px solid rgba(202,138,4,0.3);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-breakdown {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.5rem;
+    }
+
+    .price-total {
+      font-family: 'Cormorant', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+
+    .price-total span { font-size: 1.2rem; font-weight: 400; }
+
+    .price-note {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.4rem;
+    }
+
+    /* Configurator preview canvas */
+    .config-preview {
+      position: sticky;
+      top: 100px;
+    }
+
+    .preview-stage {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      min-height: 480px;
+    }
+
+    .preview-canvas-wrap {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #shape-canvas {
+      max-width: 100%;
+      max-height: 300px;
+      filter: drop-shadow(0 8px 32px rgba(202,138,4,0.3));
+      transition: all 0.4s var(--ease);
+    }
+
+    .preview-info {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .info-chip {
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .info-chip .val {
+      font-family: 'Cormorant', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--gold-light);
+    }
+
+    .info-chip .lbl {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── HOW IT WORKS ──────────────────────────────────────── */
+    .how-it-works {
+      padding: 6rem 0;
+      background: var(--cream);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 3.5rem;
+      position: relative;
+    }
+
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 3rem;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+      opacity: 0.3;
+    }
+
+    .step-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-card);
+      transition: transform var(--dur) var(--ease);
+      position: relative;
+    }
+
+    .step-card:hover { transform: translateY(-4px); }
+
+    .step-num {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+      font-family: 'Cormorant', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .step-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+    .step-card p { font-size: 0.85rem; color: var(--dark-2); line-height: 1.65; }
+
+    /* ─── TESTIMONIALS ──────────────────────────────────────── */
+    .testimonials {
+      padding: 6rem 0;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .testi-track {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      animation: scrollTrack 30s linear infinite;
+      width: max-content;
+    }
+
+    .testi-track:hover { animation-play-state: paused; }
+
+    @keyframes scrollTrack {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .testi-card {
+      min-width: 320px;
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 1rem;
+    }
+
+    .star { color: var(--gold-light); font-size: 0.9rem; }
+
+    .testi-text {
+      font-size: 0.9rem;
+      color: var(--dark-2);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      font-style: italic;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .testi-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant', serif;
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 1.1rem;
+    }
+
+    .testi-name { font-weight: 600; font-size: 0.87rem; }
+    .testi-loc { font-size: 0.75rem; color: var(--dark-2); }
+
+    /* ─── GALLERY ───────────────────────────────────────────── */
+    .gallery {
+      padding: 6rem 0;
+      background: var(--cream);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 200px);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .gallery-item {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-item:nth-child(4) { grid-column: span 2; }
+
+    .gallery-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s var(--ease);
+    }
+
+    .gallery-item:hover .gallery-inner { transform: scale(1.05); }
+
+    /* simulated gallery images */
+    .gi-1 { background: linear-gradient(135deg, #dbeafe, #e0f2fe, #f0fdf4); }
+    .gi-2 { background: linear-gradient(135deg, #ca8a04, #fbbf24, #d97706); }
+    .gi-3 { background: linear-gradient(135deg, #e0e7ff, #ddd6fe, #fce7f3); }
+    .gi-4 { background: linear-gradient(135deg, #f0fdf4, #dcfce7, #d1fae5); }
+    .gi-5 { background: linear-gradient(135deg, #fff7ed, #fed7aa, #fde68a); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(28,25,23,0);
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+      transition: background 0.3s;
+    }
+
+    .gallery-item:hover .gallery-overlay { background: rgba(28,25,23,0.45); }
+
+    .gallery-label {
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.3s;
+    }
+
+    .gallery-item:hover .gallery-label { opacity: 1; transform: translateY(0); }
+
+    /* ─── CTA SECTION ───────────────────────────────────────── */
+    .cta-section {
+      padding: 7rem 0;
+      background: var(--dark);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(202,138,4,0.12) 0%, transparent 70%);
+    }
+
+    .cta-section .section-title { color: #fff; font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; }
+    .cta-section p { color: rgba(255,255,255,0.6); font-size: 1rem; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: #0c0a09;
+      color: rgba(255,255,255,0.5);
+      padding: 3rem 0 2rem;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand h3 {
+      font-family: 'Cormorant', serif;
+      font-size: 1.6rem;
+      color: var(--gold-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-brand p { font-size: 0.83rem; line-height: 1.7; max-width: 260px; }
+
+    .footer-col h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .footer-col a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--gold-light); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* ─── ANIMATIONS ────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .configurator-inner { grid-template-columns: 1fr; }
+      .config-preview { position: static; }
+
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: span 2; }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+      .gallery-item:nth-child(4) { grid-column: span 1; }
+    }
+
+    @media (max-width: 600px) {
+      .steps-grid::before { display: none; }
+      .shape-selector { grid-template-columns: repeat(3, 1fr); }
+      .stats-strip { gap: 2rem; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: auto; }
+      .hero-visual { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+<!-- NAV -->
+<nav id="navbar" role="navigation" aria-label="Navigation principale">
+  <a href="#" class="nav-logo" aria-label="NappeLux - Accueil">Nappe<span>Lux</span></a>
+  <ul class="nav-links" role="list">
+    <li><a href="#materiaux">Matériaux</a></li>
+    <li><a href="#configurateur">Configurateur</a></li>
+    <li><a href="#comment">Comment ça marche</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#configurateur" class="nav-cta">Commander</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu" aria-expanded="false" onclick="toggleMenu(this)">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-title">
+
+  <div class="hero-bg-pattern" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+
+  <!-- Floating SVG tablecloth visual -->
+  <svg class="hero-visual" viewBox="0 0 400 400" aria-hidden="true">
+    <defs>
+      <linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.6"/>
+        <stop offset="50%" stop-color="#ffffff" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#ca8a04" stop-opacity="0.5"/>
+      </linearGradient>
+      <filter id="blur1"><feGaussianBlur stdDeviation="2"/></filter>
+    </defs>
+    <rect x="40" y="40" width="320" height="320" rx="24" fill="url(#hg1)" filter="url(#blur1)"/>
+    <rect x="40" y="40" width="320" height="320" rx="24" fill="none" stroke="rgba(251,191,36,0.6)" stroke-width="1.5"/>
+    <!-- grid lines -->
+    <line x1="40" y1="147" x2="360" y2="147" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
+    <line x1="40" y1="253" x2="360" y2="253" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
+    <line x1="147" y1="40" x2="147" y2="360" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
+    <line x1="253" y1="40" x2="253" y2="360" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
+    <!-- shine -->
+    <ellipse cx="150" cy="130" rx="60" ry="30" fill="rgba(255,255,255,0.15)" filter="url(#blur1)"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge" role="note">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Fabrication Française • Sur Mesure
+    </div>
+
+    <h1 id="hero-title">
+      Nappes PVC<br /><em>Sur Mesure</em>
+    </h1>
+
+    <p class="hero-subtitle">
+      Transparent, doré ou cristal — choisissez votre forme, entrez vos dimensions exactes, et recevez votre nappe parfaite en 48h.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#configurateur" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Configurer ma nappe
+      </a>
+      <a href="#galerie" class="btn-secondary">
+        Voir la galerie
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" aria-hidden="true">
+    <div class="scroll-mouse"></div>
+    <span>Défiler</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip" role="complementary" aria-label="Chiffres clés">
+  <div class="stat-item">
+    <span class="stat-num" data-count="12000">0</span>
+    <span class="stat-label">Clients satisfaits</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" data-count="48">0</span>
+    <span class="stat-label">Heures de livraison</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" data-count="5">0</span>
+    <span class="stat-label">Formes disponibles</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" data-count="100">0</span>
+    <span class="stat-label">% sur mesure</span>
+  </div>
+</div>
+
+<!-- MATERIALS -->
+<section id="materiaux" class="materials" aria-labelledby="mat-title">
+  <div class="container">
+    <div class="materials-header reveal">
+      <span class="section-tag">Nos Matériaux</span>
+      <h2 class="section-title" id="mat-title">Trois finitions d'exception</h2>
+      <p class="section-desc">Du PVC cristallin au doré satiné, chaque finition est sélectionnée pour sa durabilité, son esthétique et sa facilité d'entretien.</p>
+    </div>
+
+    <div class="materials-grid">
+      <!-- Transparent -->
+      <article class="material-card reveal" tabindex="0">
+        <div class="material-preview preview-transparent" role="img" aria-label="Aperçu PVC Transparent">
+          <div class="material-badge">Best-seller</div>
+        </div>
+        <div class="material-body">
+          <h3>PVC Transparent</h3>
+          <p>Protection invisible qui laisse apparaître la beauté de votre table. Souple, résistant aux rayures et lavable.</p>
+          <div class="material-features">
+            <span class="feature-chip">Anti-rayures</span>
+            <span class="feature-chip">Lavable</span>
+            <span class="feature-chip">0.3mm</span>
+            <span class="feature-chip">Souple</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Doré -->
+      <article class="material-card reveal" tabindex="0">
+        <div class="material-preview preview-gold" role="img" aria-label="Aperçu PVC Doré">
+          <div class="material-badge">Premium</div>
+        </div>
+        <div class="material-body">
+          <h3>PVC Doré</h3>
+          <p>L'élégance à l'état pur. Reflets dorés chauds qui subliment chaque table de fête ou de réception.</p>
+          <div class="material-features">
+            <span class="feature-chip">Doré satiné</span>
+            <span class="feature-chip">Anti-chaleur</span>
+            <span class="feature-chip">0.4mm</span>
+            <span class="feature-chip">Premium</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Cristal -->
+      <article class="material-card reveal" tabindex="0">
+        <div class="material-preview preview-crystal" role="img" aria-label="Aperçu PVC Cristal">
+          <div class="material-badge">Nouveau</div>
+        </div>
+        <div class="material-body">
+          <h3>PVC Cristal</h3>
+          <p>Entre transparence et reflets nacrés, une texture subtile qui joue avec la lumière pour un effet unique.</p>
+          <div class="material-features">
+            <span class="feature-chip">Nacré</span>
+            <span class="feature-chip">UV résistant</span>
+            <span class="feature-chip">0.35mm</span>
+            <span class="feature-chip">Exclusif</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIGURATOR -->
+<section id="configurateur" class="configurator" aria-labelledby="config-title">
+  <div class="container">
+    <div class="configurator-inner">
+
+      <!-- Left: Controls -->
+      <div>
+        <div class="configurator-header reveal">
+          <span class="section-tag">Configurateur</span>
+          <h2 class="section-title" id="config-title">Votre nappe sur mesure</h2>
+          <p class="section-desc">Choisissez votre forme, entrez vos dimensions exactes et obtenez votre prix instantanément.</p>
+        </div>
+
+        <!-- Shape -->
+        <div class="reveal">
+          <p class="field-label" style="color:rgba(255,255,255,0.55);font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.75rem;">Forme de la table</p>
+          <div class="shape-selector" role="radiogroup" aria-label="Choisir la forme">
+
+            <button class="shape-btn active" data-shape="rectangle" role="radio" aria-checked="true" onclick="selectShape(this,'rectangle')">
+              <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="10" width="36" height="20" rx="2" fill="currentColor"/></svg>
+              Rectangulaire
+            </button>
+
+            <button class="shape-btn" data-shape="square" role="radio" aria-checked="false" onclick="selectShape(this,'square')">
+              <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="5" width="30" height="30" rx="2" fill="currentColor"/></svg>
+              Carré
+            </button>
+
+            <button class="shape-btn" data-shape="round" role="radio" aria-checked="false" onclick="selectShape(this,'round')">
+              <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="currentColor"/></svg>
+              Ronde
+            </button>
+
+            <button class="shape-btn" data-shape="oval" role="radio" aria-checked="false" onclick="selectShape(this,'oval')">
+              <svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="20" rx="18" ry="12" fill="currentColor"/></svg>
+              Ovale
+            </button>
+
+            <button class="shape-btn" data-shape="octagon" role="radio" aria-checked="false" onclick="selectShape(this,'octagon')">
+              <svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="14,4 26,4 36,14 36,26 26,36 14,36 4,26 4,14" fill="currentColor"/></svg>
+              Octogone
+            </button>
+
+            <button class="shape-btn" data-shape="hexagon" role="radio" aria-checked="false" onclick="selectShape(this,'hexagon')">
+              <svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20,3 35,11.5 35,28.5 20,37 5,28.5 5,11.5" fill="currentColor"/></svg>
+              Hexagone
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Dimensions -->
+        <div class="dim-fields reveal" id="dim-fields">
+          <div class="field-group" id="field-length">
+            <label class="field-label" for="input-length">Longueur</label>
+            <div class="field-input">
+              <input type="number" id="input-length" min="30" max="500" value="120" aria-label="Longueur en centimètres" oninput="updateConfig()" />
+              <span class="field-unit">cm</span>
+            </div>
+          </div>
+          <div class="field-group" id="field-width">
+            <label class="field-label" for="input-width">Largeur</label>
+            <div class="field-input">
+              <input type="number" id="input-width" min="30" max="500" value="80" aria-label="Largeur en centimètres" oninput="updateConfig()" />
+              <span class="field-unit">cm</span>
+            </div>
+          </div>
+          <div class="field-group" id="field-diameter" style="display:none">
+            <label class="field-label" for="input-diameter">Diamètre</label>
+            <div class="field-input">
+              <input type="number" id="input-diameter" min="30" max="400" value="100" aria-label="Diamètre en centimètres" oninput="updateConfig()" />
+              <span class="field-unit">cm</span>
+            </div>
+          </div>
+
+          <!-- Drop -->
+          <div class="range-group">
+            <div class="range-header">
+              <span class="field-label" style="margin:0">Tombé (débord)</span>
+              <span class="range-val" id="drop-val">0 cm</span>
+            </div>
+            <input type="range" id="drop-range" min="0" max="40" value="0" aria-label="Tombé en centimètres" oninput="updateDrop(this.value)" />
+          </div>
+        </div>
+
+        <!-- Material -->
+        <div class="reveal">
+          <p class="field-label" style="color:rgba(255,255,255,0.55);font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.75rem;">Matière</p>
+          <div class="mat-selector" role="radiogroup" aria-label="Choisir la matière">
+            <button class="mat-btn active" data-mat="transparent" onclick="selectMat(this,'transparent')" role="radio" aria-checked="true">
+              <span class="mat-dot" style="background:rgba(200,230,255,0.8);border:1px solid #93c5fd" aria-hidden="true"></span>Transparent
+            </button>
+            <button class="mat-btn" data-mat="gold" onclick="selectMat(this,'gold')" role="radio" aria-checked="false">
+              <span class="mat-dot" style="background:linear-gradient(135deg,#ca8a04,#fbbf24)" aria-hidden="true"></span>Doré
+            </button>
+            <button class="mat-btn" data-mat="crystal" onclick="selectMat(this,'crystal')" role="radio" aria-checked="false">
+              <span class="mat-dot" style="background:linear-gradient(135deg,#e0e7ff,#ddd6fe)" aria-hidden="true"></span>Cristal
+            </button>
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div class="price-box reveal" aria-live="polite" aria-label="Prix estimé">
+          <div class="price-breakdown" id="price-breakdown">120 × 80 cm · Transparent · 0.096 m²</div>
+          <div class="price-total"><span>À partir de </span><span id="price-value">18</span><span>,90 €</span></div>
+          <div class="price-note">TVA incluse · Livraison offerte dès 49€</div>
+        </div>
+
+        <button class="btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:1.1rem" onclick="addToCart()" aria-label="Ajouter au panier">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Ajouter au panier
+        </button>
+      </div>
+
+      <!-- Right: Preview -->
+      <div class="config-preview reveal">
+        <div class="preview-stage" aria-label="Aperçu de la nappe">
+          <div class="preview-canvas-wrap">
+            <canvas id="shape-canvas" width="340" height="280" role="img" aria-label="Aperçu de la forme sélectionnée"></canvas>
+          </div>
+          <div class="preview-info">
+            <div class="info-chip">
+              <div class="val" id="info-area">0.10 m²</div>
+              <div class="lbl">Surface</div>
+            </div>
+            <div class="info-chip">
+              <div class="val" id="info-perim">0 cm</div>
+              <div class="lbl">Périmètre</div>
+            </div>
+            <div class="info-chip">
+              <div class="val" id="info-w">120 cm</div>
+              <div class="lbl">Dim. L</div>
+            </div>
+            <div class="info-chip">
+              <div class="val" id="info-h">80 cm</div>
+              <div class="lbl">Dim. l</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="comment" class="how-it-works" aria-labelledby="how-title">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <span class="section-tag">Processus</span>
+      <h2 class="section-title" id="how-title">Aussi simple que 4 étapes</h2>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num" aria-hidden="true">1</div>
+        <h3>Choisissez votre forme</h3>
+        <p>Sélectionnez parmi nos 6 formes disponibles : carré, rectangle, ronde, ovale, octogone ou hexagone.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num" aria-hidden="true">2</div>
+        <h3>Entrez vos dimensions</h3>
+        <p>Renseignez longueur, largeur (ou diamètre) et le tombé souhaité. Prix calculé à la seconde.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num" aria-hidden="true">3</div>
+        <h3>Choisissez la finition</h3>
+        <p>Transparent classique, doré chic ou cristal nacré — trois finitions pour tous les styles.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num" aria-hidden="true">4</div>
+        <h3>Recevez en 48h</h3>
+        <p>Découpe sur mesure, emballage soigné et livraison express partout en France et en Europe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" aria-labelledby="testi-title">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-tag">Avis clients</span>
+      <h2 class="section-title" id="testi-title">Ils nous font confiance</h2>
+    </div>
+  </div>
+  <div style="overflow:hidden;margin-top:0" role="list" aria-label="Témoignages clients">
+    <div class="testi-track">
+      <!-- Original set -->
+      <div class="testi-card" role="listitem">
+        <div class="stars" aria-label="5 étoiles"><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span></div>
+        <p class="testi-text">« Parfaite pour ma table ovale ! La découpe est nette, le PVC transparent est top. Je commande à nouveau. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar" aria-hidden="true">M</div>
+          <div><div class="testi-name">Marie L.</div><div class="testi-loc">Lyon, France</div></div>
+        </div>
+      </div>
+      <div class="testi-card" role="listitem">
+        <div class="stars" aria-label="5 étoiles"><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span></div>
+        <p class="testi-text">« La nappe dorée a fait l'effet d'une bombe à mon mariage. Tous mes invités m'ont demandé où je l'avais trouvée ! »</p>
+        <div class="testi-author">
+          <div class="testi-avatar" aria-hidden="true">S</div>
+          <div><div class="testi-name">Sarah B.</div><div class="testi-loc">Paris, France</div></div>
+        </div>
+      </div>
+      <div class="testi-card" role="listitem">
+        <div class="stars" aria-label="5 étoiles"><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span></div>
+        <p class="testi-text">« Mon restaurant a commandé 20 nappes sur mesure pour ses tables rondes. Qualité irréprochable, délai tenu. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar" aria-hidden="true">T</div>
+          <div><div class="testi-name">Thomas R.</div><div class="testi-loc">Bordeaux, France</div></div>
+        </div>
+      </div>
+      <div class="testi-card" role="listitem">
+        <div class="stars" aria-label="5 étoiles"><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span></div>
+        <p class="testi-text">« Livré en 36h, super soigné. La nappe est exactement à la bonne taille pour mon octogone sur mesure. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar" aria-hidden="true">A</div>
+          <div><div class="testi-name">Amina K.</div><div class="testi-loc">Marseille, France</div></div>
+        </div>
+      </div>
+      <div class="testi-card" role="listitem">
+        <div class="stars" aria-label="4 étoiles"><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">☆</span></div>
+        <p class="testi-text">« Site intuitif, configurateur super pratique, et la qualité du cristal est vraiment premium. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar" aria-hidden="true">J</div>
+          <div><div class="testi-name">Julie M.</div><div class="testi-loc">Nantes, France</div></div>
+        </div>
+      </div>
+      <!-- Duplicate for infinite loop -->
+      <div class="testi-card" role="listitem" aria-hidden="true">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="testi-text">« Parfaite pour ma table ovale ! La découpe est nette, le PVC transparent est top. Je commande à nouveau. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">M</div>
+          <div><div class="testi-name">Marie L.</div><div class="testi-loc">Lyon, France</div></div>
+        </div>
+      </div>
+      <div class="testi-card" role="listitem" aria-hidden="true">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="testi-text">« La nappe dorée a fait l'effet d'une bombe à mon mariage. Tous mes invités m'ont demandé où je l'avais trouvée ! »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div><div class="testi-name">Sarah B.</div><div class="testi-loc">Paris, France</div></div>
+        </div>
+      </div>
+      <div class="testi-card" role="listitem" aria-hidden="true">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="testi-text">« Mon restaurant a commandé 20 nappes sur mesure. Qualité irréprochable, délai tenu. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">T</div>
+          <div><div class="testi-name">Thomas R.</div><div class="testi-loc">Bordeaux, France</div></div>
+        </div>
+      </div>
+      <div class="testi-card" role="listitem" aria-hidden="true">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="testi-text">« Livré en 36h, super soigné. La nappe est exactement à la bonne taille pour mon octogone. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div><div class="testi-name">Amina K.</div><div class="testi-loc">Marseille, France</div></div>
+        </div>
+      </div>
+      <div class="testi-card" role="listitem" aria-hidden="true">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">☆</span></div>
+        <p class="testi-text">« Site intuitif, configurateur super pratique, et la qualité du cristal est vraiment premium. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">J</div>
+          <div><div class="testi-name">Julie M.</div><div class="testi-loc">Nantes, France</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="galerie" class="gallery" aria-labelledby="gallery-title">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:0">
+      <span class="section-tag">Galerie</span>
+      <h2 class="section-title" id="gallery-title">Nos réalisations</h2>
+    </div>
+    <div class="gallery-grid" role="list">
+      <div class="gallery-item reveal" role="listitem">
+        <div class="gallery-inner gi-1" role="img" aria-label="Nappe PVC transparent sur table rectangulaire"></div>
+        <div class="gallery-overlay"><span class="gallery-label">Transparent — Table rectangulaire</span></div>
+      </div>
+      <div class="gallery-item reveal" role="listitem">
+        <div class="gallery-inner gi-2" role="img" aria-label="Nappe PVC dorée sur table ronde"></div>
+        <div class="gallery-overlay"><span class="gallery-label">Doré — Table ronde</span></div>
+      </div>
+      <div class="gallery-item reveal" role="listitem">
+        <div class="gallery-inner gi-3" role="img" aria-label="Nappe PVC cristal sur table ovale"></div>
+        <div class="gallery-overlay"><span class="gallery-label">Cristal — Table ovale</span></div>
+      </div>
+      <div class="gallery-item reveal" role="listitem">
+        <div class="gallery-inner gi-4" role="img" aria-label="Nappe PVC transparent sur table octogone"></div>
+        <div class="gallery-overlay"><span class="gallery-label">Transparent — Octogone</span></div>
+      </div>
+      <div class="gallery-item reveal" role="listitem">
+        <div class="gallery-inner gi-5" role="img" aria-label="Nappe PVC dorée sur table carrée"></div>
+        <div class="gallery-overlay"><span class="gallery-label">Doré — Table carrée</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" aria-labelledby="cta-title">
+  <div class="container" style="position:relative;z-index:2">
+    <span class="section-tag">Prêt à commander ?</span>
+    <h2 class="section-title reveal" id="cta-title">Votre table mérite<br /><em>le meilleur</em></h2>
+    <p class="reveal">Configurez votre nappe sur mesure en moins de 2 minutes et recevez-la sous 48h.</p>
+    <div class="reveal" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="#configurateur" class="btn-primary" style="font-size:1rem;padding:1rem 2.5rem">
+        Configurer ma nappe
+      </a>
+      <a href="mailto:contact@nappelux.fr" class="btn-secondary" style="font-size:1rem;padding:1rem 2.5rem">
+        Nous contacter
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>NappeLux</h3>
+        <p>Spécialiste français des nappes PVC sur mesure. Transparent, doré, cristal — toutes les formes, toutes les tailles.</p>
+      </div>
+      <nav class="footer-col" aria-label="Produits">
+        <h4>Produits</h4>
+        <ul>
+          <li><a href="#materiaux">PVC Transparent</a></li>
+          <li><a href="#materiaux">PVC Doré</a></li>
+          <li><a href="#materiaux">PVC Cristal</a></li>
+          <li><a href="#configurateur">Sur mesure</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Formes">
+        <h4>Formes</h4>
+        <ul>
+          <li><a href="#configurateur">Rectangulaire</a></li>
+          <li><a href="#configurateur">Carrée</a></li>
+          <li><a href="#configurateur">Ronde</a></li>
+          <li><a href="#configurateur">Ovale</a></li>
+          <li><a href="#configurateur">Octogone</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Informations">
+        <h4>Infos</h4>
+        <ul>
+          <li><a href="#">Livraison</a></li>
+          <li><a href="#">À propos</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">CGV</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 NappeLux — Tous droits réservés</span>
+      <span>Fait avec soin en France 🇫🇷</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ─── STATE ─────────────────────────────────────────────── */
+  const state = {
+    shape: 'rectangle',
+    length: 120,
+    width: 80,
+    diameter: 100,
+    drop: 0,
+    material: 'transparent'
+  };
+
+  const prices = { transparent: 1.85, gold: 2.4, crystal: 2.1 }; // €/dm²
+  const matColors = {
+    transparent: { fill: 'rgba(200,230,255,0.55)', stroke: 'rgba(147,197,253,0.9)', shine: 'rgba(255,255,255,0.5)' },
+    gold: { fill: 'rgba(202,138,4,0.65)', stroke: 'rgba(251,191,36,0.9)', shine: 'rgba(255,220,80,0.5)' },
+    crystal: { fill: 'rgba(196,181,253,0.5)', stroke: 'rgba(167,139,250,0.85)', shine: 'rgba(255,255,255,0.6)' }
+  };
+
+  /* ─── NAVBAR SCROLL ─────────────────────────────────────── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ─── HAMBURGER ─────────────────────────────────────────── */
+  function toggleMenu(btn) {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    const links = document.querySelector('.nav-links');
+    if (!expanded) {
+      links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(28,25,23,0.97);padding:1.5rem 2rem;gap:1.2rem;backdrop-filter:blur(16px)';
+    } else {
+      links.style.cssText = '';
+    }
+  }
+
+  /* ─── SHAPE SELECTOR ────────────────────────────────────── */
+  function selectShape(btn, shape) {
+    document.querySelectorAll('.shape-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-checked', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-checked', 'true');
+    state.shape = shape;
+    updateFields();
+    updateConfig();
+  }
+
+  function updateFields() {
+    const needsDiam = ['round', 'hexagon'].includes(state.shape);
+    const needsOval = state.shape === 'oval';
+
+    document.getElementById('field-length').style.display = needsDiam ? 'none' : '';
+    document.getElementById('field-width').style.display = (needsDiam) ? 'none' : '';
+    document.getElementById('field-diameter').style.display = needsDiam ? '' : 'none';
+
+    if (state.shape === 'square') {
+      document.querySelector('#field-width .field-label').textContent = 'Côté';
+      document.querySelector('#field-length .field-label').textContent = 'Côté (même valeur)';
+    } else if (state.shape === 'oval') {
+      document.querySelector('#field-length .field-label').textContent = 'Grand axe';
+      document.querySelector('#field-width .field-label').textContent = 'Petit axe';
+    } else if (state.shape === 'octagon') {
+      document.querySelector('#field-length .field-label').textContent = 'Longueur';
+      document.querySelector('#field-width .field-label').textContent = 'Largeur';
+    } else {
+      document.querySelector('#field-length .field-label').textContent = 'Longueur';
+      document.querySelector('#field-width .field-label').textContent = 'Largeur';
+    }
+  }
+
+  /* ─── MATERIAL SELECTOR ─────────────────────────────────── */
+  function selectMat(btn, mat) {
+    document.querySelectorAll('.mat-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-checked', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-checked', 'true');
+    state.material = mat;
+    updateConfig();
+  }
+
+  /* ─── DROP RANGE ────────────────────────────────────────── */
+  function updateDrop(val) {
+    state.drop = parseInt(val);
+    document.getElementById('drop-val').textContent = val + ' cm';
+    updateConfig();
+  }
+
+  /* ─── CALCULATIONS ──────────────────────────────────────── */
+  function getDimensions() {
+    const drop = state.drop;
+    let L = parseFloat(document.getElementById('input-length').value) || 120;
+    let W = parseFloat(document.getElementById('input-width').value) || 80;
+    let D = parseFloat(document.getElementById('input-diameter').value) || 100;
+
+    if (state.shape === 'square') W = L;
+
+    const Lf = L + drop * 2;
+    const Wf = W + drop * 2;
+    const Df = D + drop * 2;
+
+    return { L, W, D, Lf, Wf, Df, drop };
+  }
+
+  function calcArea(shape, d) {
+    switch(shape) {
+      case 'rectangle': return (d.Lf * d.Wf) / 10000;
+      case 'square':    return (d.Lf * d.Lf) / 10000;
+      case 'round':     return Math.PI * Math.pow(d.Df / 2, 2) / 10000;
+      case 'oval':      return Math.PI * (d.Lf / 2) * (d.Wf / 2) / 10000;
+      case 'octagon':   return 2 * (1 + Math.sqrt(2)) * Math.pow(d.Lf / 2.414, 2) / 10000;
+      case 'hexagon':   return (3 * Math.sqrt(3) / 2) * Math.pow(d.Df / 2, 2) / 10000;
+      default:          return (d.Lf * d.Wf) / 10000;
+    }
+  }
+
+  function calcPerim(shape, d) {
+    switch(shape) {
+      case 'rectangle': return Math.round(2 * (d.Lf + d.Wf));
+      case 'square':    return Math.round(4 * d.Lf);
+      case 'round':     return Math.round(Math.PI * d.Df);
+      case 'oval': {
+        const a = d.Lf / 2, b = d.Wf / 2;
+        return Math.round(Math.PI * (3 * (a + b) - Math.sqrt((3 * a + b) * (a + 3 * b))));
+      }
+      case 'octagon':   return Math.round(8 * d.Lf / 2.414);
+      case 'hexagon':   return Math.round(6 * d.Df / 2);
+      default:          return 0;
+    }
+  }
+
+  function updateConfig() {
+    const d = getDimensions();
+    const area = calcArea(state.shape, d);
+    const perim = calcPerim(state.shape, d);
+    const areaDm2 = area * 100;
+    const price = Math.max(9.9, areaDm2 * prices[state.material]);
+
+    // Price box
+    const isDiam = ['round', 'hexagon'].includes(state.shape);
+    const dimStr = isDiam
+      ? `Ø${d.Df} cm`
+      : `${d.Lf} × ${d.Wf} cm`;
+    const matLabel = { transparent: 'Transparent', gold: 'Doré', crystal: 'Cristal' }[state.material];
+
+    document.getElementById('price-breakdown').textContent =
+      `${dimStr} · ${matLabel} · ${area.toFixed(3)} m²`;
+    document.getElementById('price-value').textContent = price.toFixed(2).replace('.', ',');
+
+    // Info chips
+    document.getElementById('info-area').textContent = area.toFixed(2) + ' m²';
+    document.getElementById('info-perim').textContent = perim + ' cm';
+
+    if (isDiam) {
+      document.getElementById('info-w').textContent = d.Df + ' cm';
+      document.getElementById('info-h').textContent = 'Ø';
+    } else if (state.shape === 'oval') {
+      document.getElementById('info-w').textContent = d.Lf + ' cm';
+      document.getElementById('info-h').textContent = d.Wf + ' cm';
+    } else {
+      document.getElementById('info-w').textContent = d.Lf + ' cm';
+      document.getElementById('info-h').textContent = d.Wf + ' cm';
+    }
+
+    drawShape(d);
+    state.length = d.L;
+    state.width = d.W;
+    state.diameter = d.D;
+  }
+
+  /* ─── CANVAS DRAW ───────────────────────────────────────── */
+  function drawShape(d) {
+    const canvas = document.getElementById('shape-canvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const col = matColors[state.material];
+    const pad = 30;
+
+    ctx.save();
+
+    // Gradient fill
+    const grd = ctx.createLinearGradient(0, 0, W, H);
+    grd.addColorStop(0, col.fill);
+    grd.addColorStop(0.5, col.shine);
+    grd.addColorStop(1, col.fill);
+
+    ctx.fillStyle = grd;
+    ctx.strokeStyle = col.stroke;
+    ctx.lineWidth = 2;
+    ctx.shadowColor = col.stroke;
+    ctx.shadowBlur = 18;
+
+    const cx = W / 2, cy = H / 2;
+
+    // Compute aspect ratio
+    const isDiam = ['round', 'hexagon'].includes(state.shape);
+    let rw, rh;
+
+    if (isDiam) {
+      const r = Math.min((W - pad * 2) / 2, (H - pad * 2) / 2);
+      rw = r; rh = r;
+    } else {
+      const ratio = Math.min((W - pad * 2) / d.Lf, (H - pad * 2) / d.Wf);
+      rw = (d.Lf * ratio) / 2;
+      rh = (d.Wf * ratio) / 2;
+    }
+
+    ctx.beginPath();
+
+    switch(state.shape) {
+      case 'rectangle':
+      case 'square':
+        roundRect(ctx, cx - rw, cy - rh, rw * 2, rh * 2, 8);
+        break;
+      case 'round':
+        ctx.arc(cx, cy, rw, 0, Math.PI * 2);
+        break;
+      case 'oval':
+        ctx.ellipse(cx, cy, rw, rh, 0, 0, Math.PI * 2);
+        break;
+      case 'octagon':
+        drawPolygon(ctx, cx, cy, rw, rh, 8, -Math.PI / 8);
+        break;
+      case 'hexagon':
+        drawPolygon(ctx, cx, cy, rw, rh, 6, 0);
+        break;
+    }
+
+    ctx.fill();
+    ctx.stroke();
+
+    // Grid lines on tablecloth
+    ctx.shadowBlur = 0;
+    ctx.save();
+    ctx.clip();
+    ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+    ctx.lineWidth = 1;
+    const step = 24;
+    for (let x = cx - rw; x <= cx + rw + step; x += step) {
+      ctx.beginPath(); ctx.moveTo(x, cy - rh - 10); ctx.lineTo(x, cy + rh + 10); ctx.stroke();
+    }
+    for (let y = cy - rh; y <= cy + rh + step; y += step) {
+      ctx.beginPath(); ctx.moveTo(cx - rw - 10, y); ctx.lineTo(cx + rw + 10, y); ctx.stroke();
+    }
+    ctx.restore();
+
+    // Dimension arrows
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = 'rgba(251,191,36,0.7)';
+    ctx.fillStyle = 'rgba(251,191,36,0.9)';
+    ctx.lineWidth = 1.5;
+    ctx.font = '600 11px Montserrat, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    if (!isDiam) {
+      // Width arrow
+      const ay = cy + rh + 16;
+      drawArrow(ctx, cx - rw, ay, cx + rw, ay);
+      ctx.fillText(`${d.Lf} cm`, cx, ay + 13);
+
+      // Height arrow
+      const ax = cx + rw + 16;
+      ctx.save();
+      ctx.translate(ax + 13, cy);
+      ctx.rotate(Math.PI / 2);
+      ctx.fillText(`${d.Wf} cm`, 0, 0);
+      ctx.restore();
+      drawArrow(ctx, ax, cy - rh, ax, cy + rh);
+    } else {
+      const ay = cy + rw + 16;
+      drawArrow(ctx, cx - rw, ay, cx + rw, ay);
+      ctx.fillText(`Ø ${d.Df} cm`, cx, ay + 13);
+    }
+
+    ctx.restore();
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  function drawPolygon(ctx, cx, cy, rw, rh, sides, offset = 0) {
+    for (let i = 0; i <= sides; i++) {
+      const angle = (2 * Math.PI / sides) * i + offset;
+      const x = cx + rw * Math.cos(angle);
+      const y = cy + rh * Math.sin(angle);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+  }
+
+  function drawArrow(ctx, x1, y1, x2, y2) {
+    const headSize = 6;
+    const angle = Math.atan2(y2 - y1, x2 - x1);
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    [0, 1].forEach(end => {
+      const [ex, ey, ea] = end === 1 ? [x2, y2, angle] : [x1, y1, angle + Math.PI];
+      ctx.beginPath();
+      ctx.moveTo(ex, ey);
+      ctx.lineTo(ex - headSize * Math.cos(ea - 0.4), ey - headSize * Math.sin(ea - 0.4));
+      ctx.moveTo(ex, ey);
+      ctx.lineTo(ex - headSize * Math.cos(ea + 0.4), ey - headSize * Math.sin(ea + 0.4));
+      ctx.stroke();
+    });
+  }
+
+  /* ─── ADD TO CART ───────────────────────────────────────── */
+  function addToCart() {
+    const btn = event.currentTarget;
+    btn.textContent = '✓ Ajouté au panier !';
+    btn.style.background = 'linear-gradient(135deg, #16a34a, #22c55e)';
+    setTimeout(() => {
+      btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Ajouter au panier';
+      btn.style.background = '';
+    }, 2500);
+  }
+
+  /* ─── PARTICLES ─────────────────────────────────────────── */
+  (function initParticles() {
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let W, H;
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * W;
+        this.y = Math.random() * H;
+        this.r = Math.random() * 2 + 0.5;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = -Math.random() * 0.5 - 0.1;
+        this.alpha = Math.random() * 0.6 + 0.2;
+        this.color = Math.random() > 0.5 ? '#CA8A04' : '#FBBF24';
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= 0.0008;
+        if (this.alpha <= 0 || this.y < -10) this.reset();
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+    function loop() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(loop);
+    }
+    loop();
+  })();
+
+  /* ─── SCROLL REVEAL ─────────────────────────────────────── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  /* ─── COUNTER ANIMATION ─────────────────────────────────── */
+  const counters = document.querySelectorAll('[data-count]');
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.count);
+      const suffix = target === 12000 ? '+' : target === 100 ? '%' : target === 48 ? 'h' : '';
+      let start = 0;
+      const step = target / 60;
+      const timer = setInterval(() => {
+        start = Math.min(start + step, target);
+        el.textContent = Math.floor(start).toLocaleString('fr-FR') + suffix;
+        if (start >= target) clearInterval(timer);
+      }, 16);
+      counterObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterObs.observe(c));
+
+  /* ─── INIT ──────────────────────────────────────────────── */
+  updateConfig();
+</script>
+</body>
+</html>
