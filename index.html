@@ -2089,6 +2089,7 @@
       <article class="material-card reveal" tabindex="0">
         <div class="material-preview preview-transparent" role="img" aria-label="Aperçu PVC Transparent">
           <div class="material-badge">Best-seller</div>
+          <span class="promo-badge" aria-label="Promotion -10%">-10%</span>
         </div>
         <div class="material-body">
           <h3>PVC Transparent</h3>
@@ -2099,6 +2100,15 @@
             <span class="feature-chip">0.3mm</span>
             <span class="feature-chip">Souple</span>
           </div>
+        </div>
+        <div class="showcase-actions" aria-label="Actions rapides">
+          <button class="action-btn-wish" onclick="toggleWishlist(this,'PVC Transparent')" aria-label="Ajouter aux favoris PVC Transparent">
+            <span aria-hidden="true">❤</span> Favoris
+          </button>
+          <button class="action-btn-order" onclick="orderMaterial('transparent')" aria-label="Commander PVC Transparent">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            Commander
+          </button>
         </div>
       </article>
 
@@ -2117,12 +2127,22 @@
             <span class="feature-chip">Premium</span>
           </div>
         </div>
+        <div class="showcase-actions" aria-label="Actions rapides">
+          <button class="action-btn-wish" onclick="toggleWishlist(this,'PVC Doré')" aria-label="Ajouter aux favoris PVC Doré">
+            <span aria-hidden="true">❤</span> Favoris
+          </button>
+          <button class="action-btn-order" onclick="orderMaterial('gold')" aria-label="Commander PVC Doré">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            Commander
+          </button>
+        </div>
       </article>
 
       <!-- Cristal -->
       <article class="material-card reveal" tabindex="0">
         <div class="material-preview preview-crystal" role="img" aria-label="Aperçu PVC Cristal">
           <div class="material-badge">Nouveau</div>
+          <span class="promo-badge new" aria-label="Nouveau produit">Nouveau</span>
         </div>
         <div class="material-body">
           <h3>PVC Cristal</h3>
@@ -2134,10 +2154,55 @@
             <span class="feature-chip">Exclusif</span>
           </div>
         </div>
+        <div class="showcase-actions" aria-label="Actions rapides">
+          <button class="action-btn-wish" onclick="toggleWishlist(this,'PVC Cristal')" aria-label="Ajouter aux favoris PVC Cristal">
+            <span aria-hidden="true">❤</span> Favoris
+          </button>
+          <button class="action-btn-order" onclick="orderMaterial('crystal')" aria-label="Commander PVC Cristal">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            Commander
+          </button>
+        </div>
       </article>
     </div>
   </div>
 </section>
+
+<!-- SERVICE STRIP -->
+<div class="service-strip" role="complementary" aria-label="Nos services">
+  <div class="container">
+    <div class="service-grid">
+      <div class="service-item">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="service-title">Livraison offerte</div>
+        <div class="service-desc">Dès 49€ d'achat partout en France</div>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="service-title">Fabrication FR</div>
+        <div class="service-desc">Découpé et fabriqué en France</div>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="service-title">Garantie 2 ans</div>
+        <div class="service-desc">Satisfait ou remboursé sous 30 jours</div>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+        </div>
+        <div class="service-title">Retours 30 jours</div>
+        <div class="service-desc">Retour simple et remboursement rapide</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- CONFIGURATOR -->
 <section id="configurateur" class="configurator" aria-labelledby="config-title">
@@ -2445,6 +2510,35 @@
   </div>
 </section>
 
+<!-- COUNTDOWN PROMO -->
+<section class="countdown-section" aria-labelledby="countdown-title">
+  <div class="container">
+    <div class="countdown-inner">
+      <div class="countdown-label">Offre limitée</div>
+      <h2 class="countdown-title" id="countdown-title">Profitez de <em>-15% ce weekend</em></h2>
+      <div class="countdown-timer" role="timer" aria-live="polite" aria-label="Temps restant pour l'offre">
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-hours">72</div>
+          <div class="countdown-lbl">Heures</div>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">:</div>
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-minutes">00</div>
+          <div class="countdown-lbl">Minutes</div>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">:</div>
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-seconds">00</div>
+          <div class="countdown-lbl">Secondes</div>
+        </div>
+      </div>
+      <a href="#configurateur" class="btn-primary" style="font-size:1rem;padding:1rem 2.5rem">
+        Profiter de l'offre &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section" aria-labelledby="cta-title">
   <div class="container" style="position:relative;z-index:2">
@@ -2458,6 +2552,22 @@
       <a href="mailto:contact@nappelux.fr" class="btn-secondary" style="font-size:1rem;padding:1rem 2.5rem">
         Nous contacter
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section" aria-labelledby="newsletter-title">
+  <div class="container">
+    <div class="newsletter-inner">
+      <span class="section-tag">Newsletter</span>
+      <h2 id="newsletter-title">Restez inspiré(e)</h2>
+      <p>Recevez nos offres exclusives, conseils déco et nouveautés en avant-première.</p>
+      <form class="newsletter-form" onsubmit="submitNewsletter(event)" novalidate aria-label="Inscription newsletter">
+        <input type="email" class="newsletter-input" id="newsletter-email" placeholder="Votre adresse e-mail" required aria-label="Adresse e-mail" autocomplete="email" />
+        <button type="submit" class="newsletter-btn">S'abonner</button>
+      </form>
+      <div class="newsletter-msg" id="newsletter-msg" role="status" aria-live="polite"></div>
     </div>
   </div>
 </section>
@@ -2830,15 +2940,225 @@
     });
   }
 
+  /* ─── CART STATE ────────────────────────────────────────── */
+  let cartItems = [];
+  let cartCount = 0;
+
+  function openCart() {
+    document.getElementById('cart-drawer').classList.add('open');
+    document.getElementById('cart-drawer').setAttribute('aria-hidden','false');
+    document.getElementById('cart-overlay').classList.add('visible');
+    document.getElementById('cart-overlay').setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCart() {
+    document.getElementById('cart-drawer').classList.remove('open');
+    document.getElementById('cart-drawer').setAttribute('aria-hidden','true');
+    document.getElementById('cart-overlay').classList.remove('visible');
+    document.getElementById('cart-overlay').setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  function renderCart() {
+    const list = document.getElementById('cart-items-list');
+    const emptyState = document.getElementById('cart-empty-state');
+    const totalEl = document.getElementById('cart-total-price');
+    const badge = document.getElementById('cart-badge');
+
+    // Remove existing items (not empty state)
+    Array.from(list.children).forEach(c => { if (c.id !== 'cart-empty-state') c.remove(); });
+
+    if (cartItems.length === 0) {
+      emptyState.style.display = '';
+      totalEl.textContent = '0,00 €';
+      badge.textContent = '0';
+      badge.classList.remove('visible');
+      return;
+    }
+
+    emptyState.style.display = 'none';
+    let total = 0;
+    cartItems.forEach((item, idx) => {
+      total += item.price;
+      const thumbColors = { transparent: '#dbeafe', gold: '#fbbf24', crystal: '#e0e7ff' };
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <div class="cart-item-thumb" style="background:${thumbColors[item.mat] || '#f5f5f5'}">📐</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-desc">${item.desc}</div>
+          <div class="cart-item-price">${item.price.toFixed(2).replace('.',',')} €</div>
+        </div>
+        <button class="cart-item-remove" onclick="removeCartItem(${idx})" aria-label="Supprimer cet article">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>`;
+      list.appendChild(div);
+    });
+
+    totalEl.textContent = total.toFixed(2).replace('.',',') + ' €';
+    badge.textContent = cartItems.length;
+    badge.classList.add('visible');
+  }
+
+  function removeCartItem(idx) {
+    cartItems.splice(idx, 1);
+    renderCart();
+  }
+
+  function proceedCheckout() {
+    if (cartItems.length === 0) return;
+    alert('Redirection vers la page de commande...\n(Intégration paiement à connecter)');
+  }
+
   /* ─── ADD TO CART ───────────────────────────────────────── */
   function addToCart() {
     const btn = event.currentTarget;
-    btn.textContent = '✓ Ajouté au panier !';
+    const d = getDimensions();
+    const area = calcArea(state.shape, d);
+    const areaDm2 = area * 100;
+    const price = Math.max(9.9, areaDm2 * prices[state.material]);
+    const matLabel = { transparent: 'Transparent', gold: 'Doré', crystal: 'Cristal' }[state.material];
+    const shapeLabel = { rectangle: 'Rectangulaire', square: 'Carré', round: 'Ronde', oval: 'Ovale', octagon: 'Octogone', hexagon: 'Hexagone' }[state.shape];
+    const isDiam = ['round', 'hexagon'].includes(state.shape);
+    const dimStr = isDiam ? `Ø${d.Df} cm` : `${d.Lf} × ${d.Wf} cm`;
+
+    cartItems.push({
+      name: `Nappe PVC ${matLabel}`,
+      desc: `${shapeLabel} — ${dimStr}`,
+      price: price,
+      mat: state.material
+    });
+
+    renderCart();
+    openCart();
+
+    btn.textContent = '✓ Ajouté !';
     btn.style.background = 'linear-gradient(135deg, #16a34a, #22c55e)';
     setTimeout(() => {
       btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Ajouter au panier';
       btn.style.background = '';
     }, 2500);
+  }
+
+  /* ─── MOBILE NAV ────────────────────────────────────────── */
+  function openMobileNav(btn) {
+    document.getElementById('mobile-nav').classList.add('open');
+    document.getElementById('mobile-nav').setAttribute('aria-hidden','false');
+    document.getElementById('mobile-overlay').classList.add('visible');
+    document.getElementById('mobile-overlay').setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    if (btn) btn.setAttribute('aria-expanded','true');
+  }
+
+  function closeMobileNav() {
+    document.getElementById('mobile-nav').classList.remove('open');
+    document.getElementById('mobile-nav').setAttribute('aria-hidden','true');
+    document.getElementById('mobile-overlay').classList.remove('visible');
+    document.getElementById('mobile-overlay').setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    const btn = document.querySelector('.hamburger');
+    if (btn) btn.setAttribute('aria-expanded','false');
+  }
+
+  /* ─── ANNOUNCEMENT BAR ──────────────────────────────────── */
+  (function initAnnBar() {
+    const bar = document.getElementById('header-top');
+    const msgs = bar.querySelectorAll('.ann-msg');
+    let current = 0;
+    let timer;
+
+    function showMsg(idx) {
+      msgs.forEach((m, i) => {
+        m.classList.remove('active','out');
+        if (i < idx) m.classList.add('out');
+      });
+      msgs[idx].classList.add('active');
+    }
+
+    function rotate() {
+      const next = (current + 1) % msgs.length;
+      msgs[current].classList.remove('active');
+      msgs[current].classList.add('out');
+      setTimeout(() => { msgs[current].classList.remove('out'); current = next; showMsg(current); }, 500);
+    }
+
+    showMsg(0);
+    timer = setInterval(rotate, 4000);
+    bar._stopTimer = () => clearInterval(timer);
+
+    // Adjust nav position
+    document.getElementById('navbar').classList.add('ann-visible');
+  })();
+
+  function closeAnnBar() {
+    const bar = document.getElementById('header-top');
+    bar.classList.add('hidden');
+    if (bar._stopTimer) bar._stopTimer();
+    document.getElementById('navbar').classList.remove('ann-visible');
+  }
+
+  /* ─── COUNTDOWN TIMER ───────────────────────────────────── */
+  (function initCountdown() {
+    const key = 'nappelux_cd_end';
+    let endTime = parseInt(localStorage.getItem(key) || '0');
+    const duration = 72 * 60 * 60 * 1000; // 72h
+
+    if (!endTime || Date.now() > endTime) {
+      endTime = Date.now() + duration;
+      localStorage.setItem(key, String(endTime));
+    }
+
+    function pad(n) { return String(n).padStart(2,'0'); }
+
+    function tick() {
+      const diff = Math.max(0, endTime - Date.now());
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-hours').textContent = pad(h);
+      document.getElementById('cd-minutes').textContent = pad(m);
+      document.getElementById('cd-seconds').textContent = pad(s);
+      if (diff > 0) requestAnimationFrame(tick);
+    }
+    tick();
+  })();
+
+  /* ─── NEWSLETTER ────────────────────────────────────────── */
+  function submitNewsletter(e) {
+    e.preventDefault();
+    const input = document.getElementById('newsletter-email');
+    const msg = document.getElementById('newsletter-msg');
+    const email = input.value.trim();
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      msg.textContent = 'Veuillez entrer une adresse e-mail valide.';
+      msg.className = 'newsletter-msg error';
+      return;
+    }
+
+    msg.textContent = '🎉 Merci ! Vous êtes bien inscrit(e) à notre newsletter.';
+    msg.className = 'newsletter-msg success';
+    input.value = '';
+    setTimeout(() => { msg.textContent = ''; msg.className = 'newsletter-msg'; }, 5000);
+  }
+
+  /* ─── WISHLIST TOGGLE ───────────────────────────────────── */
+  function toggleWishlist(btn, name) {
+    const wished = btn.classList.toggle('wished');
+    btn.innerHTML = wished
+      ? '<span aria-hidden="true">❤</span> Sauvegardé'
+      : '<span aria-hidden="true">❤</span> Favoris';
+    btn.setAttribute('aria-label', wished ? `Retirer ${name} des favoris` : `Ajouter ${name} aux favoris`);
+  }
+
+  /* ─── ORDER MATERIAL ────────────────────────────────────── */
+  function orderMaterial(mat) {
+    // Select material in configurator and scroll to it
+    const btn = document.querySelector(`.mat-btn[data-mat="${mat}"]`);
+    if (btn) { selectMat(btn, mat); }
+    document.getElementById('configurateur').scrollIntoView({ behavior: 'smooth' });
   }
 
   /* ─── PARTICLES ─────────────────────────────────────────── */
