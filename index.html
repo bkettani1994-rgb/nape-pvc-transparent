@@ -1,3252 +1,1053 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NappeLux — Nappes PVC Sur Mesure | Transparent & Doré</title>
-  <meta name="description" content="Nappes en PVC transparent et doré sur mesure pour toutes les formes : carré, rectangulaire, ronde, ovale, octogone. Livraison rapide partout en France." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    /* ─── DESIGN SYSTEM ─────────────────────────────────────── */
-    :root {
-      --gold:        #CA8A04;
-      --gold-light:  #F59E0B;
-      --gold-pale:   #FEF9EE;
-      --gold-shine:  #FBBF24;
-      --dark:        #1C1917;
-      --dark-2:      #44403C;
-      --cream:       #FAFAF9;
-      --text:        #0C0A09;
-      --glass-bg:    rgba(255,255,255,0.12);
-      --glass-border:rgba(255,255,255,0.25);
-      --blur:        16px;
-      --radius-lg:   20px;
-      --radius-xl:   32px;
-      --shadow-gold: 0 8px 40px rgba(202,138,4,0.3);
-      --shadow-card: 0 4px 24px rgba(28,25,23,0.12);
-      --ease:        cubic-bezier(0.4,0,0.2,1);
-      --dur:         0.35s;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: var(--cream);
-      color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.65;
-    }
-
-    h1,h2,h3,h4 { font-family: 'Cormorant', serif; line-height: 1.15; }
-
-    /* ─── PARTICLES BG ──────────────────────────────────────── */
-    #particles-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.35;
-    }
-
-    /* ─── NAV ───────────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(28,25,23,0.72);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      border-bottom: 1px solid rgba(202,138,4,0.2);
-      transition: all var(--dur) var(--ease);
-    }
-
-    nav.scrolled {
-      padding: 0.65rem 2rem;
-      background: rgba(28,25,23,0.92);
-    }
-
-    .nav-logo {
-      font-family: 'Cormorant', serif;
-      font-size: 1.7rem;
-      font-weight: 600;
-      color: var(--gold-light);
-      letter-spacing: 0.05em;
-      text-decoration: none;
-    }
-
-    .nav-logo span { color: #fff; }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: rgba(255,255,255,0.8);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color var(--dur) var(--ease);
-      position: relative;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0;
-      width: 0; height: 1px;
-      background: var(--gold-light);
-      transition: width var(--dur) var(--ease);
-    }
-
-    .nav-links a:hover { color: var(--gold-light); }
-    .nav-links a:hover::after { width: 100%; }
-
-    .nav-cta {
-      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
-      color: var(--dark) !important;
-      padding: 0.55rem 1.4rem;
-      border-radius: 50px;
-      font-weight: 600 !important;
-      transition: transform 0.2s, box-shadow 0.2s !important;
-    }
-
-    .nav-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(202,138,4,0.5) !important;
-    }
-
-    .nav-cta::after { display: none !important; }
-
-    /* ─── HAMBURGER ─────────────────────────────────────────── */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-      background: none;
-      border: none;
-    }
-    .hamburger span {
-      display: block; width: 24px; height: 2px;
-      background: var(--gold-light);
-      transition: all 0.3s;
-    }
-
-    /* ─── HERO ──────────────────────────────────────────────── */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, #1C1917 0%, #292524 40%, #1C1917 100%);
-    }
-
-    .hero-bg-pattern {
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(202,138,4,0.18) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(251,191,36,0.1) 0%, transparent 50%);
-    }
-
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(202,138,4,0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(202,138,4,0.07) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 2rem;
-      max-width: 900px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(202,138,4,0.15);
-      border: 1px solid rgba(202,138,4,0.4);
-      color: var(--gold-light);
-      padding: 0.4rem 1.2rem;
-      border-radius: 50px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1.8rem;
-      animation: fadeDown 0.8s var(--ease) both;
-    }
-
-    .hero-badge svg { width: 14px; height: 14px; }
-
-    .hero h1 {
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 0.6rem;
-      animation: fadeUp 0.9s 0.1s var(--ease) both;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold-shine));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      color: rgba(255,255,255,0.65);
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-      font-weight: 300;
-      animation: fadeUp 0.9s 0.2s var(--ease) both;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      animation: fadeUp 0.9s 0.3s var(--ease) both;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
-      color: var(--dark);
-      padding: 0.9rem 2.2rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.92rem;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(202,138,4,0.4);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-gold);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--glass-bg);
-      backdrop-filter: blur(var(--blur));
-      color: #fff;
-      padding: 0.9rem 2.2rem;
-      border-radius: 50px;
-      font-weight: 500;
-      font-size: 0.92rem;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      border: 1px solid var(--glass-border);
-      cursor: pointer;
-      transition: all 0.25s;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-    }
-
-    /* floating tablecloth visual */
-    .hero-visual {
-      position: absolute;
-      right: 5%;
-      top: 50%;
-      transform: translateY(-50%);
-      width: min(400px, 35vw);
-      aspect-ratio: 1;
-      animation: float 6s ease-in-out infinite;
-      opacity: 0.6;
-      pointer-events: none;
-    }
-
-    @keyframes float {
-      0%,100% { transform: translateY(-50%) translateY(0); }
-      50% { transform: translateY(-50%) translateY(-18px); }
-    }
-
-    /* scroll indicator */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-      color: rgba(255,255,255,0.4);
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      animation: fadeIn 1.2s 0.8s both;
-    }
-
-    .scroll-mouse {
-      width: 22px; height: 34px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-radius: 12px;
-      position: relative;
-    }
-
-    .scroll-mouse::after {
-      content: '';
-      position: absolute;
-      top: 5px; left: 50%;
-      transform: translateX(-50%);
-      width: 3px; height: 7px;
-      background: var(--gold-light);
-      border-radius: 2px;
-      animation: scrollDot 2s ease-in-out infinite;
-    }
-
-    @keyframes scrollDot {
-      0%,100% { opacity: 1; top: 5px; }
-      50% { opacity: 0; top: 16px; }
-    }
-
-    /* ─── STATS STRIP ───────────────────────────────────────── */
-    .stats-strip {
-      background: var(--dark);
-      padding: 2rem 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 4rem;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 2;
-      border-top: 1px solid rgba(202,138,4,0.25);
-      border-bottom: 1px solid rgba(202,138,4,0.25);
-    }
-
-    .stat-item { text-align: center; }
-
-    .stat-num {
-      font-family: 'Cormorant', serif;
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--gold-light);
-      display: block;
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: 0.3rem;
-    }
-
-    /* ─── SECTION GENERIC ───────────────────────────────────── */
-    section { position: relative; z-index: 2; }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    .section-tag {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.8rem;
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-
-    .section-desc {
-      font-size: 1rem;
-      color: var(--dark-2);
-      max-width: 560px;
-      line-height: 1.75;
-    }
-
-    /* ─── MATERIALS ─────────────────────────────────────────── */
-    .materials {
-      padding: 6rem 0;
-      background: var(--cream);
-    }
-
-    .materials-header { margin-bottom: 3.5rem; }
-
-    .materials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .material-card {
-      background: #fff;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-      cursor: pointer;
-    }
-
-    .material-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 48px rgba(28,25,23,0.16);
-    }
-
-    .material-preview {
-      height: 220px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* PVC Transparent */
-    .preview-transparent {
-      background:
-        repeating-linear-gradient(
-          45deg,
-          rgba(255,255,255,0.4) 0px,
-          rgba(255,255,255,0.4) 2px,
-          transparent 2px,
-          transparent 12px
-        ),
-        linear-gradient(135deg, #dbeafe 0%, #e0f2fe 40%, #f0fdf4 100%);
-    }
-
-    .preview-transparent::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.7) 0%, transparent 60%),
-        radial-gradient(ellipse at 70% 70%, rgba(200,230,255,0.4) 0%, transparent 50%);
-      animation: shimmer 4s ease-in-out infinite;
-    }
-
-    /* PVC Doré */
-    .preview-gold {
-      background: linear-gradient(135deg, #78350f 0%, #92400e 30%, #ca8a04 60%, #fbbf24 80%, #d97706 100%);
-    }
-
-    .preview-gold::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(
-          -45deg,
-          rgba(255,255,255,0) 0px,
-          rgba(255,255,255,0) 8px,
-          rgba(255,255,255,0.18) 8px,
-          rgba(255,255,255,0.18) 10px
-        );
-      animation: goldShimmer 3s ease-in-out infinite;
-    }
-
-    /* PVC Cristal */
-    .preview-crystal {
-      background: linear-gradient(135deg, #e0e7ff 0%, #ddd6fe 40%, #fce7f3 100%);
-    }
-
-    .preview-crystal::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.9) 0%, transparent 40%),
-        radial-gradient(circle at 80% 60%, rgba(200,180,255,0.5) 0%, transparent 40%);
-      animation: crystalShimmer 5s ease-in-out infinite;
-    }
-
-    @keyframes shimmer {
-      0%,100% { opacity: 0.7; }
-      50% { opacity: 1; }
-    }
-    @keyframes goldShimmer {
-      0% { transform: translateX(-100%); opacity: 0.5; }
-      100% { transform: translateX(100%); opacity: 0.5; }
-    }
-    @keyframes crystalShimmer {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    .material-badge {
-      position: absolute;
-      top: 1rem; right: 1rem;
-      background: rgba(28,25,23,0.75);
-      backdrop-filter: blur(8px);
-      color: var(--gold-light);
-      padding: 0.3rem 0.8rem;
-      border-radius: 50px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-    }
-
-    .material-body { padding: 1.5rem; }
-
-    .material-body h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .material-body p {
-      font-size: 0.87rem;
-      color: var(--dark-2);
-      line-height: 1.65;
-      margin-bottom: 1rem;
-    }
-
-    .material-features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .feature-chip {
-      background: var(--gold-pale);
-      color: var(--gold);
-      padding: 0.2rem 0.65rem;
-      border-radius: 50px;
-      font-size: 0.72rem;
-      font-weight: 600;
-    }
-
-    /* ─── CONFIGURATOR ──────────────────────────────────────── */
-    .configurator {
-      padding: 6rem 0;
-      background: var(--dark);
-      overflow: hidden;
-    }
-
-    .configurator-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    .configurator-header { color: #fff; margin-bottom: 2.5rem; }
-    .configurator-header .section-title { color: #fff; }
-    .configurator-header .section-desc { color: rgba(255,255,255,0.6); }
-
-    /* Shape selector */
-    .shape-selector {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-    }
-
-    .shape-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 1rem 0.5rem;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--radius-lg);
-      cursor: pointer;
-      transition: all 0.25s;
-      color: rgba(255,255,255,0.6);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-    }
-
-    .shape-btn svg { width: 36px; height: 36px; fill: currentColor; transition: fill 0.25s; }
-
-    .shape-btn:hover {
-      background: rgba(202,138,4,0.12);
-      border-color: rgba(202,138,4,0.4);
-      color: var(--gold-light);
-    }
-
-    .shape-btn.active {
-      background: rgba(202,138,4,0.18);
-      border-color: var(--gold-light);
-      color: var(--gold-light);
-      box-shadow: 0 0 20px rgba(202,138,4,0.2);
-    }
-
-    /* Dimension fields */
-    .dim-fields {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .field-group { display: flex; flex-direction: column; gap: 0.4rem; }
-
-    .field-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: rgba(255,255,255,0.55);
-      text-transform: uppercase;
-    }
-
-    .field-input {
-      display: flex;
-      align-items: center;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-
-    .field-input:focus-within {
-      border-color: var(--gold-light);
-      box-shadow: 0 0 0 3px rgba(202,138,4,0.15);
-    }
-
-    .field-input input {
-      flex: 1;
-      background: none;
-      border: none;
-      outline: none;
-      padding: 0.85rem 1rem;
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .field-unit {
-      padding: 0 1rem;
-      color: var(--gold-light);
-      font-size: 0.8rem;
-      font-weight: 600;
-      border-left: 1px solid rgba(255,255,255,0.1);
-      white-space: nowrap;
-    }
-
-    /* Range slider */
-    .range-group { display: flex; flex-direction: column; gap: 0.5rem; }
-
-    .range-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.55);
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .range-val { color: var(--gold-light); font-weight: 700; }
-
-    input[type="range"] {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 4px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 2px;
-      outline: none;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 18px; height: 18px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(202,138,4,0.5);
-    }
-
-    /* Material selector */
-    .mat-selector {
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .mat-btn {
-      flex: 1;
-      min-width: 100px;
-      padding: 0.75rem;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      cursor: pointer;
-      color: rgba(255,255,255,0.6);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 500;
-      text-align: center;
-      transition: all 0.25s;
-    }
-
-    .mat-btn.active {
-      border-color: var(--gold-light);
-      color: var(--gold-light);
-      background: rgba(202,138,4,0.12);
-    }
-
-    .mat-dot {
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 0.3rem;
-      vertical-align: middle;
-    }
-
-    /* Price display */
-    .price-box {
-      background: rgba(202,138,4,0.1);
-      border: 1px solid rgba(202,138,4,0.3);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .price-breakdown {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 0.5rem;
-    }
-
-    .price-total {
-      font-family: 'Cormorant', serif;
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: var(--gold-light);
-      line-height: 1;
-    }
-
-    .price-total span { font-size: 1.2rem; font-weight: 400; }
-
-    .price-note {
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.4);
-      margin-top: 0.4rem;
-    }
-
-    /* Configurator preview canvas */
-    .config-preview {
-      position: sticky;
-      top: 100px;
-    }
-
-    .preview-stage {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius-xl);
-      padding: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-      min-height: 480px;
-    }
-
-    .preview-canvas-wrap {
-      flex: 1;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #shape-canvas {
-      max-width: 100%;
-      max-height: 300px;
-      filter: drop-shadow(0 8px 32px rgba(202,138,4,0.3));
-      transition: all 0.4s var(--ease);
-    }
-
-    .preview-info {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-    }
-
-    .info-chip {
-      background: rgba(255,255,255,0.06);
-      border-radius: 10px;
-      padding: 0.75rem;
-      text-align: center;
-    }
-
-    .info-chip .val {
-      font-family: 'Cormorant', serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--gold-light);
-    }
-
-    .info-chip .lbl {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    /* ─── HOW IT WORKS ──────────────────────────────────────── */
-    .how-it-works {
-      padding: 6rem 0;
-      background: var(--cream);
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem;
-      margin-top: 3.5rem;
-      position: relative;
-    }
-
-    .steps-grid::before {
-      content: '';
-      position: absolute;
-      top: 3rem;
-      left: 10%;
-      right: 10%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
-      opacity: 0.3;
-    }
-
-    .step-card {
-      background: #fff;
-      border-radius: var(--radius-lg);
-      padding: 2rem 1.5rem;
-      text-align: center;
-      box-shadow: var(--shadow-card);
-      transition: transform var(--dur) var(--ease);
-      position: relative;
-    }
-
-    .step-card:hover { transform: translateY(-4px); }
-
-    .step-num {
-      width: 52px; height: 52px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.2rem;
-      font-family: 'Cormorant', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--dark);
-    }
-
-    .step-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
-    .step-card p { font-size: 0.85rem; color: var(--dark-2); line-height: 1.65; }
-
-    /* ─── TESTIMONIALS ──────────────────────────────────────── */
-    .testimonials {
-      padding: 6rem 0;
-      background: #fff;
-      overflow: hidden;
-    }
-
-    .testi-track {
-      display: flex;
-      gap: 1.5rem;
-      margin-top: 3rem;
-      animation: scrollTrack 30s linear infinite;
-      width: max-content;
-    }
-
-    .testi-track:hover { animation-play-state: paused; }
-
-    @keyframes scrollTrack {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .testi-card {
-      min-width: 320px;
-      background: var(--cream);
-      border-radius: var(--radius-lg);
-      padding: 1.8rem;
-      flex-shrink: 0;
-    }
-
-    .stars {
-      display: flex;
-      gap: 3px;
-      margin-bottom: 1rem;
-    }
-
-    .star { color: var(--gold-light); font-size: 0.9rem; }
-
-    .testi-text {
-      font-size: 0.9rem;
-      color: var(--dark-2);
-      line-height: 1.7;
-      margin-bottom: 1.2rem;
-      font-style: italic;
-    }
-
-    .testi-author {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .testi-avatar {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Cormorant', serif;
-      font-weight: 700;
-      color: var(--dark);
-      font-size: 1.1rem;
-    }
-
-    .testi-name { font-weight: 600; font-size: 0.87rem; }
-    .testi-loc { font-size: 0.75rem; color: var(--dark-2); }
-
-    /* ─── GALLERY ───────────────────────────────────────────── */
-    .gallery {
-      padding: 6rem 0;
-      background: var(--cream);
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 200px);
-      gap: 1rem;
-      margin-top: 3rem;
-    }
-
-    .gallery-item {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-    .gallery-item:nth-child(4) { grid-column: span 2; }
-
-    .gallery-inner {
-      width: 100%;
-      height: 100%;
-      transition: transform 0.5s var(--ease);
-    }
-
-    .gallery-item:hover .gallery-inner { transform: scale(1.05); }
-
-    /* simulated gallery images */
-    .gi-1 { background: linear-gradient(135deg, #dbeafe, #e0f2fe, #f0fdf4); }
-    .gi-2 { background: linear-gradient(135deg, #ca8a04, #fbbf24, #d97706); }
-    .gi-3 { background: linear-gradient(135deg, #e0e7ff, #ddd6fe, #fce7f3); }
-    .gi-4 { background: linear-gradient(135deg, #f0fdf4, #dcfce7, #d1fae5); }
-    .gi-5 { background: linear-gradient(135deg, #fff7ed, #fed7aa, #fde68a); }
-
-    .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(28,25,23,0);
-      display: flex;
-      align-items: flex-end;
-      padding: 1rem;
-      transition: background 0.3s;
-    }
-
-    .gallery-item:hover .gallery-overlay { background: rgba(28,25,23,0.45); }
-
-    .gallery-label {
-      color: #fff;
-      font-size: 0.8rem;
-      font-weight: 600;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: all 0.3s;
-    }
-
-    .gallery-item:hover .gallery-label { opacity: 1; transform: translateY(0); }
-
-    /* ─── CTA SECTION ───────────────────────────────────────── */
-    .cta-section {
-      padding: 7rem 0;
-      background: var(--dark);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(202,138,4,0.12) 0%, transparent 70%);
-    }
-
-    .cta-section .section-title { color: #fff; font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; }
-    .cta-section p { color: rgba(255,255,255,0.6); font-size: 1rem; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
-
-    /* ─── FOOTER ────────────────────────────────────────────── */
-    footer {
-      background: #0c0a09;
-      color: rgba(255,255,255,0.5);
-      padding: 3rem 0 2rem;
-    }
-
-    .footer-inner {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-
-    .footer-brand h3 {
-      font-family: 'Cormorant', serif;
-      font-size: 1.6rem;
-      color: var(--gold-light);
-      margin-bottom: 0.75rem;
-    }
-
-    .footer-brand p { font-size: 0.83rem; line-height: 1.7; max-width: 260px; }
-
-    .footer-col h4 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 1rem;
-    }
-
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-
-    .footer-col a {
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: color 0.2s;
-    }
-
-    .footer-col a:hover { color: var(--gold-light); }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.78rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    /* ─── ANIMATIONS ────────────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ─── RESPONSIVE ────────────────────────────────────────── */
-    @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-
-      .configurator-inner { grid-template-columns: 1fr; }
-      .config-preview { position: static; }
-
-      .footer-inner { grid-template-columns: 1fr 1fr; }
-      .footer-brand { grid-column: span 2; }
-
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
-      }
-      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
-      .gallery-item:nth-child(4) { grid-column: span 1; }
-    }
-
-    @media (max-width: 600px) {
-      .steps-grid::before { display: none; }
-      .shape-selector { grid-template-columns: repeat(3, 1fr); }
-      .stats-strip { gap: 2rem; }
-      .footer-inner { grid-template-columns: 1fr; }
-      .footer-brand { grid-column: auto; }
-      .hero-visual { display: none; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-    }
-
-    /* ─── ANNOUNCEMENT BAR ──────────────────────────────────── */
-    #header-top {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
-      color: var(--dark);
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      overflow: hidden;
-      transition: height 0.35s var(--ease), opacity 0.35s var(--ease);
-    }
-
-    #header-top.hidden {
-      height: 0;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .ann-messages {
-      position: relative;
-      flex: 1;
-      text-align: center;
-      height: 40px;
-      overflow: hidden;
-    }
-
-    .ann-msg {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.5s var(--ease), opacity 0.5s var(--ease);
-      opacity: 0;
-      transform: translateY(100%);
-    }
-
-    .ann-msg.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .ann-msg.out {
-      opacity: 0;
-      transform: translateY(-100%);
-    }
-
-    .ann-close {
-      position: absolute;
-      right: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--dark);
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      opacity: 0.7;
-      transition: opacity 0.2s;
-      z-index: 1;
-    }
-
-    .ann-close:hover { opacity: 1; }
-
-    nav {
-      transition: top 0.35s var(--ease), padding 0.35s var(--ease), background 0.35s var(--ease);
-    }
-
-    nav.ann-visible {
-      top: 40px;
-    }
-
-    /* ─── CART DRAWER ───────────────────────────────────────── */
-    #cart-drawer {
-      position: fixed;
-      top: 0; right: 0; bottom: 0;
-      width: 380px;
-      max-width: 100vw;
-      background: #fff;
-      z-index: 500;
-      box-shadow: -8px 0 48px rgba(28,25,23,0.2);
-      transform: translateX(100%);
-      transition: transform 0.4s var(--ease);
-      display: flex;
-      flex-direction: column;
-    }
-
-    #cart-drawer.open {
-      transform: translateX(0);
-    }
-
-    #cart-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(28,25,23,0.5);
-      z-index: 499;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s var(--ease);
-      backdrop-filter: blur(4px);
-    }
-
-    #cart-overlay.visible {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .cart-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem;
-      border-bottom: 1px solid rgba(28,25,23,0.1);
-    }
-
-    .cart-header h3 {
-      font-family: 'Cormorant', serif;
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-
-    .cart-close-btn {
-      background: none;
-      border: 1px solid rgba(28,25,23,0.15);
-      border-radius: 50%;
-      width: 36px; height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s;
-      color: var(--dark);
-    }
-
-    .cart-close-btn:hover { background: var(--gold-pale); }
-
-    .cart-items {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1rem 1.5rem;
-    }
-
-    .cart-empty {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      color: var(--dark-2);
-      gap: 0.75rem;
-      text-align: center;
-    }
-
-    .cart-empty svg { opacity: 0.3; }
-
-    .cart-item {
-      display: flex;
-      gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(28,25,23,0.07);
-      align-items: flex-start;
-    }
-
-    .cart-item-thumb {
-      width: 60px; height: 60px;
-      border-radius: 10px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-    }
-
-    .cart-item-info { flex: 1; }
-
-    .cart-item-name {
-      font-weight: 600;
-      font-size: 0.88rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .cart-item-desc {
-      font-size: 0.77rem;
-      color: var(--dark-2);
-      margin-bottom: 0.3rem;
-    }
-
-    .cart-item-price {
-      font-family: 'Cormorant', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--gold);
-    }
-
-    .cart-item-remove {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--dark-2);
-      opacity: 0.5;
-      padding: 2px;
-      transition: opacity 0.2s, color 0.2s;
-    }
-
-    .cart-item-remove:hover { opacity: 1; color: #dc2626; }
-
-    .cart-footer {
-      padding: 1.5rem;
-      border-top: 1px solid rgba(28,25,23,0.1);
-      background: var(--cream);
-    }
-
-    .cart-total-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-
-    .cart-total-label {
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .cart-total-price {
-      font-family: 'Cormorant', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--gold);
-    }
-
-    .cart-checkout-btn {
-      width: 100%;
-      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
-      color: var(--dark);
-      border: none;
-      border-radius: 50px;
-      padding: 1rem;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: 0.04em;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 16px rgba(202,138,4,0.35);
-    }
-
-    .cart-checkout-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-gold);
-    }
-
-    /* Cart nav button */
-    .nav-cart-btn {
-      position: relative;
-      background: none;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 50%;
-      width: 40px; height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: rgba(255,255,255,0.8);
-      transition: all 0.25s;
-    }
-
-    .nav-cart-btn:hover {
-      background: rgba(202,138,4,0.15);
-      border-color: var(--gold-light);
-      color: var(--gold-light);
-    }
-
-    .cart-badge {
-      position: absolute;
-      top: -5px; right: -5px;
-      background: #dc2626;
-      color: #fff;
-      font-size: 0.62rem;
-      font-weight: 700;
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transform: scale(0);
-      transition: all 0.25s var(--ease);
-    }
-
-    .cart-badge.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* ─── SERVICE STRIP ─────────────────────────────────────── */
-    .service-strip {
-      background: #fff;
-      border-top: 1px solid rgba(28,25,23,0.08);
-      border-bottom: 1px solid rgba(28,25,23,0.08);
-      padding: 2.5rem 0;
-      position: relative;
-      z-index: 2;
-    }
-
-    .service-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-    }
-
-    .service-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 0.75rem;
-      padding: 1.25rem 1rem;
-      border-radius: var(--radius-lg);
-      transition: background 0.25s;
-    }
-
-    .service-item:hover { background: var(--gold-pale); }
-
-    .service-icon {
-      width: 52px; height: 52px;
-      background: linear-gradient(135deg, var(--gold-pale), #fff);
-      border: 1.5px solid rgba(202,138,4,0.25);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--gold);
-      flex-shrink: 0;
-    }
-
-    .service-icon svg { width: 24px; height: 24px; }
-
-    .service-title {
-      font-family: 'Cormorant', serif;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--dark);
-    }
-
-    .service-desc {
-      font-size: 0.78rem;
-      color: var(--dark-2);
-      line-height: 1.5;
-    }
-
-    @media (max-width: 768px) {
-      .service-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 480px) {
-      .service-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-    }
-
-    /* ─── COUNTDOWN PROMO ───────────────────────────────────── */
-    .countdown-section {
-      background: var(--dark);
-      padding: 4rem 0;
-      position: relative;
-      z-index: 2;
-      overflow: hidden;
-    }
-
-    .countdown-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(202,138,4,0.1) 0%, transparent 70%);
-    }
-
-    .countdown-inner {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-    }
-
-    .countdown-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      margin-bottom: 0.5rem;
-    }
-
-    .countdown-title {
-      font-family: 'Cormorant', serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 2rem;
-    }
-
-    .countdown-title em {
-      font-style: italic;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold-shine));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .countdown-timer {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .countdown-unit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .countdown-num {
-      font-family: 'Cormorant', serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 700;
-      color: var(--gold-light);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(202,138,4,0.25);
-      border-radius: 12px;
-      width: 90px;
-      height: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-      min-width: 70px;
-    }
-
-    .countdown-lbl {
-      font-size: 0.68rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.45);
-    }
-
-    .countdown-sep {
-      font-family: 'Cormorant', serif;
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--gold-light);
-      line-height: 90px;
-      opacity: 0.5;
-    }
-
-    /* ─── NEWSLETTER ────────────────────────────────────────── */
-    .newsletter-section {
-      background: #0c0a09;
-      padding: 5rem 0;
-      position: relative;
-      z-index: 2;
-      overflow: hidden;
-    }
-
-    .newsletter-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 50% 80% at 50% 100%, rgba(202,138,4,0.08) 0%, transparent 60%);
-    }
-
-    .newsletter-inner {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      max-width: 520px;
-      margin: 0 auto;
-    }
-
-    .newsletter-inner .section-tag { color: var(--gold-light); }
-
-    .newsletter-inner h2 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 0.75rem;
-    }
-
-    .newsletter-inner p {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 2rem;
-      line-height: 1.7;
-    }
-
-    .newsletter-form {
-      display: flex;
-      gap: 0;
-      border-radius: 50px;
-      overflow: hidden;
-      border: 1px solid rgba(202,138,4,0.3);
-      background: rgba(255,255,255,0.05);
-      transition: border-color 0.25s;
-    }
-
-    .newsletter-form:focus-within {
-      border-color: var(--gold-light);
-      box-shadow: 0 0 0 3px rgba(202,138,4,0.15);
-    }
-
-    .newsletter-input {
-      flex: 1;
-      background: none;
-      border: none;
-      outline: none;
-      padding: 0.9rem 1.5rem;
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.9rem;
-    }
-
-    .newsletter-input::placeholder { color: rgba(255,255,255,0.35); }
-
-    .newsletter-btn {
-      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
-      color: var(--dark);
-      border: none;
-      padding: 0.9rem 1.8rem;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-      transition: filter 0.2s;
-    }
-
-    .newsletter-btn:hover { filter: brightness(1.1); }
-
-    .newsletter-msg {
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      height: 1.2em;
-      transition: all 0.3s;
-    }
-
-    .newsletter-msg.success { color: #4ade80; }
-    .newsletter-msg.error { color: #f87171; }
-
-    /* ─── MOBILE SIDEBAR NAV ────────────────────────────────── */
-    #mobile-nav {
-      position: fixed;
-      top: 0; left: 0; bottom: 0;
-      width: 320px;
-      max-width: 85vw;
-      background: rgba(28,25,23,0.98);
-      backdrop-filter: blur(20px);
-      z-index: 600;
-      transform: translateX(-100%);
-      transition: transform 0.4s var(--ease);
-      display: flex;
-      flex-direction: column;
-      padding: 2rem 1.5rem;
-      border-right: 1px solid rgba(202,138,4,0.15);
-    }
-
-    #mobile-nav.open {
-      transform: translateX(0);
-    }
-
-    #mobile-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(28,25,23,0.6);
-      z-index: 599;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s var(--ease);
-      backdrop-filter: blur(4px);
-    }
-
-    #mobile-overlay.visible {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .mobile-nav-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 2.5rem;
-    }
-
-    .mobile-nav-logo {
-      font-family: 'Cormorant', serif;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--gold-light);
-      text-decoration: none;
-    }
-
-    .mobile-nav-logo span { color: #fff; }
-
-    .mobile-nav-close {
-      background: none;
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 50%;
-      width: 36px; height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: rgba(255,255,255,0.7);
-      transition: all 0.2s;
-    }
-
-    .mobile-nav-close:hover { border-color: var(--gold-light); color: var(--gold-light); }
-
-    .mobile-nav-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      flex: 1;
-    }
-
-    .mobile-nav-link {
-      display: flex;
-      align-items: center;
-      padding: 0.9rem 1rem;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      border-radius: 12px;
-      transition: all 0.2s;
-    }
-
-    .mobile-nav-link:hover {
-      background: rgba(202,138,4,0.12);
-      color: var(--gold-light);
-      padding-left: 1.4rem;
-    }
-
-    .mobile-nav-cta {
-      margin-top: 1.5rem;
-      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
-      color: var(--dark);
-      padding: 1rem 1.5rem;
-      border-radius: 50px;
-      font-weight: 700;
-      text-decoration: none;
-      text-align: center;
-      font-size: 0.95rem;
-      letter-spacing: 0.04em;
-      display: block;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .mobile-nav-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-gold);
-    }
-
-    /* ─── CARD SHOWCASE ACTIONS ─────────────────────────────── */
-    .material-card {
-      position: relative;
-    }
-
-    .showcase-actions {
-      position: absolute;
-      bottom: 0;
-      left: 0; right: 0;
-      background: linear-gradient(0deg, rgba(28,25,23,0.9) 0%, transparent 100%);
-      padding: 1rem 1rem 1.2rem;
-      display: flex;
-      gap: 0.6rem;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
-    }
-
-    .material-card:hover .showcase-actions {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .action-btn-wish {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: #fff;
-      border-radius: 50px;
-      padding: 0.5rem 1rem;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: all 0.25s;
-      white-space: nowrap;
-    }
-
-    .action-btn-wish:hover, .action-btn-wish.wished {
-      background: rgba(220,38,38,0.25);
-      border-color: #f87171;
-      color: #fca5a5;
-    }
-
-    .action-btn-order {
-      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
-      border: none;
-      color: var(--dark);
-      border-radius: 50px;
-      padding: 0.5rem 1.2rem;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: all 0.25s;
-      white-space: nowrap;
-      letter-spacing: 0.03em;
-    }
-
-    .action-btn-order:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(202,138,4,0.5);
-    }
-
-    /* ─── PROMO BADGE ON CARDS ──────────────────────────────── */
-    .promo-badge {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: linear-gradient(135deg, var(--gold), var(--gold-shine));
-      color: var(--dark);
-      padding: 0.25rem 0.7rem;
-      border-radius: 50px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      z-index: 3;
-      box-shadow: 0 2px 10px rgba(202,138,4,0.4);
-    }
-
-    .promo-badge.new {
-      background: linear-gradient(135deg, #7c3aed, #a78bfa);
-      color: #fff;
-      box-shadow: 0 2px 10px rgba(124,58,237,0.4);
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>NappeLux — Nappes PVC Sur Mesure | Transparent &amp; Doré</title>
+<meta name="description" content="Nappes PVC transparent et doré sur mesure. Toutes formes. Livraison 48h."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --gold:#CA8A04;--gl:#F59E0B;--gx:#FBBF24;--gp:#FEF9EE;
+  --dk:#1C1917;--dk2:#292524;--dk3:#44403C;
+  --cr:#FAFAF9;--tx:#0C0A09;
+  --red:#ef4444;--green:#16a34a;
+  --glass:rgba(255,255,255,.1);--glb:rgba(255,255,255,.2);
+  --blur:18px;--r:16px;--r2:28px;
+  --sh:0 4px 24px rgba(28,25,23,.1);
+  --sg:0 8px 40px rgba(202,138,4,.35);
+  --ease:cubic-bezier(.4,0,.2,1);--t:.3s;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;background:var(--cr);color:var(--tx);overflow-x:hidden;line-height:1.65}
+h1,h2,h3,h4{font-family:'Cormorant',serif;line-height:1.15}
+a{text-decoration:none}
+button{cursor:pointer;font-family:'Montserrat',sans-serif}
+
+/* ANN BAR */
+#ann{background:linear-gradient(90deg,#0f0e0c,#3b2f00,#0f0e0c);color:var(--gx);
+  font-size:.74rem;font-weight:600;letter-spacing:.1em;text-align:center;
+  padding:.6rem 3rem;position:relative;z-index:200;
+  border-bottom:1px solid rgba(202,138,4,.2);overflow:hidden}
+#ann span{display:inline-block;animation:annIn .5s var(--ease)}
+@keyframes annIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#ann-x{position:absolute;right:1rem;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:var(--gx);font-size:1.1rem;opacity:.6;transition:opacity .2s}
+#ann-x:hover{opacity:1}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:150;display:flex;align-items:center;
+  justify-content:space-between;padding:.9rem 2rem;
+  background:rgba(28,25,23,.88);backdrop-filter:blur(var(--blur));
+  -webkit-backdrop-filter:blur(var(--blur));
+  border-bottom:1px solid rgba(202,138,4,.15);transition:padding var(--t),background var(--t)}
+nav.cmp{padding:.5rem 2rem;background:rgba(28,25,23,.97)}
+.logo{font-family:'Cormorant',serif;font-size:1.65rem;font-weight:600;color:var(--gl);letter-spacing:.05em}
+.logo b{color:#fff;font-weight:600}
+.nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center}
+.nav-links a{color:rgba(255,255,255,.72);font-size:.77rem;font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;position:relative;transition:color var(--t)}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;
+  background:var(--gl);transition:width var(--t) var(--ease)}
+.nav-links a:hover{color:var(--gl)}
+.nav-links a:hover::after{width:100%}
+.nav-r{display:flex;align-items:center;gap:.7rem}
+.icon-btn{position:relative;background:none;border:none;color:rgba(255,255,255,.7);
+  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  transition:color var(--t),background var(--t)}
+.icon-btn:hover{color:var(--gl);background:rgba(202,138,4,.12)}
+.icon-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2}
+.badge{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;
+  font-size:.55rem;font-weight:700;width:16px;height:16px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:scale(0);transition:all .2s var(--ease)}
+.badge.on{opacity:1;transform:scale(1)}
+.btn-cta{background:linear-gradient(135deg,var(--gold),var(--gx));color:var(--dk)!important;
+  padding:.5rem 1.3rem;border-radius:50px;font-weight:700!important;font-size:.77rem!important;
+  transition:transform .2s,box-shadow .2s!important;box-shadow:0 3px 14px rgba(202,138,4,.35)}
+.btn-cta::after{display:none!important}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:var(--sg)!important}
+.hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px}
+.hbg span{display:block;width:24px;height:2px;background:var(--gl);border-radius:2px;transition:all .3s}
+
+/* OVERLAY */
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:250;
+  opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(3px)}
+#ov.on{opacity:1;pointer-events:all}
+
+/* MOB NAV */
+#mnav{position:fixed;top:0;left:-100%;width:min(320px,85vw);height:100%;
+  background:var(--dk2);z-index:300;padding:2rem 1.5rem;overflow-y:auto;
+  transition:left .35s var(--ease);border-right:1px solid rgba(202,138,4,.18)}
+#mnav.on{left:0}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}
+#mx{background:none;border:none;color:rgba(255,255,255,.55);font-size:1.4rem;line-height:1}
+.mlinks{list-style:none;display:flex;flex-direction:column}
+.mlinks a{display:block;padding:.85rem 0;color:rgba(255,255,255,.7);font-size:.88rem;font-weight:500;
+  border-bottom:1px solid rgba(255,255,255,.05);letter-spacing:.06em;text-transform:uppercase;
+  transition:color .2s,padding-left .2s}
+.mlinks a:hover{color:var(--gl);padding-left:.5rem}
+.mcta{margin-top:2rem;display:block;text-align:center;
+  background:linear-gradient(135deg,var(--gold),var(--gx));
+  color:var(--dk);padding:.9rem;border-radius:50px;font-weight:700;font-size:.88rem}
+
+/* CART DRAWER */
+#cart{position:fixed;top:0;right:-430px;width:min(420px,100vw);height:100%;
+  background:var(--dk2);z-index:300;display:flex;flex-direction:column;
+  transition:right .35s var(--ease);border-left:1px solid rgba(202,138,4,.18)}
+#cart.on{right:0}
+.ch{display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.ch h3{font-size:1.25rem;color:#fff;font-family:'Cormorant',serif}
+#cx{background:none;border:none;color:rgba(255,255,255,.5);font-size:1.3rem}
+#cx:hover{color:#fff}
+#citems{flex:1;overflow-y:auto;padding:1rem 1.5rem;display:flex;flex-direction:column;gap:.7rem}
+.cempty{color:rgba(255,255,255,.3);font-size:.83rem;text-align:center;margin-top:3rem}
+.ci{display:flex;gap:.9rem;align-items:center;background:rgba(255,255,255,.05);border-radius:12px;padding:.75rem}
+.ci-th{width:52px;height:52px;border-radius:8px;flex-shrink:0}
+.ci-info{flex:1}
+.ci-name{color:#fff;font-size:.82rem;font-weight:600;margin-bottom:.15rem}
+.ci-dim{color:rgba(255,255,255,.38);font-size:.7rem}
+.ci-price{color:var(--gl);font-weight:700;font-size:.88rem}
+.ci-del{background:none;border:none;color:rgba(255,255,255,.3);font-size:.95rem;margin-left:.4rem}
+.ci-del:hover{color:var(--red)}
+.cf{padding:1.4rem 1.5rem;border-top:1px solid rgba(255,255,255,.07)}
+.ctot{display:flex;justify-content:space-between;margin-bottom:.9rem;font-weight:600}
+.ctot span:first-child{color:rgba(255,255,255,.55);font-size:.86rem}
+.ctot span:last-child{color:var(--gl);font-family:'Cormorant',serif;font-size:1.45rem}
+.btn-co{width:100%;padding:1rem;background:linear-gradient(135deg,var(--gold),var(--gx));
+  color:var(--dk);font-weight:700;font-size:.93rem;border:none;border-radius:50px;
+  transition:transform .2s,box-shadow .2s}
+.btn-co:hover{transform:translateY(-2px);box-shadow:var(--sg)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0f0e0c 0%,#1c1917 50%,#0f0e0c 100%)}
+#hcv{position:absolute;inset:0;pointer-events:none}
+.hgrid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(202,138,4,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(202,138,4,.055) 1px,transparent 1px);
+  background-size:64px 64px;animation:gm 22s linear infinite}
+@keyframes gm{to{background-position:64px 64px}}
+.hglow{position:absolute;top:-25%;left:50%;transform:translateX(-50%);
+  width:900px;height:620px;
+  background:radial-gradient(ellipse,rgba(202,138,4,.13) 0%,transparent 68%);
+  animation:gp 5s ease-in-out infinite}
+@keyframes gp{0%,100%{opacity:.7;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.12)}}
+.hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:4rem;max-width:1200px;margin:0 auto;padding:8rem 2rem 4rem;width:100%}
+.htag{display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(202,138,4,.11);border:1px solid rgba(202,138,4,.33);
+  color:var(--gl);padding:.3rem .95rem;border-radius:50px;
+  font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:1.5rem;animation:fu .7s var(--ease) both}
+.htag svg{width:11px;height:11px;fill:currentColor}
+.hero h1{font-size:clamp(2.6rem,5.5vw,5rem);font-weight:600;color:#fff;margin-bottom:1.1rem;
+  animation:fu .8s .1s var(--ease) both}
+.hero h1 em{font-style:italic;
+  background:linear-gradient(135deg,var(--gl),var(--gx));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hsub{font-size:1rem;color:rgba(255,255,255,.58);max-width:480px;font-weight:300;
+  line-height:1.8;margin-bottom:2rem;animation:fu .8s .18s var(--ease) both}
+.hbtns{display:flex;gap:.9rem;flex-wrap:wrap;animation:fu .8s .26s var(--ease) both}
+.btn-p{display:inline-flex;align-items:center;gap:.45rem;
+  background:linear-gradient(135deg,var(--gold),var(--gx));color:var(--dk);
+  padding:.82rem 1.9rem;border-radius:50px;font-weight:700;font-size:.86rem;
+  border:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 18px rgba(202,138,4,.38)}
+.btn-p:hover{transform:translateY(-3px);box-shadow:var(--sg)}
+.btn-p svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5}
+.btn-g{display:inline-flex;align-items:center;gap:.45rem;
+  background:var(--glass);border:1px solid var(--glb);backdrop-filter:blur(var(--blur));
+  color:#fff;padding:.82rem 1.9rem;border-radius:50px;font-weight:500;font-size:.86rem;
+  transition:background .25s,transform .2s}
+.btn-g:hover{background:rgba(255,255,255,.17);transform:translateY(-2px)}
+.htrust{display:flex;gap:1.4rem;margin-top:1.8rem;flex-wrap:wrap;animation:fu .8s .34s var(--ease) both}
+.tri{display:flex;align-items:center;gap:.35rem;color:rgba(255,255,255,.4);font-size:.7rem;font-weight:500}
+.tri svg{width:13px;height:13px;stroke:var(--gl);fill:none;stroke-width:2}
+
+/* Hero visual */
+.hvis{position:relative;display:flex;align-items:center;justify-content:center;
+  animation:fu .9s .2s var(--ease) both}
+.hcw{position:relative;width:360px;height:360px;animation:fl 6s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.hcbg{position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(202,138,4,.18) 0%,transparent 70%);filter:blur(30px)}
+.hcsvg{width:100%;height:100%;filter:drop-shadow(0 18px 55px rgba(202,138,4,.42))}
+.hscroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.3rem;z-index:2;
+  color:rgba(255,255,255,.28);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+  animation:fi 1s .8s both}
+.sm{width:19px;height:30px;border:1.5px solid rgba(255,255,255,.22);border-radius:10px;position:relative}
+.sm::after{content:'';position:absolute;top:4px;left:50%;transform:translateX(-50%);
+  width:2.5px;height:6px;background:var(--gl);border-radius:2px;
+  animation:sd 2s ease-in-out infinite}
+@keyframes sd{0%,100%{opacity:1;top:4px}50%{opacity:0;top:13px}}
+
+/* STATS */
+.stats{background:var(--dk);border-top:1px solid rgba(202,138,4,.18);border-bottom:1px solid rgba(202,138,4,.18);padding:1.7rem 0}
+.si{max-width:1200px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap}
+.stt{flex:1;min-width:130px;text-align:center;padding:.9rem 1.3rem;position:relative}
+.stt+.stt::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:rgba(202,138,4,.18)}
+.sn{font-family:'Cormorant',serif;font-size:2.1rem;font-weight:700;color:var(--gl);display:block;line-height:1}
+.sl{font-size:.66rem;color:rgba(255,255,255,.42);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem}
+
+/* SERVICES */
+.srvs{background:#fff;padding:2.2rem 0;border-bottom:1px solid rgba(28,25,23,.06)}
+.srvs-in{max-width:1200px;margin:0 auto;padding:0 1.5rem;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.srv{display:flex;align-items:center;gap:.9rem;padding:1.1rem;border-radius:var(--r);
+  border:1px solid rgba(28,25,23,.06);transition:border-color var(--t),box-shadow var(--t)}
+.srv:hover{border-color:rgba(202,138,4,.3);box-shadow:0 4px 14px rgba(202,138,4,.09)}
+.srv-ico{width:42px;height:42px;border-radius:10px;flex-shrink:0;
+  background:var(--gp);display:flex;align-items:center;justify-content:center}
+.srv-ico svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.8}
+.srv-t h4{font-family:'Montserrat',sans-serif;font-size:.77rem;font-weight:700;color:var(--tx);margin-bottom:.12rem}
+.srv-t p{font-size:.7rem;color:var(--dk3);line-height:1.38}
+
+/* GENERIC SECTION */
+section{position:relative;z-index:2}
+.con{max-width:1200px;margin:0 auto;padding:0 1.5rem}
+.tag{display:inline-block;font-size:.67rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.65rem}
+.stitle{font-size:clamp(1.85rem,3.5vw,2.75rem);font-weight:600;margin-bottom:.85rem}
+.sdesc{font-size:.93rem;color:var(--dk3);max-width:530px;line-height:1.78}
+.sh{margin-bottom:2.8rem}
+.sh.ctr{text-align:center}
+.sh.ctr .sdesc{margin:0 auto}
+
+/* MATERIALS */
+.mats{padding:5rem 0;background:var(--cr)}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.mc{background:#fff;border-radius:var(--r2);overflow:hidden;box-shadow:var(--sh);
+  border:1px solid rgba(28,25,23,.05);transition:transform var(--t) var(--ease),box-shadow var(--t);position:relative}
+.mc:hover{transform:translateY(-7px);box-shadow:0 18px 48px rgba(28,25,23,.13)}
+.mth{height:240px;position:relative;overflow:hidden}
+.tt{background:repeating-linear-gradient(45deg,rgba(255,255,255,.5) 0,rgba(255,255,255,.5) 2px,transparent 2px,transparent 14px),
+  linear-gradient(135deg,#dbeafe,#e0f2fe,#f0fdf4)}
+.tt::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 35% 30%,rgba(255,255,255,.75) 0%,transparent 55%),
+    radial-gradient(ellipse at 70% 75%,rgba(186,230,253,.45) 0%,transparent 50%);
+  animation:ts 4s ease-in-out infinite}
+@keyframes ts{0%,100%{opacity:.7}50%{opacity:1}}
+.tg{background:linear-gradient(135deg,#78350f 0%,#92400e 25%,#b45309 45%,#ca8a04 65%,#fbbf24 82%,#d97706 100%)}
+.tg::after{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(-55deg,transparent 0,transparent 8px,rgba(255,255,255,.16) 8px,rgba(255,255,255,.16) 10px);
+  animation:gs 2.5s linear infinite}
+@keyframes gs{0%{transform:translateX(-200%)}100%{transform:translateX(200%)}}
+.tc{background:linear-gradient(135deg,#e0e7ff,#ddd6fe 45%,#fce7f3)}
+.tc::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 22% 22%,rgba(255,255,255,.9) 0%,transparent 38%),
+    radial-gradient(circle at 78% 65%,rgba(196,181,253,.6) 0%,transparent 42%);
+  animation:cg 5s ease-in-out infinite}
+@keyframes cg{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.mbadge{position:absolute;top:.85rem;left:.85rem;z-index:2;padding:.22rem .65rem;
+  border-radius:50px;font-size:.65rem;font-weight:700;letter-spacing:.07em}
+.b1{background:var(--dk);color:var(--gl)}
+.b2{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff}
+.b3{background:linear-gradient(135deg,var(--gold),var(--gx));color:var(--dk)}
+.mdis{position:absolute;top:.85rem;right:.85rem;z-index:2;
+  background:var(--red);color:#fff;padding:.22rem .55rem;border-radius:50px;font-size:.65rem;font-weight:700}
+.macts{position:absolute;bottom:0;left:0;right:0;display:flex;gap:.45rem;padding:.7rem;
+  background:linear-gradient(to top,rgba(28,25,23,.85),transparent);
+  transform:translateY(100%);transition:transform .3s var(--ease)}
+.mc:hover .macts{transform:translateY(0)}
+.ab{flex:1;padding:.55rem;border-radius:9px;font-size:.7rem;font-weight:600;border:none;transition:all .2s}
+.aw{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2)}
+.aw:hover,.aw.on{background:rgba(239,68,68,.2);color:#fca5a5;border-color:#f87171}
+.ao{background:linear-gradient(135deg,var(--gold),var(--gx));color:var(--dk)}
+.ao:hover{filter:brightness(1.08)}
+.mb{padding:1.3rem}
+.mb h3{font-size:1.3rem;font-weight:600;margin-bottom:.3rem}
+.mb p{font-size:.81rem;color:var(--dk3);line-height:1.62;margin-bottom:.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.3rem}
+.chip{background:var(--gp);color:var(--gold);padding:.16rem .55rem;border-radius:50px;font-size:.66rem;font-weight:600}
+.mp{margin-top:.7rem;font-family:'Cormorant',serif;font-size:1.15rem;font-weight:600;color:var(--dk)}
+.mp span{font-size:.73rem;color:var(--dk3);font-family:'Montserrat',sans-serif;font-weight:400}
+
+/* PROMO BANNER */
+.promo{padding:3.5rem 0;background:var(--dk);position:relative;overflow:hidden}
+.promo::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 55% 80% at 25% 50%,rgba(202,138,4,.11) 0%,transparent 60%)}
+.promo-in{max-width:1200px;margin:0 auto;padding:0 1.5rem;
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:2.5rem;position:relative;z-index:1}
+.promo-t .tag{color:var(--gx)}
+.promo-t h2{color:#fff;font-size:clamp(1.5rem,3vw,2.3rem);margin-bottom:.45rem}
+.promo-t p{color:rgba(255,255,255,.5);font-size:.88rem}
+.cd{display:flex;gap:.6rem;align-items:center}
+.cdu{text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(202,138,4,.18);
+  border-radius:var(--r);padding:.9rem 1.1rem;min-width:68px}
+.cdn{font-family:'Cormorant',serif;font-size:2.3rem;font-weight:700;color:var(--gl);display:block;line-height:1}
+.cdl{font-size:.6rem;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.1em}
+.cds{font-family:'Cormorant',serif;font-size:2rem;color:rgba(202,138,4,.45)}
+
+/* CONFIGURATOR */
+.cfg{padding:5rem 0;background:var(--dk);overflow:hidden}
+.cfg-in{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.cfg-l .tag{color:var(--gx)}
+.cfg-l .stitle{color:#fff}
+.cfg-l .sdesc{color:rgba(255,255,255,.52)}
+.fl{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.42);
+  text-transform:uppercase;margin-bottom:.55rem;display:block}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-bottom:1.6rem}
+.sb{display:flex;flex-direction:column;align-items:center;gap:.38rem;padding:.85rem .4rem;
+  background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.08);border-radius:var(--r);
+  color:rgba(255,255,255,.48);font-size:.68rem;font-weight:500;transition:all .22s}
+.sb svg{width:30px;height:30px;fill:currentColor}
+.sb:hover{background:rgba(202,138,4,.1);border-color:rgba(202,138,4,.38);color:var(--gl)}
+.sb.on{background:rgba(202,138,4,.16);border-color:var(--gl);color:var(--gl);
+  box-shadow:0 0 16px rgba(202,138,4,.2)}
+.df{display:flex;flex-direction:column;gap:.85rem;margin-bottom:1.4rem}
+.fg{display:flex;flex-direction:column;gap:.3rem}
+.fw{display:flex;align-items:center;background:rgba(255,255,255,.06);
+  border:1.5px solid rgba(255,255,255,.11);border-radius:11px;overflow:hidden;transition:border-color .2s}
+.fw:focus-within{border-color:var(--gl);box-shadow:0 0 0 3px rgba(202,138,4,.1)}
+.fw input{flex:1;background:none;border:none;outline:none;padding:.75rem .9rem;
+  color:#fff;font-family:'Montserrat',sans-serif;font-size:.93rem;font-weight:500}
+.fu{padding:0 .85rem;color:var(--gl);font-size:.73rem;font-weight:700;
+  border-left:1px solid rgba(255,255,255,.07)}
+.rr{display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem}
+.rv{color:var(--gl);font-weight:700;font-size:.78rem}
+input[type=range]{-webkit-appearance:none;width:100%;height:3px;
+  background:rgba(255,255,255,.11);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;
+  background:linear-gradient(135deg,var(--gold),var(--gx));border-radius:50%;cursor:pointer;
+  box-shadow:0 2px 7px rgba(202,138,4,.5)}
+.mr{display:flex;gap:.55rem;margin-bottom:1.6rem;flex-wrap:wrap}
+.mb2{flex:1;min-width:88px;padding:.6rem;border-radius:9px;font-size:.7rem;font-weight:600;
+  background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.5);text-align:center;transition:all .22s}
+.mb2 .md{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.28rem;vertical-align:middle}
+.mb2.on{border-color:var(--gl);color:var(--gl);background:rgba(202,138,4,.09)}
+.pp{background:rgba(202,138,4,.07);border:1px solid rgba(202,138,4,.22);
+  border-radius:var(--r);padding:1.2rem;margin-bottom:1.2rem}
+.pi{font-size:.73rem;color:rgba(255,255,255,.38);margin-bottom:.35rem}
+.pv{font-family:'Cormorant',serif;font-size:2.5rem;font-weight:700;color:var(--gl);line-height:1}
+.pv small{font-size:.95rem;font-weight:400}
+.pn{font-size:.66rem;color:rgba(255,255,255,.3);margin-top:.3rem}
+.btn-add{width:100%;padding:.95rem;border:none;border-radius:50px;
+  background:linear-gradient(135deg,var(--gold),var(--gx));color:var(--dk);
+  font-weight:700;font-size:.92rem;display:flex;align-items:center;justify-content:center;gap:.55rem;
+  transition:transform .2s,box-shadow .2s;box-shadow:0 4px 16px rgba(202,138,4,.32)}
+.btn-add svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.5}
+.btn-add:hover{transform:translateY(-2px);box-shadow:var(--sg)}
+.cfg-r{position:sticky;top:90px}
+.pvbox{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--r2);padding:1.8rem;display:flex;flex-direction:column;align-items:center;gap:1.4rem;min-height:450px}
+#sc{max-width:100%;max-height:270px;filter:drop-shadow(0 8px 28px rgba(202,138,4,.3));transition:all .4s}
+.pci{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.pch{background:rgba(255,255,255,.05);border-radius:9px;padding:.55rem;text-align:center}
+.pch .v{font-family:'Cormorant',serif;font-size:1.2rem;font-weight:600;color:var(--gl)}
+.pch .l{font-size:.62rem;color:rgba(255,255,255,.32);text-transform:uppercase;letter-spacing:.07em}
+
+/* PROCESS */
+.proc{padding:5rem 0;background:var(--cr)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;margin-top:2.8rem;position:relative}
+.steps::after{content:'';position:absolute;top:2.3rem;left:12%;right:12%;
+  height:1px;background:linear-gradient(90deg,transparent,var(--gx),transparent);opacity:.22}
+.stp{background:#fff;border-radius:var(--r);padding:1.7rem 1.2rem;text-align:center;
+  box-shadow:var(--sh);transition:transform var(--t)}
+.stp:hover{transform:translateY(-5px)}
+.sn2{width:46px;height:46px;background:linear-gradient(135deg,var(--gold),var(--gx));
+  border-radius:50%;margin:0 auto .95rem;font-family:'Cormorant',serif;font-size:1.25rem;font-weight:700;color:var(--dk);
+  display:flex;align-items:center;justify-content:center}
+.stp h3{font-size:1rem;margin-bottom:.35rem}
+.stp p{font-size:.78rem;color:var(--dk3);line-height:1.65}
+
+/* TESTIMONIALS */
+.testi{padding:5rem 0;background:#fff;overflow:hidden}
+.tt2{display:flex;gap:1.1rem;margin-top:2.4rem;width:max-content;animation:ts2 30s linear infinite}
+.tt2:hover{animation-play-state:paused}
+@keyframes ts2{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tc2{min-width:295px;background:var(--cr);border-radius:var(--r);padding:1.5rem;flex-shrink:0;
+  border:1px solid rgba(28,25,23,.055)}
+.ts{color:var(--gx);font-size:.82rem;letter-spacing:2px;margin-bottom:.7rem}
+.tt3{font-size:.8rem;color:var(--dk3);line-height:1.7;font-style:italic;margin-bottom:.95rem}
+.ta{display:flex;align-items:center;gap:.55rem}
+.tav{width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold),var(--gx));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant',serif;font-weight:700;color:var(--dk);font-size:.95rem}
+.tn{font-weight:600;font-size:.77rem}
+.tl{font-size:.68rem;color:var(--dk3)}
+
+/* GALLERY */
+.gal{padding:5rem 0;background:var(--cr)}
+.gg{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:195px 195px;gap:.85rem;margin-top:2.4rem}
+.gi{border-radius:var(--r);overflow:hidden;position:relative;cursor:pointer}
+.gi:nth-child(1){grid-column:span 2;grid-row:span 2}
+.gi:nth-child(4){grid-column:span 2}
+.gb{width:100%;height:100%;transition:transform .5s var(--ease)}
+.gi:hover .gb{transform:scale(1.06)}
+.go{position:absolute;inset:0;background:rgba(28,25,23,0);display:flex;align-items:flex-end;padding:.85rem;transition:background .3s}
+.gi:hover .go{background:rgba(28,25,23,.5)}
+.gl2{color:#fff;font-size:.73rem;font-weight:600;opacity:0;transform:translateY(5px);transition:all .3s}
+.gi:hover .gl2{opacity:1;transform:translateY(0)}
+.g1{background:linear-gradient(135deg,#dbeafe,#e0f2fe,#f0fdf4)}
+.g2{background:linear-gradient(135deg,#92400e,#ca8a04,#fbbf24)}
+.g3{background:linear-gradient(135deg,#e0e7ff,#ddd6fe,#fce7f3)}
+.g4{background:linear-gradient(135deg,#f0fdf4,#dcfce7,#d1fae5)}
+.g5{background:linear-gradient(135deg,#fff7ed,#fed7aa,#fde68a)}
+
+/* NEWSLETTER */
+.nl{padding:4.5rem 0;background:var(--dk);position:relative;overflow:hidden}
+.nl::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 45% 75% at 50% 50%,rgba(202,138,4,.1) 0%,transparent 65%)}
+.nl-in{max-width:580px;margin:0 auto;text-align:center;position:relative;z-index:1;padding:0 1.5rem}
+.nl-in .stitle{color:#fff}
+.nl-in p{color:rgba(255,255,255,.48);font-size:.88rem;margin-bottom:1.8rem}
+.nf{display:flex;gap:.55rem;max-width:440px;margin:0 auto}
+.ni{flex:1;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);
+  border-radius:50px;padding:.75rem 1.2rem;color:#fff;
+  font-family:'Montserrat',sans-serif;font-size:.83rem;outline:none;transition:border-color .2s}
+.ni:focus{border-color:var(--gl)}
+.ni::placeholder{color:rgba(255,255,255,.28)}
+.ns{background:linear-gradient(135deg,var(--gold),var(--gx));color:var(--dk);border:none;
+  border-radius:50px;padding:.75rem 1.4rem;font-weight:700;font-size:.8rem;white-space:nowrap;
+  transition:transform .2s,box-shadow .2s}
+.ns:hover{transform:translateY(-2px);box-shadow:var(--sg)}
+#nlm{font-size:.75rem;margin-top:.7rem;min-height:1.1em}
+
+/* CTA */
+.cta{padding:5.5rem 0;background:var(--dk2);text-align:center;position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 55% 55% at 50% 50%,rgba(202,138,4,.09) 0%,transparent 65%)}
+.cta .stitle{color:#fff;font-size:clamp(1.75rem,4vw,2.9rem);margin-bottom:.8rem}
+.cta p{color:rgba(255,255,255,.5);font-size:.92rem;max-width:440px;margin:0 auto 2rem}
+.cta-btns{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:#0b0a09;color:rgba(255,255,255,.42);padding:3.2rem 0 1.4rem}
+.fg2{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.8rem;margin-bottom:2.3rem}
+.fb h3{font-family:'Cormorant',serif;font-size:1.45rem;color:var(--gl);margin-bottom:.65rem}
+.fb p{font-size:.78rem;line-height:1.68;max-width:235px}
+.fsoc{display:flex;gap:.5rem;margin-top:.9rem}
+.fs{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.05);
+  display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.42);transition:all .2s}
+.fs:hover{background:rgba(202,138,4,.2);color:var(--gl)}
+.fs svg{width:14px;height:14px;fill:currentColor}
+.fc h4{font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.8rem}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.fc a{color:rgba(255,255,255,.38);font-size:.78rem;transition:color .2s}
+.fc a:hover{color:var(--gl)}
+.fpay{display:flex;gap:.4rem;margin-top:.9rem;flex-wrap:wrap}
+.fp{background:rgba(255,255,255,.06);border-radius:5px;padding:.25rem .55rem;font-size:.62rem;color:rgba(255,255,255,.42);font-weight:600}
+.fbot{border-top:1px solid rgba(255,255,255,.05);padding-top:1.2rem;display:flex;
+  justify-content:space-between;font-size:.7rem;flex-wrap:wrap;gap:.4rem}
+
+/* MOBILE BOTTOM */
+.mbn{display:none;position:fixed;bottom:0;left:0;right:0;z-index:140;
+  background:rgba(28,25,23,.96);backdrop-filter:blur(var(--blur));
+  border-top:1px solid rgba(202,138,4,.12);
+  padding:.4rem 0 calc(.4rem + env(safe-area-inset-bottom))}
+.mbn-in{display:flex;justify-content:space-around}
+.mbb{display:flex;flex-direction:column;align-items:center;gap:.2rem;background:none;border:none;
+  color:rgba(255,255,255,.42);font-size:.55rem;font-weight:500;
+  letter-spacing:.03em;text-transform:uppercase;padding:.28rem .5rem;transition:color .2s}
+.mbb svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8}
+.mbb:hover,.mbb.act{color:var(--gl)}
+
+/* ANIMATIONS */
+@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+.rev{opacity:0;transform:translateY(26px);transition:opacity .68s var(--ease),transform .68s var(--ease)}
+.rev.vis{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero-in{grid-template-columns:1fr;text-align:center;padding-top:6rem}
+  .hl{order:2}.hvis{order:1}
+  .hsub,.htrust{max-width:100%}
+  .hbtns,.htrust{justify-content:center}
+  .hcw{width:240px;height:240px}
+  .srvs-in{grid-template-columns:repeat(2,1fr)}
+  .mg{grid-template-columns:repeat(2,1fr)}
+  .promo-in{grid-template-columns:1fr}
+  .cfg-in{grid-template-columns:1fr}
+  .cfg-r{position:static}
+  .steps{grid-template-columns:repeat(2,1fr)}.steps::after{display:none}
+}
+@media(max-width:768px){
+  .nav-links{display:none}.hbg{display:flex}
+  .mg{grid-template-columns:1fr}
+  .fg2{grid-template-columns:1fr 1fr}.fb{grid-column:span 2}
+  .gg{grid-template-columns:repeat(2,1fr);grid-template-rows:auto}
+  .gi:nth-child(1){grid-column:span 2;grid-row:auto}
+  .gi:nth-child(4){grid-column:span 1}
+  .mbn{display:block}
+  body{padding-bottom:62px}
+}
+@media(max-width:600px){
+  .srvs-in{grid-template-columns:1fr}
+  .cd{flex-wrap:wrap;justify-content:center}
+  .steps{grid-template-columns:1fr}
+  .si{gap:0}.stt+.stt::before{display:none}
+  .fg2{grid-template-columns:1fr}.fb{grid-column:auto}
+  .nf{flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
 
-<!-- PARTICLES -->
-<canvas id="particles-canvas" aria-hidden="true"></canvas>
-
-<!-- ANNOUNCEMENT BAR -->
-<div id="header-top" role="banner" aria-label="Offres promotionnelles">
-  <div class="ann-messages" aria-live="polite">
-    <div class="ann-msg active">Livraison offerte dès 49€ — commandez maintenant !</div>
-    <div class="ann-msg">-10% sur votre 1ère commande avec le code <strong>BIENVENUE10</strong></div>
-    <div class="ann-msg">Fabrication française &bull; Livraison express 48h</div>
-  </div>
-  <button class="ann-close" aria-label="Fermer la barre d'annonce" onclick="closeAnnBar()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-  </button>
-</div>
-
-<!-- MOBILE SIDEBAR NAV -->
-<div id="mobile-overlay" aria-hidden="true" onclick="closeMobileNav()"></div>
-<nav id="mobile-nav" aria-label="Menu mobile" aria-hidden="true">
-  <div class="mobile-nav-header">
-    <a href="#" class="mobile-nav-logo" onclick="closeMobileNav()">Nappe<span>Lux</span></a>
-    <button class="mobile-nav-close" aria-label="Fermer le menu" onclick="closeMobileNav()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <div class="mobile-nav-links">
-    <a href="#materiaux" class="mobile-nav-link" onclick="closeMobileNav()">Matériaux</a>
-    <a href="#configurateur" class="mobile-nav-link" onclick="closeMobileNav()">Configurateur</a>
-    <a href="#comment" class="mobile-nav-link" onclick="closeMobileNav()">Comment ça marche</a>
-    <a href="#galerie" class="mobile-nav-link" onclick="closeMobileNav()">Galerie</a>
-  </div>
-  <a href="#configurateur" class="mobile-nav-cta" onclick="closeMobileNav()">Commander ma nappe</a>
-</nav>
-
-<!-- CART OVERLAY & DRAWER -->
-<div id="cart-overlay" aria-hidden="true" onclick="closeCart()"></div>
-<aside id="cart-drawer" aria-label="Panier" aria-hidden="true">
-  <div class="cart-header">
-    <h3>Mon panier</h3>
-    <button class="cart-close-btn" aria-label="Fermer le panier" onclick="closeCart()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <div class="cart-items" id="cart-items-list">
-    <div class="cart-empty" id="cart-empty-state">
-      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      <p>Votre panier est vide</p>
-      <small>Configurez votre nappe sur mesure !</small>
-    </div>
-  </div>
-  <div class="cart-footer">
-    <div class="cart-total-row">
-      <span class="cart-total-label">Total</span>
-      <span class="cart-total-price" id="cart-total-price">0,00 €</span>
-    </div>
-    <button class="cart-checkout-btn" onclick="proceedCheckout()">Commander &rarr;</button>
-  </div>
-</aside>
+<!-- ANN BAR -->
+<div id="ann" role="banner"><span id="ann-t"></span><button id="ann-x" onclick="closeAnn()" aria-label="Fermer">✕</button></div>
 
 <!-- NAV -->
-<nav id="navbar" role="navigation" aria-label="Navigation principale">
-  <a href="#" class="nav-logo" aria-label="NappeLux - Accueil">Nappe<span>Lux</span></a>
+<nav id="nav" role="navigation" aria-label="Navigation principale">
+  <a href="#" class="logo">Nappe<b>Lux</b></a>
   <ul class="nav-links" role="list">
-    <li><a href="#materiaux">Matériaux</a></li>
-    <li><a href="#configurateur">Configurateur</a></li>
-    <li><a href="#comment">Comment ça marche</a></li>
-    <li><a href="#galerie">Galerie</a></li>
-    <li><a href="#configurateur" class="nav-cta">Commander</a></li>
+    <li><a href="#mats">Matériaux</a></li>
+    <li><a href="#cfg">Configurateur</a></li>
+    <li><a href="#proc">Comment ça marche</a></li>
+    <li><a href="#gal">Galerie</a></li>
+    <li><a href="#cfg" class="btn-cta">Commander</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:0.75rem">
-    <button class="nav-cart-btn" aria-label="Ouvrir le panier" onclick="openCart()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      <span class="cart-badge" id="cart-badge" aria-label="articles dans le panier">0</span>
+  <div class="nav-r">
+    <button class="icon-btn" onclick="openCart()" aria-label="Panier">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="badge" id="cbadge">0</span>
     </button>
-    <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="openMobileNav(this)">
+    <button class="hbg" aria-label="Menu" aria-expanded="false" onclick="openMob(this)">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
+<!-- OVERLAY -->
+<div id="ov" onclick="closeAll()"></div>
+
+<!-- MOB DRAWER -->
+<div id="mnav" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mh">
+    <a href="#" class="logo">Nappe<b>Lux</b></a>
+    <button id="mx" onclick="closeMob()" aria-label="Fermer">✕</button>
+  </div>
+  <ul class="mlinks">
+    <li><a href="#mats" onclick="closeMob()">Matériaux</a></li>
+    <li><a href="#cfg" onclick="closeMob()">Configurateur</a></li>
+    <li><a href="#proc" onclick="closeMob()">Comment ça marche</a></li>
+    <li><a href="#gal" onclick="closeMob()">Galerie</a></li>
+    <li><a href="#nl" onclick="closeMob()">Newsletter</a></li>
+  </ul>
+  <a href="#cfg" class="mcta" onclick="closeMob()">Commander ma nappe</a>
+</div>
+
+<!-- CART -->
+<div id="cart" role="dialog" aria-modal="true" aria-label="Panier">
+  <div class="ch"><h3>Mon panier</h3><button id="cx" onclick="closeCart()" aria-label="Fermer">✕</button></div>
+  <div id="citems"><p class="cempty">Votre panier est vide.</p></div>
+  <div class="cf">
+    <div class="ctot"><span>Total TTC</span><span id="ctot">0,00 €</span></div>
+    <button class="btn-co" onclick="alert('Paiement à intégrer')">Commander →</button>
+  </div>
+</div>
+
 <!-- HERO -->
-<section class="hero" aria-labelledby="hero-title">
-
-  <div class="hero-bg-pattern" aria-hidden="true"></div>
-  <div class="hero-grid" aria-hidden="true"></div>
-
-  <!-- Floating SVG tablecloth visual -->
-  <svg class="hero-visual" viewBox="0 0 400 400" aria-hidden="true">
-    <defs>
-      <linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.6"/>
-        <stop offset="50%" stop-color="#ffffff" stop-opacity="0.25"/>
-        <stop offset="100%" stop-color="#ca8a04" stop-opacity="0.5"/>
-      </linearGradient>
-      <filter id="blur1"><feGaussianBlur stdDeviation="2"/></filter>
-    </defs>
-    <rect x="40" y="40" width="320" height="320" rx="24" fill="url(#hg1)" filter="url(#blur1)"/>
-    <rect x="40" y="40" width="320" height="320" rx="24" fill="none" stroke="rgba(251,191,36,0.6)" stroke-width="1.5"/>
-    <!-- grid lines -->
-    <line x1="40" y1="147" x2="360" y2="147" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
-    <line x1="40" y1="253" x2="360" y2="253" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
-    <line x1="147" y1="40" x2="147" y2="360" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
-    <line x1="253" y1="40" x2="253" y2="360" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
-    <!-- shine -->
-    <ellipse cx="150" cy="130" rx="60" ry="30" fill="rgba(255,255,255,0.15)" filter="url(#blur1)"/>
-  </svg>
-
-  <div class="hero-content">
-    <div class="hero-badge" role="note">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      Fabrication Française • Sur Mesure
+<section class="hero" aria-labelledby="h1">
+  <canvas id="hcv" aria-hidden="true"></canvas>
+  <div class="hgrid" aria-hidden="true"></div>
+  <div class="hglow" aria-hidden="true"></div>
+  <div class="hero-in">
+    <div class="hl">
+      <div class="htag">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Fabrication Française · Sur Mesure
+      </div>
+      <h1 id="h1">Nappes PVC<br/><em>Sur Mesure</em></h1>
+      <p class="hsub">Transparent, doré ou cristal — choisissez votre forme, entrez vos dimensions et recevez votre nappe parfaite sous 48h.</p>
+      <div class="hbtns">
+        <a href="#cfg" class="btn-p">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Configurer ma nappe
+        </a>
+        <a href="#gal" class="btn-g">Voir les réalisations</a>
+      </div>
+      <div class="htrust">
+        <div class="tri"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Livraison offerte dès 49€</div>
+        <div class="tri"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Paiement sécurisé</div>
+        <div class="tri"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Retours 30 jours</div>
+      </div>
     </div>
-
-    <h1 id="hero-title">
-      Nappes PVC<br /><em>Sur Mesure</em>
-    </h1>
-
-    <p class="hero-subtitle">
-      Transparent, doré ou cristal — choisissez votre forme, entrez vos dimensions exactes, et recevez votre nappe parfaite en 48h.
-    </p>
-
-    <div class="hero-actions">
-      <a href="#configurateur" class="btn-primary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        Configurer ma nappe
-      </a>
-      <a href="#galerie" class="btn-secondary">
-        Voir la galerie
-      </a>
+    <div class="hvis" aria-hidden="true">
+      <div class="hcw">
+        <div class="hcbg"></div>
+        <svg class="hcsvg" viewBox="0 0 360 360">
+          <defs>
+            <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fbbf24" stop-opacity=".72"/>
+              <stop offset="45%" stop-color="#ffffff" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#ca8a04" stop-opacity=".62"/>
+            </linearGradient>
+            <filter id="hf"><feGaussianBlur stdDeviation="2.5"/></filter>
+          </defs>
+          <rect x="28" y="28" width="304" height="304" rx="20" fill="url(#hg)" filter="url(#hf)"/>
+          <rect x="28" y="28" width="304" height="304" rx="20" fill="none" stroke="rgba(251,191,36,.62)" stroke-width="1.5"/>
+          <g stroke="rgba(251,191,36,.16)" stroke-width=".8">
+            <line x1="28" y1="129" x2="332" y2="129"/><line x1="28" y1="180" x2="332" y2="180"/>
+            <line x1="28" y1="231" x2="332" y2="231"/><line x1="129" y1="28" x2="129" y2="332"/>
+            <line x1="180" y1="28" x2="180" y2="332"/><line x1="231" y1="28" x2="231" y2="332"/>
+          </g>
+          <rect x="28" y="28" width="18" height="18" rx="4" fill="rgba(251,191,36,.42)"/>
+          <rect x="314" y="28" width="18" height="18" rx="4" fill="rgba(251,191,36,.42)"/>
+          <rect x="28" y="314" width="18" height="18" rx="4" fill="rgba(251,191,36,.42)"/>
+          <rect x="314" y="314" width="18" height="18" rx="4" fill="rgba(251,191,36,.42)"/>
+          <ellipse cx="135" cy="115" rx="65" ry="28" fill="rgba(255,255,255,.16)" filter="url(#hf)"/>
+          <rect x="52" y="295" width="270" height="38" rx="10" fill="rgba(28,25,23,.42)" filter="url(#hf)"/>
+        </svg>
+      </div>
     </div>
   </div>
-
-  <div class="scroll-indicator" aria-hidden="true">
-    <div class="scroll-mouse"></div>
-    <span>Défiler</span>
-  </div>
+  <div class="hscroll" aria-hidden="true"><div class="sm"></div><span>Défiler</span></div>
 </section>
 
 <!-- STATS -->
-<div class="stats-strip" role="complementary" aria-label="Chiffres clés">
-  <div class="stat-item">
-    <span class="stat-num" data-count="12000">0</span>
-    <span class="stat-label">Clients satisfaits</span>
+<div class="stats" role="complementary" aria-label="Chiffres clés">
+  <div class="si">
+    <div class="stt"><span class="sn" data-count="12000">0+</span><span class="sl">Clients satisfaits</span></div>
+    <div class="stt"><span class="sn" data-count="48">0h</span><span class="sl">Délai livraison</span></div>
+    <div class="stt"><span class="sn" data-count="6">0</span><span class="sl">Formes disponibles</span></div>
+    <div class="stt"><span class="sn" data-count="3">0</span><span class="sl">Finitions PVC</span></div>
+    <div class="stt"><span class="sn" data-count="100">0%</span><span class="sl">Sur mesure</span></div>
   </div>
-  <div class="stat-item">
-    <span class="stat-num" data-count="48">0</span>
-    <span class="stat-label">Heures de livraison</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num" data-count="5">0</span>
-    <span class="stat-label">Formes disponibles</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num" data-count="100">0</span>
-    <span class="stat-label">% sur mesure</span>
+</div>
+
+<!-- SERVICES -->
+<div class="srvs" role="complementary" aria-label="Nos engagements">
+  <div class="srvs-in">
+    <div class="srv rev"><div class="srv-ico"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="srv-t"><h4>Livraison offerte</h4><p>Dès 49€ — France & Europe</p></div></div>
+    <div class="srv rev"><div class="srv-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="srv-t"><h4>Fabrication 48h</h4><p>Découpe sur mesure express</p></div></div>
+    <div class="srv rev"><div class="srv-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="srv-t"><h4>Garantie 2 ans</h4><p>Qualité certifiée, satisfaction garantie</p></div></div>
+    <div class="srv rev"><div class="srv-ico"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3"/></svg></div><div class="srv-t"><h4>Retours 30 jours</h4><p>Retours gratuits sans condition</p></div></div>
   </div>
 </div>
 
 <!-- MATERIALS -->
-<section id="materiaux" class="materials" aria-labelledby="mat-title">
-  <div class="container">
-    <div class="materials-header reveal">
-      <span class="section-tag">Nos Matériaux</span>
-      <h2 class="section-title" id="mat-title">Trois finitions d'exception</h2>
-      <p class="section-desc">Du PVC cristallin au doré satiné, chaque finition est sélectionnée pour sa durabilité, son esthétique et sa facilité d'entretien.</p>
-    </div>
-
-    <div class="materials-grid">
-      <!-- Transparent -->
-      <article class="material-card reveal" tabindex="0">
-        <div class="material-preview preview-transparent" role="img" aria-label="Aperçu PVC Transparent">
-          <div class="material-badge">Best-seller</div>
-          <span class="promo-badge" aria-label="Promotion -10%">-10%</span>
-        </div>
-        <div class="material-body">
-          <h3>PVC Transparent</h3>
-          <p>Protection invisible qui laisse apparaître la beauté de votre table. Souple, résistant aux rayures et lavable.</p>
-          <div class="material-features">
-            <span class="feature-chip">Anti-rayures</span>
-            <span class="feature-chip">Lavable</span>
-            <span class="feature-chip">0.3mm</span>
-            <span class="feature-chip">Souple</span>
+<section id="mats" class="mats" aria-labelledby="mh">
+  <div class="con">
+    <div class="sh rev"><span class="tag">Nos Matériaux</span><h2 class="stitle" id="mh">Trois finitions d'exception</h2><p class="sdesc">Du PVC cristallin au doré satiné, chaque finition est sélectionnée pour sa durabilité et son esthétique.</p></div>
+    <div class="mg">
+      <article class="mc rev" tabindex="0">
+        <div class="mth tt" role="img" aria-label="PVC Transparent">
+          <span class="mbadge b1">Best-seller</span><span class="mdis">-10%</span>
+          <div class="macts">
+            <button class="ab aw" onclick="tw(this,'Transparent')" aria-label="Favoris">♡ Favoris</button>
+            <button class="ab ao" onclick="om('transparent')" aria-label="Commander">Commander →</button>
           </div>
         </div>
-        <div class="showcase-actions" aria-label="Actions rapides">
-          <button class="action-btn-wish" onclick="toggleWishlist(this,'PVC Transparent')" aria-label="Ajouter aux favoris PVC Transparent">
-            <span aria-hidden="true">❤</span> Favoris
-          </button>
-          <button class="action-btn-order" onclick="orderMaterial('transparent')" aria-label="Commander PVC Transparent">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            Commander
-          </button>
-        </div>
+        <div class="mb"><h3>PVC Transparent</h3><p>Protection invisible qui révèle la beauté naturelle de votre table. Souple, anti-rayures et lavable.</p><div class="chips"><span class="chip">Anti-rayures</span><span class="chip">Lavable</span><span class="chip">0.3mm</span><span class="chip">Souple</span></div><p class="mp">À partir de <strong>18,90€</strong> <span>/ pièce</span></p></div>
       </article>
-
-      <!-- Doré -->
-      <article class="material-card reveal" tabindex="0">
-        <div class="material-preview preview-gold" role="img" aria-label="Aperçu PVC Doré">
-          <div class="material-badge">Premium</div>
-        </div>
-        <div class="material-body">
-          <h3>PVC Doré</h3>
-          <p>L'élégance à l'état pur. Reflets dorés chauds qui subliment chaque table de fête ou de réception.</p>
-          <div class="material-features">
-            <span class="feature-chip">Doré satiné</span>
-            <span class="feature-chip">Anti-chaleur</span>
-            <span class="feature-chip">0.4mm</span>
-            <span class="feature-chip">Premium</span>
+      <article class="mc rev" tabindex="0">
+        <div class="mth tg" role="img" aria-label="PVC Doré">
+          <span class="mbadge b3">Premium</span>
+          <div class="macts">
+            <button class="ab aw" onclick="tw(this,'Doré')" aria-label="Favoris">♡ Favoris</button>
+            <button class="ab ao" onclick="om('gold')" aria-label="Commander">Commander →</button>
           </div>
         </div>
-        <div class="showcase-actions" aria-label="Actions rapides">
-          <button class="action-btn-wish" onclick="toggleWishlist(this,'PVC Doré')" aria-label="Ajouter aux favoris PVC Doré">
-            <span aria-hidden="true">❤</span> Favoris
-          </button>
-          <button class="action-btn-order" onclick="orderMaterial('gold')" aria-label="Commander PVC Doré">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            Commander
-          </button>
-        </div>
+        <div class="mb"><h3>PVC Doré</h3><p>L'élégance à l'état pur. Reflets dorés chauds pour sublimer chaque table de fête ou de réception.</p><div class="chips"><span class="chip">Doré satiné</span><span class="chip">Anti-chaleur</span><span class="chip">0.4mm</span><span class="chip">Premium</span></div><p class="mp">À partir de <strong>24,90€</strong> <span>/ pièce</span></p></div>
       </article>
-
-      <!-- Cristal -->
-      <article class="material-card reveal" tabindex="0">
-        <div class="material-preview preview-crystal" role="img" aria-label="Aperçu PVC Cristal">
-          <div class="material-badge">Nouveau</div>
-          <span class="promo-badge new" aria-label="Nouveau produit">Nouveau</span>
-        </div>
-        <div class="material-body">
-          <h3>PVC Cristal</h3>
-          <p>Entre transparence et reflets nacrés, une texture subtile qui joue avec la lumière pour un effet unique.</p>
-          <div class="material-features">
-            <span class="feature-chip">Nacré</span>
-            <span class="feature-chip">UV résistant</span>
-            <span class="feature-chip">0.35mm</span>
-            <span class="feature-chip">Exclusif</span>
+      <article class="mc rev" tabindex="0">
+        <div class="mth tc" role="img" aria-label="PVC Cristal">
+          <span class="mbadge b2">Nouveau</span>
+          <div class="macts">
+            <button class="ab aw" onclick="tw(this,'Cristal')" aria-label="Favoris">♡ Favoris</button>
+            <button class="ab ao" onclick="om('crystal')" aria-label="Commander">Commander →</button>
           </div>
         </div>
-        <div class="showcase-actions" aria-label="Actions rapides">
-          <button class="action-btn-wish" onclick="toggleWishlist(this,'PVC Cristal')" aria-label="Ajouter aux favoris PVC Cristal">
-            <span aria-hidden="true">❤</span> Favoris
-          </button>
-          <button class="action-btn-order" onclick="orderMaterial('crystal')" aria-label="Commander PVC Cristal">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            Commander
-          </button>
-        </div>
+        <div class="mb"><h3>PVC Cristal</h3><p>Reflets nacrés subtils qui jouent avec la lumière pour un effet unique et sophistiqué.</p><div class="chips"><span class="chip">Nacré</span><span class="chip">UV résistant</span><span class="chip">0.35mm</span><span class="chip">Exclusif</span></div><p class="mp">À partir de <strong>21,90€</strong> <span>/ pièce</span></p></div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- SERVICE STRIP -->
-<div class="service-strip" role="complementary" aria-label="Nos services">
-  <div class="container">
-    <div class="service-grid">
-      <div class="service-item">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        </div>
-        <div class="service-title">Livraison offerte</div>
-        <div class="service-desc">Dès 49€ d'achat partout en France</div>
-      </div>
-      <div class="service-item">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <div class="service-title">Fabrication FR</div>
-        <div class="service-desc">Découpé et fabriqué en France</div>
-      </div>
-      <div class="service-item">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div class="service-title">Garantie 2 ans</div>
-        <div class="service-desc">Satisfait ou remboursé sous 30 jours</div>
-      </div>
-      <div class="service-item">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
-        </div>
-        <div class="service-title">Retours 30 jours</div>
-        <div class="service-desc">Retour simple et remboursement rapide</div>
-      </div>
+<!-- PROMO -->
+<section class="promo" aria-labelledby="ph">
+  <div class="promo-in">
+    <div class="promo-t rev"><span class="tag">Offre limitée</span><h2 class="stitle" id="ph">−15% ce week-end</h2><p>Code promo : <strong style="color:var(--gx)">WEEKEND15</strong> — valable jusqu'à dimanche minuit</p></div>
+    <div class="cd rev" aria-label="Compte à rebours" role="timer">
+      <div class="cdu"><span class="cdn" id="cdh">00</span><span class="cdl">Heures</span></div>
+      <span class="cds" aria-hidden="true">:</span>
+      <div class="cdu"><span class="cdn" id="cdm">00</span><span class="cdl">Minutes</span></div>
+      <span class="cds" aria-hidden="true">:</span>
+      <div class="cdu"><span class="cdn" id="cds">00</span><span class="cdl">Secondes</span></div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- CONFIGURATOR -->
-<section id="configurateur" class="configurator" aria-labelledby="config-title">
-  <div class="container">
-    <div class="configurator-inner">
-
-      <!-- Left: Controls -->
-      <div>
-        <div class="configurator-header reveal">
-          <span class="section-tag">Configurateur</span>
-          <h2 class="section-title" id="config-title">Votre nappe sur mesure</h2>
-          <p class="section-desc">Choisissez votre forme, entrez vos dimensions exactes et obtenez votre prix instantanément.</p>
+<section id="cfg" class="cfg" aria-labelledby="cfgh">
+  <div class="con">
+    <div class="cfg-in">
+      <div class="cfg-l">
+        <div class="sh rev"><span class="tag">Configurateur</span><h2 class="stitle" id="cfgh">Votre nappe sur mesure</h2><p class="sdesc">Sélectionnez la forme, entrez les dimensions, obtenez votre prix instantanément.</p></div>
+        <span class="fl">Forme de la table</span>
+        <div class="sg rev" role="radiogroup" aria-label="Forme">
+          <button class="sb on" data-s="rectangle" role="radio" aria-checked="true" onclick="ss(this,'rectangle')"><svg viewBox="0 0 40 40"><rect x="2" y="10" width="36" height="20" rx="2"/></svg>Rectangulaire</button>
+          <button class="sb" data-s="square" role="radio" aria-checked="false" onclick="ss(this,'square')"><svg viewBox="0 0 40 40"><rect x="5" y="5" width="30" height="30" rx="2"/></svg>Carré</button>
+          <button class="sb" data-s="round" role="radio" aria-checked="false" onclick="ss(this,'round')"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/></svg>Ronde</button>
+          <button class="sb" data-s="oval" role="radio" aria-checked="false" onclick="ss(this,'oval')"><svg viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="18" ry="12"/></svg>Ovale</button>
+          <button class="sb" data-s="octagon" role="radio" aria-checked="false" onclick="ss(this,'octagon')"><svg viewBox="0 0 40 40"><polygon points="14,4 26,4 36,14 36,26 26,36 14,36 4,26 4,14"/></svg>Octogone</button>
+          <button class="sb" data-s="hexagon" role="radio" aria-checked="false" onclick="ss(this,'hexagon')"><svg viewBox="0 0 40 40"><polygon points="20,3 35,11.5 35,28.5 20,37 5,28.5 5,11.5"/></svg>Hexagone</button>
         </div>
-
-        <!-- Shape -->
-        <div class="reveal">
-          <p class="field-label" style="color:rgba(255,255,255,0.55);font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.75rem;">Forme de la table</p>
-          <div class="shape-selector" role="radiogroup" aria-label="Choisir la forme">
-
-            <button class="shape-btn active" data-shape="rectangle" role="radio" aria-checked="true" onclick="selectShape(this,'rectangle')">
-              <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="10" width="36" height="20" rx="2" fill="currentColor"/></svg>
-              Rectangulaire
-            </button>
-
-            <button class="shape-btn" data-shape="square" role="radio" aria-checked="false" onclick="selectShape(this,'square')">
-              <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="5" width="30" height="30" rx="2" fill="currentColor"/></svg>
-              Carré
-            </button>
-
-            <button class="shape-btn" data-shape="round" role="radio" aria-checked="false" onclick="selectShape(this,'round')">
-              <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="currentColor"/></svg>
-              Ronde
-            </button>
-
-            <button class="shape-btn" data-shape="oval" role="radio" aria-checked="false" onclick="selectShape(this,'oval')">
-              <svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="20" rx="18" ry="12" fill="currentColor"/></svg>
-              Ovale
-            </button>
-
-            <button class="shape-btn" data-shape="octagon" role="radio" aria-checked="false" onclick="selectShape(this,'octagon')">
-              <svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="14,4 26,4 36,14 36,26 26,36 14,36 4,26 4,14" fill="currentColor"/></svg>
-              Octogone
-            </button>
-
-            <button class="shape-btn" data-shape="hexagon" role="radio" aria-checked="false" onclick="selectShape(this,'hexagon')">
-              <svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20,3 35,11.5 35,28.5 20,37 5,28.5 5,11.5" fill="currentColor"/></svg>
-              Hexagone
-            </button>
-
+        <div class="df rev">
+          <div class="fg" id="fl"><label class="fl" for="il">Longueur</label><div class="fw"><input type="number" id="il" min="30" max="500" value="120" oninput="cp()"/><span class="fu">cm</span></div></div>
+          <div class="fg" id="fw2"><label class="fl" for="iw">Largeur</label><div class="fw"><input type="number" id="iw" min="30" max="500" value="80" oninput="cp()"/><span class="fu">cm</span></div></div>
+          <div class="fg" id="fd" style="display:none"><label class="fl" for="id">Diamètre</label><div class="fw"><input type="number" id="id" min="30" max="400" value="100" oninput="cp()"/><span class="fu">cm</span></div></div>
+          <div class="fg rev">
+            <div class="rr"><span class="fl" style="margin:0">Tombé (débord)</span><span class="rv" id="dlbl">0 cm</span></div>
+            <input type="range" id="dr" min="0" max="40" value="0" aria-label="Tombé" oninput="sd2(this.value)"/>
           </div>
         </div>
-
-        <!-- Dimensions -->
-        <div class="dim-fields reveal" id="dim-fields">
-          <div class="field-group" id="field-length">
-            <label class="field-label" for="input-length">Longueur</label>
-            <div class="field-input">
-              <input type="number" id="input-length" min="30" max="500" value="120" aria-label="Longueur en centimètres" oninput="updateConfig()" />
-              <span class="field-unit">cm</span>
-            </div>
-          </div>
-          <div class="field-group" id="field-width">
-            <label class="field-label" for="input-width">Largeur</label>
-            <div class="field-input">
-              <input type="number" id="input-width" min="30" max="500" value="80" aria-label="Largeur en centimètres" oninput="updateConfig()" />
-              <span class="field-unit">cm</span>
-            </div>
-          </div>
-          <div class="field-group" id="field-diameter" style="display:none">
-            <label class="field-label" for="input-diameter">Diamètre</label>
-            <div class="field-input">
-              <input type="number" id="input-diameter" min="30" max="400" value="100" aria-label="Diamètre en centimètres" oninput="updateConfig()" />
-              <span class="field-unit">cm</span>
-            </div>
-          </div>
-
-          <!-- Drop -->
-          <div class="range-group">
-            <div class="range-header">
-              <span class="field-label" style="margin:0">Tombé (débord)</span>
-              <span class="range-val" id="drop-val">0 cm</span>
-            </div>
-            <input type="range" id="drop-range" min="0" max="40" value="0" aria-label="Tombé en centimètres" oninput="updateDrop(this.value)" />
-          </div>
+        <span class="fl">Matière</span>
+        <div class="mr rev" role="radiogroup" aria-label="Matière">
+          <button class="mb2 on" data-m="transparent" role="radio" aria-checked="true" onclick="sm(this,'transparent')"><span class="md" style="background:rgba(200,230,255,.9);border:1px solid #93c5fd"></span>Transparent</button>
+          <button class="mb2" data-m="gold" role="radio" aria-checked="false" onclick="sm(this,'gold')"><span class="md" style="background:linear-gradient(135deg,#ca8a04,#fbbf24)"></span>Doré</button>
+          <button class="mb2" data-m="crystal" role="radio" aria-checked="false" onclick="sm(this,'crystal')"><span class="md" style="background:linear-gradient(135deg,#e0e7ff,#ddd6fe)"></span>Cristal</button>
         </div>
-
-        <!-- Material -->
-        <div class="reveal">
-          <p class="field-label" style="color:rgba(255,255,255,0.55);font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.75rem;">Matière</p>
-          <div class="mat-selector" role="radiogroup" aria-label="Choisir la matière">
-            <button class="mat-btn active" data-mat="transparent" onclick="selectMat(this,'transparent')" role="radio" aria-checked="true">
-              <span class="mat-dot" style="background:rgba(200,230,255,0.8);border:1px solid #93c5fd" aria-hidden="true"></span>Transparent
-            </button>
-            <button class="mat-btn" data-mat="gold" onclick="selectMat(this,'gold')" role="radio" aria-checked="false">
-              <span class="mat-dot" style="background:linear-gradient(135deg,#ca8a04,#fbbf24)" aria-hidden="true"></span>Doré
-            </button>
-            <button class="mat-btn" data-mat="crystal" onclick="selectMat(this,'crystal')" role="radio" aria-checked="false">
-              <span class="mat-dot" style="background:linear-gradient(135deg,#e0e7ff,#ddd6fe)" aria-hidden="true"></span>Cristal
-            </button>
-          </div>
+        <div class="pp rev" aria-live="polite">
+          <div class="pi" id="pinfo">120 × 80 cm · Transparent · 0.096 m²</div>
+          <div class="pv">À partir de <span id="pval">18,90</span> €</div>
+          <div class="pn">TVA incluse · Livraison offerte dès 49€</div>
         </div>
-
-        <!-- Price -->
-        <div class="price-box reveal" aria-live="polite" aria-label="Prix estimé">
-          <div class="price-breakdown" id="price-breakdown">120 × 80 cm · Transparent · 0.096 m²</div>
-          <div class="price-total"><span>À partir de </span><span id="price-value">18</span><span>,90 €</span></div>
-          <div class="price-note">TVA incluse · Livraison offerte dès 49€</div>
-        </div>
-
-        <button class="btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:1.1rem" onclick="addToCart()" aria-label="Ajouter au panier">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <button class="btn-add rev" onclick="addCart(event)" aria-label="Ajouter au panier">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           Ajouter au panier
         </button>
       </div>
-
-      <!-- Right: Preview -->
-      <div class="config-preview reveal">
-        <div class="preview-stage" aria-label="Aperçu de la nappe">
-          <div class="preview-canvas-wrap">
-            <canvas id="shape-canvas" width="340" height="280" role="img" aria-label="Aperçu de la forme sélectionnée"></canvas>
-          </div>
-          <div class="preview-info">
-            <div class="info-chip">
-              <div class="val" id="info-area">0.10 m²</div>
-              <div class="lbl">Surface</div>
-            </div>
-            <div class="info-chip">
-              <div class="val" id="info-perim">0 cm</div>
-              <div class="lbl">Périmètre</div>
-            </div>
-            <div class="info-chip">
-              <div class="val" id="info-w">120 cm</div>
-              <div class="lbl">Dim. L</div>
-            </div>
-            <div class="info-chip">
-              <div class="val" id="info-h">80 cm</div>
-              <div class="lbl">Dim. l</div>
-            </div>
+      <div class="cfg-r rev">
+        <div class="pvbox">
+          <canvas id="sc" width="330" height="265" role="img" aria-label="Aperçu de la forme"></canvas>
+          <div class="pci">
+            <div class="pch"><div class="v" id="pa">0.10 m²</div><div class="l">Surface</div></div>
+            <div class="pch"><div class="v" id="pp2">400 cm</div><div class="l">Périmètre</div></div>
+            <div class="pch"><div class="v" id="pl">120 cm</div><div class="l">Dim. L</div></div>
+            <div class="pch"><div class="v" id="pw">80 cm</div><div class="l">Dim. l</div></div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section id="comment" class="how-it-works" aria-labelledby="how-title">
-  <div class="container">
-    <div style="text-align:center" class="reveal">
-      <span class="section-tag">Processus</span>
-      <h2 class="section-title" id="how-title">Aussi simple que 4 étapes</h2>
-    </div>
-
-    <div class="steps-grid">
-      <div class="step-card reveal">
-        <div class="step-num" aria-hidden="true">1</div>
-        <h3>Choisissez votre forme</h3>
-        <p>Sélectionnez parmi nos 6 formes disponibles : carré, rectangle, ronde, ovale, octogone ou hexagone.</p>
-      </div>
-      <div class="step-card reveal">
-        <div class="step-num" aria-hidden="true">2</div>
-        <h3>Entrez vos dimensions</h3>
-        <p>Renseignez longueur, largeur (ou diamètre) et le tombé souhaité. Prix calculé à la seconde.</p>
-      </div>
-      <div class="step-card reveal">
-        <div class="step-num" aria-hidden="true">3</div>
-        <h3>Choisissez la finition</h3>
-        <p>Transparent classique, doré chic ou cristal nacré — trois finitions pour tous les styles.</p>
-      </div>
-      <div class="step-card reveal">
-        <div class="step-num" aria-hidden="true">4</div>
-        <h3>Recevez en 48h</h3>
-        <p>Découpe sur mesure, emballage soigné et livraison express partout en France et en Europe.</p>
-      </div>
+<!-- PROCESS -->
+<section id="proc" class="proc" aria-labelledby="proch">
+  <div class="con">
+    <div class="sh ctr rev"><span class="tag">Processus</span><h2 class="stitle" id="proch">Simple comme 4 étapes</h2></div>
+    <div class="steps">
+      <div class="stp rev"><div class="sn2">1</div><h3>Choisissez la forme</h3><p>6 formes : rectangle, carré, ronde, ovale, octogone, hexagone.</p></div>
+      <div class="stp rev"><div class="sn2">2</div><h3>Entrez les dimensions</h3><p>Longueur, largeur (ou diamètre) et tombé souhaité. Prix instantané.</p></div>
+      <div class="stp rev"><div class="sn2">3</div><h3>Choisissez la finition</h3><p>Transparent, doré ou cristal — trois finitions premium pour tous les styles.</p></div>
+      <div class="stp rev"><div class="sn2">4</div><h3>Livraison en 48h</h3><p>Découpe sur mesure, emballage soigné, livraison express.</p></div>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testimonials" aria-labelledby="testi-title">
-  <div class="container">
-    <div class="reveal">
-      <span class="section-tag">Avis clients</span>
-      <h2 class="section-title" id="testi-title">Ils nous font confiance</h2>
-    </div>
-  </div>
-  <div style="overflow:hidden;margin-top:0" role="list" aria-label="Témoignages clients">
-    <div class="testi-track">
-      <!-- Original set -->
-      <div class="testi-card" role="listitem">
-        <div class="stars" aria-label="5 étoiles"><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span></div>
-        <p class="testi-text">« Parfaite pour ma table ovale ! La découpe est nette, le PVC transparent est top. Je commande à nouveau. »</p>
-        <div class="testi-author">
-          <div class="testi-avatar" aria-hidden="true">M</div>
-          <div><div class="testi-name">Marie L.</div><div class="testi-loc">Lyon, France</div></div>
-        </div>
-      </div>
-      <div class="testi-card" role="listitem">
-        <div class="stars" aria-label="5 étoiles"><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span></div>
-        <p class="testi-text">« La nappe dorée a fait l'effet d'une bombe à mon mariage. Tous mes invités m'ont demandé où je l'avais trouvée ! »</p>
-        <div class="testi-author">
-          <div class="testi-avatar" aria-hidden="true">S</div>
-          <div><div class="testi-name">Sarah B.</div><div class="testi-loc">Paris, France</div></div>
-        </div>
-      </div>
-      <div class="testi-card" role="listitem">
-        <div class="stars" aria-label="5 étoiles"><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span></div>
-        <p class="testi-text">« Mon restaurant a commandé 20 nappes sur mesure pour ses tables rondes. Qualité irréprochable, délai tenu. »</p>
-        <div class="testi-author">
-          <div class="testi-avatar" aria-hidden="true">T</div>
-          <div><div class="testi-name">Thomas R.</div><div class="testi-loc">Bordeaux, France</div></div>
-        </div>
-      </div>
-      <div class="testi-card" role="listitem">
-        <div class="stars" aria-label="5 étoiles"><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span></div>
-        <p class="testi-text">« Livré en 36h, super soigné. La nappe est exactement à la bonne taille pour mon octogone sur mesure. »</p>
-        <div class="testi-author">
-          <div class="testi-avatar" aria-hidden="true">A</div>
-          <div><div class="testi-name">Amina K.</div><div class="testi-loc">Marseille, France</div></div>
-        </div>
-      </div>
-      <div class="testi-card" role="listitem">
-        <div class="stars" aria-label="4 étoiles"><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">☆</span></div>
-        <p class="testi-text">« Site intuitif, configurateur super pratique, et la qualité du cristal est vraiment premium. »</p>
-        <div class="testi-author">
-          <div class="testi-avatar" aria-hidden="true">J</div>
-          <div><div class="testi-name">Julie M.</div><div class="testi-loc">Nantes, France</div></div>
-        </div>
-      </div>
-      <!-- Duplicate for infinite loop -->
-      <div class="testi-card" role="listitem" aria-hidden="true">
-        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <p class="testi-text">« Parfaite pour ma table ovale ! La découpe est nette, le PVC transparent est top. Je commande à nouveau. »</p>
-        <div class="testi-author">
-          <div class="testi-avatar">M</div>
-          <div><div class="testi-name">Marie L.</div><div class="testi-loc">Lyon, France</div></div>
-        </div>
-      </div>
-      <div class="testi-card" role="listitem" aria-hidden="true">
-        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <p class="testi-text">« La nappe dorée a fait l'effet d'une bombe à mon mariage. Tous mes invités m'ont demandé où je l'avais trouvée ! »</p>
-        <div class="testi-author">
-          <div class="testi-avatar">S</div>
-          <div><div class="testi-name">Sarah B.</div><div class="testi-loc">Paris, France</div></div>
-        </div>
-      </div>
-      <div class="testi-card" role="listitem" aria-hidden="true">
-        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <p class="testi-text">« Mon restaurant a commandé 20 nappes sur mesure. Qualité irréprochable, délai tenu. »</p>
-        <div class="testi-author">
-          <div class="testi-avatar">T</div>
-          <div><div class="testi-name">Thomas R.</div><div class="testi-loc">Bordeaux, France</div></div>
-        </div>
-      </div>
-      <div class="testi-card" role="listitem" aria-hidden="true">
-        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <p class="testi-text">« Livré en 36h, super soigné. La nappe est exactement à la bonne taille pour mon octogone. »</p>
-        <div class="testi-author">
-          <div class="testi-avatar">A</div>
-          <div><div class="testi-name">Amina K.</div><div class="testi-loc">Marseille, France</div></div>
-        </div>
-      </div>
-      <div class="testi-card" role="listitem" aria-hidden="true">
-        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">☆</span></div>
-        <p class="testi-text">« Site intuitif, configurateur super pratique, et la qualité du cristal est vraiment premium. »</p>
-        <div class="testi-author">
-          <div class="testi-avatar">J</div>
-          <div><div class="testi-name">Julie M.</div><div class="testi-loc">Nantes, France</div></div>
-        </div>
-      </div>
+<section class="testi" aria-labelledby="tsh">
+  <div class="con"><div class="sh rev"><span class="tag">Avis clients</span><h2 class="stitle" id="tsh">Ils nous font confiance</h2></div></div>
+  <div style="overflow:hidden" role="list" aria-label="Avis clients">
+    <div class="tt2">
+      <div class="tc2" role="listitem"><div class="ts">★★★★★</div><p class="tt3">« Parfaite pour ma table ovale ! Découpe nette, PVC transparent excellent. Je recommande. »</p><div class="ta"><div class="tav">M</div><div><div class="tn">Marie L.</div><div class="tl">Lyon</div></div></div></div>
+      <div class="tc2" role="listitem"><div class="ts">★★★★★</div><p class="tt3">« La nappe dorée a fait l'effet d'une bombe à mon mariage ! Tous mes invités l'ont admirée. »</p><div class="ta"><div class="tav">S</div><div><div class="tn">Sarah B.</div><div class="tl">Paris</div></div></div></div>
+      <div class="tc2" role="listitem"><div class="ts">★★★★★</div><p class="tt3">« 20 nappes sur mesure pour mon restaurant. Qualité irréprochable, délai parfaitement respecté. »</p><div class="ta"><div class="tav">T</div><div><div class="tn">Thomas R.</div><div class="tl">Bordeaux</div></div></div></div>
+      <div class="tc2" role="listitem"><div class="ts">★★★★★</div><p class="tt3">« Livré en 36h, emballage soigné. Nappe exactement à la bonne taille pour mon octogone. »</p><div class="ta"><div class="tav">A</div><div><div class="tn">Amina K.</div><div class="tl">Marseille</div></div></div></div>
+      <div class="tc2" role="listitem"><div class="ts">★★★★☆</div><p class="tt3">« Configurateur très intuitif. La qualité du cristal est vraiment premium, je suis ravie. »</p><div class="ta"><div class="tav">J</div><div><div class="tn">Julie M.</div><div class="tl">Nantes</div></div></div></div>
+      <div class="tc2" role="listitem"><div class="ts">★★★★★</div><p class="tt3">« Service client réactif et nappe conforme à mes attentes. Très bonne qualité prix. »</p><div class="ta"><div class="tav">K</div><div><div class="tn">Karim S.</div><div class="tl">Toulouse</div></div></div></div>
+      <!-- duplicates for loop -->
+      <div class="tc2" role="listitem" aria-hidden="true"><div class="ts">★★★★★</div><p class="tt3">« Parfaite pour ma table ovale ! Découpe nette, PVC transparent excellent. »</p><div class="ta"><div class="tav">M</div><div><div class="tn">Marie L.</div><div class="tl">Lyon</div></div></div></div>
+      <div class="tc2" role="listitem" aria-hidden="true"><div class="ts">★★★★★</div><p class="tt3">« La nappe dorée a fait l'effet d'une bombe à mon mariage ! »</p><div class="ta"><div class="tav">S</div><div><div class="tn">Sarah B.</div><div class="tl">Paris</div></div></div></div>
+      <div class="tc2" role="listitem" aria-hidden="true"><div class="ts">★★★★★</div><p class="tt3">« 20 nappes sur mesure. Qualité irréprochable, délai respecté. »</p><div class="ta"><div class="tav">T</div><div><div class="tn">Thomas R.</div><div class="tl">Bordeaux</div></div></div></div>
+      <div class="tc2" role="listitem" aria-hidden="true"><div class="ts">★★★★★</div><p class="tt3">« Livré en 36h. Nappe exactement à la bonne taille. »</p><div class="ta"><div class="tav">A</div><div><div class="tn">Amina K.</div><div class="tl">Marseille</div></div></div></div>
+      <div class="tc2" role="listitem" aria-hidden="true"><div class="ts">★★★★☆</div><p class="tt3">« Configurateur intuitif. Qualité cristal vraiment premium. »</p><div class="ta"><div class="tav">J</div><div><div class="tn">Julie M.</div><div class="tl">Nantes</div></div></div></div>
+      <div class="tc2" role="listitem" aria-hidden="true"><div class="ts">★★★★★</div><p class="tt3">« Service réactif et nappe conforme. Très bonne qualité prix. »</p><div class="ta"><div class="tav">K</div><div><div class="tn">Karim S.</div><div class="tl">Toulouse</div></div></div></div>
     </div>
   </div>
 </section>
 
 <!-- GALLERY -->
-<section id="galerie" class="gallery" aria-labelledby="gallery-title">
-  <div class="container">
-    <div class="reveal" style="margin-bottom:0">
-      <span class="section-tag">Galerie</span>
-      <h2 class="section-title" id="gallery-title">Nos réalisations</h2>
-    </div>
-    <div class="gallery-grid" role="list">
-      <div class="gallery-item reveal" role="listitem">
-        <div class="gallery-inner gi-1" role="img" aria-label="Nappe PVC transparent sur table rectangulaire"></div>
-        <div class="gallery-overlay"><span class="gallery-label">Transparent — Table rectangulaire</span></div>
-      </div>
-      <div class="gallery-item reveal" role="listitem">
-        <div class="gallery-inner gi-2" role="img" aria-label="Nappe PVC dorée sur table ronde"></div>
-        <div class="gallery-overlay"><span class="gallery-label">Doré — Table ronde</span></div>
-      </div>
-      <div class="gallery-item reveal" role="listitem">
-        <div class="gallery-inner gi-3" role="img" aria-label="Nappe PVC cristal sur table ovale"></div>
-        <div class="gallery-overlay"><span class="gallery-label">Cristal — Table ovale</span></div>
-      </div>
-      <div class="gallery-item reveal" role="listitem">
-        <div class="gallery-inner gi-4" role="img" aria-label="Nappe PVC transparent sur table octogone"></div>
-        <div class="gallery-overlay"><span class="gallery-label">Transparent — Octogone</span></div>
-      </div>
-      <div class="gallery-item reveal" role="listitem">
-        <div class="gallery-inner gi-5" role="img" aria-label="Nappe PVC dorée sur table carrée"></div>
-        <div class="gallery-overlay"><span class="gallery-label">Doré — Table carrée</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COUNTDOWN PROMO -->
-<section class="countdown-section" aria-labelledby="countdown-title">
-  <div class="container">
-    <div class="countdown-inner">
-      <div class="countdown-label">Offre limitée</div>
-      <h2 class="countdown-title" id="countdown-title">Profitez de <em>-15% ce weekend</em></h2>
-      <div class="countdown-timer" role="timer" aria-live="polite" aria-label="Temps restant pour l'offre">
-        <div class="countdown-unit">
-          <div class="countdown-num" id="cd-hours">72</div>
-          <div class="countdown-lbl">Heures</div>
-        </div>
-        <div class="countdown-sep" aria-hidden="true">:</div>
-        <div class="countdown-unit">
-          <div class="countdown-num" id="cd-minutes">00</div>
-          <div class="countdown-lbl">Minutes</div>
-        </div>
-        <div class="countdown-sep" aria-hidden="true">:</div>
-        <div class="countdown-unit">
-          <div class="countdown-num" id="cd-seconds">00</div>
-          <div class="countdown-lbl">Secondes</div>
-        </div>
-      </div>
-      <a href="#configurateur" class="btn-primary" style="font-size:1rem;padding:1rem 2.5rem">
-        Profiter de l'offre &rarr;
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section" aria-labelledby="cta-title">
-  <div class="container" style="position:relative;z-index:2">
-    <span class="section-tag">Prêt à commander ?</span>
-    <h2 class="section-title reveal" id="cta-title">Votre table mérite<br /><em>le meilleur</em></h2>
-    <p class="reveal">Configurez votre nappe sur mesure en moins de 2 minutes et recevez-la sous 48h.</p>
-    <div class="reveal" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-      <a href="#configurateur" class="btn-primary" style="font-size:1rem;padding:1rem 2.5rem">
-        Configurer ma nappe
-      </a>
-      <a href="mailto:contact@nappelux.fr" class="btn-secondary" style="font-size:1rem;padding:1rem 2.5rem">
-        Nous contacter
-      </a>
+<section id="gal" class="gal" aria-labelledby="gh">
+  <div class="con">
+    <div class="sh rev"><span class="tag">Galerie</span><h2 class="stitle" id="gh">Nos réalisations</h2></div>
+    <div class="gg" role="list">
+      <div class="gi rev" role="listitem"><div class="gb g1"></div><div class="go"><span class="gl2">Transparent — Rectangulaire</span></div></div>
+      <div class="gi rev" role="listitem"><div class="gb g2"></div><div class="go"><span class="gl2">Doré — Ronde</span></div></div>
+      <div class="gi rev" role="listitem"><div class="gb g3"></div><div class="go"><span class="gl2">Cristal — Ovale</span></div></div>
+      <div class="gi rev" role="listitem"><div class="gb g4"></div><div class="go"><span class="gl2">Transparent — Octogone</span></div></div>
+      <div class="gi rev" role="listitem"><div class="gb g5"></div><div class="go"><span class="gl2">Doré — Carré</span></div></div>
     </div>
   </div>
 </section>
 
 <!-- NEWSLETTER -->
-<section class="newsletter-section" aria-labelledby="newsletter-title">
-  <div class="container">
-    <div class="newsletter-inner">
-      <span class="section-tag">Newsletter</span>
-      <h2 id="newsletter-title">Restez inspiré(e)</h2>
-      <p>Recevez nos offres exclusives, conseils déco et nouveautés en avant-première.</p>
-      <form class="newsletter-form" onsubmit="submitNewsletter(event)" novalidate aria-label="Inscription newsletter">
-        <input type="email" class="newsletter-input" id="newsletter-email" placeholder="Votre adresse e-mail" required aria-label="Adresse e-mail" autocomplete="email" />
-        <button type="submit" class="newsletter-btn">S'abonner</button>
-      </form>
-      <div class="newsletter-msg" id="newsletter-msg" role="status" aria-live="polite"></div>
+<section id="nl" class="nl" aria-labelledby="nlh">
+  <div class="nl-in rev">
+    <span class="tag">Newsletter</span>
+    <h2 class="stitle" id="nlh">−10% sur votre 1ère commande</h2>
+    <p>Inscrivez-vous et recevez votre code promo immédiatement.</p>
+    <form class="nf" onsubmit="snl(event)" novalidate>
+      <input class="ni" type="email" id="nle" placeholder="Votre adresse email" aria-label="Email" required/>
+      <button class="ns" type="submit">S'abonner</button>
+    </form>
+    <div id="nlm" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" aria-labelledby="ctah">
+  <div class="con" style="position:relative;z-index:1">
+    <div class="rev">
+      <span class="tag">Prêt à commander ?</span>
+      <h2 class="stitle" id="ctah">Votre table mérite<br/><em style="background:linear-gradient(135deg,var(--gl),var(--gx));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">le meilleur</em></h2>
+      <p>Configurez votre nappe sur mesure en moins de 2 minutes.</p>
+      <div class="cta-btns">
+        <a href="#cfg" class="btn-p" style="font-size:.92rem;padding:.95rem 2.1rem">Configurer ma nappe</a>
+        <a href="mailto:contact@nappelux.fr" class="btn-g" style="font-size:.92rem;padding:.95rem 2.1rem">Nous contacter</a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
+  <div class="con">
+    <div class="fg2">
+      <div class="fb">
         <h3>NappeLux</h3>
-        <p>Spécialiste français des nappes PVC sur mesure. Transparent, doré, cristal — toutes les formes, toutes les tailles.</p>
+        <p>Spécialiste français des nappes PVC sur mesure. Transparent, doré, cristal — toutes formes, toutes tailles.</p>
+        <div class="fsoc">
+          <a href="#" class="fs" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a>
+          <a href="#" class="fs" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" class="fs" aria-label="Pinterest"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.03-2.83.19-.77 1.27-5.37 1.27-5.37s-.32-.65-.32-1.6c0-1.5.87-2.63 1.95-2.63.92 0 1.37.69 1.37 1.52 0 .93-.59 2.32-.9 3.6-.25 1.07.54 1.95 1.59 1.95 1.91 0 3.18-2.46 3.18-5.38 0-2.22-1.5-3.88-4.22-3.88-3.07 0-4.97 2.29-4.97 4.84 0 .88.26 1.5.66 1.97.18.22.21.3.14.55-.07.27-.22.9-.28 1.15-.09.35-.35.47-.65.34C6.2 14.62 5.5 12.97 5.5 11c0-3.33 2.8-7.33 8.39-7.33 4.42 0 7.36 3.2 7.36 6.63 0 4.54-2.52 7.93-6.25 7.93-1.25 0-2.43-.67-2.83-1.43l-.77 2.96c-.28 1.06-.88 2.12-1.39 2.96.56.17 1.15.26 1.76.26 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg></a>
+        </div>
+        <div class="fpay" aria-label="Paiement"><span class="fp">Visa</span><span class="fp">Mastercard</span><span class="fp">PayPal</span><span class="fp">Apple Pay</span></div>
       </div>
-      <nav class="footer-col" aria-label="Produits">
-        <h4>Produits</h4>
-        <ul>
-          <li><a href="#materiaux">PVC Transparent</a></li>
-          <li><a href="#materiaux">PVC Doré</a></li>
-          <li><a href="#materiaux">PVC Cristal</a></li>
-          <li><a href="#configurateur">Sur mesure</a></li>
-        </ul>
-      </nav>
-      <nav class="footer-col" aria-label="Formes">
-        <h4>Formes</h4>
-        <ul>
-          <li><a href="#configurateur">Rectangulaire</a></li>
-          <li><a href="#configurateur">Carrée</a></li>
-          <li><a href="#configurateur">Ronde</a></li>
-          <li><a href="#configurateur">Ovale</a></li>
-          <li><a href="#configurateur">Octogone</a></li>
-        </ul>
-      </nav>
-      <nav class="footer-col" aria-label="Informations">
-        <h4>Infos</h4>
-        <ul>
-          <li><a href="#">Livraison</a></li>
-          <li><a href="#">À propos</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">CGV</a></li>
-        </ul>
-      </nav>
+      <nav class="fc" aria-label="Produits"><h4>Produits</h4><ul><li><a href="#mats">PVC Transparent</a></li><li><a href="#mats">PVC Doré</a></li><li><a href="#mats">PVC Cristal</a></li><li><a href="#cfg">Sur mesure</a></li></ul></nav>
+      <nav class="fc" aria-label="Formes"><h4>Formes</h4><ul><li><a href="#cfg">Rectangulaire</a></li><li><a href="#cfg">Carrée</a></li><li><a href="#cfg">Ronde</a></li><li><a href="#cfg">Ovale</a></li><li><a href="#cfg">Octogone</a></li></ul></nav>
+      <nav class="fc" aria-label="Infos"><h4>Infos</h4><ul><li><a href="#">Livraison</a></li><li><a href="#">À propos</a></li><li><a href="#">Contact</a></li><li><a href="#">CGV</a></li><li><a href="#">Mentions légales</a></li></ul></nav>
     </div>
-    <div class="footer-bottom">
-      <span>© 2025 NappeLux — Tous droits réservés</span>
-      <span>Fait avec soin en France 🇫🇷</span>
-    </div>
+    <div class="fbot"><span>© 2025 NappeLux — Tous droits réservés</span><span>Fabriqué avec soin en France 🇫🇷</span></div>
   </div>
 </footer>
 
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mbn" aria-label="Navigation mobile">
+  <div class="mbn-in">
+    <button class="mbb act" onclick="scrollTo(0,0)" aria-label="Accueil"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil</button>
+    <button class="mbb" onclick="location.href='#mats'" aria-label="Matériaux"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Matériaux</button>
+    <button class="mbb" onclick="location.href='#cfg'" aria-label="Configurer"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>Configurer</button>
+    <button class="mbb" onclick="openCart()" aria-label="Panier"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Panier</button>
+  </div>
+</nav>
+
 <script>
-  /* ─── STATE ─────────────────────────────────────────────── */
-  const state = {
-    shape: 'rectangle',
-    length: 120,
-    width: 80,
-    diameter: 100,
-    drop: 0,
-    material: 'transparent'
-  };
-
-  const prices = { transparent: 1.85, gold: 2.4, crystal: 2.1 }; // €/dm²
-  const matColors = {
-    transparent: { fill: 'rgba(200,230,255,0.55)', stroke: 'rgba(147,197,253,0.9)', shine: 'rgba(255,255,255,0.5)' },
-    gold: { fill: 'rgba(202,138,4,0.65)', stroke: 'rgba(251,191,36,0.9)', shine: 'rgba(255,220,80,0.5)' },
-    crystal: { fill: 'rgba(196,181,253,0.5)', stroke: 'rgba(167,139,250,0.85)', shine: 'rgba(255,255,255,0.6)' }
-  };
-
-  /* ─── NAVBAR SCROLL ─────────────────────────────────────── */
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 60);
-  }, { passive: true });
-
-  /* ─── HAMBURGER ─────────────────────────────────────────── */
-  function toggleMenu(btn) {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!expanded));
-    const links = document.querySelector('.nav-links');
-    if (!expanded) {
-      links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(28,25,23,0.97);padding:1.5rem 2rem;gap:1.2rem;backdrop-filter:blur(16px)';
-    } else {
-      links.style.cssText = '';
-    }
-  }
-
-  /* ─── SHAPE SELECTOR ────────────────────────────────────── */
-  function selectShape(btn, shape) {
-    document.querySelectorAll('.shape-btn').forEach(b => {
-      b.classList.remove('active');
-      b.setAttribute('aria-checked', 'false');
-    });
-    btn.classList.add('active');
-    btn.setAttribute('aria-checked', 'true');
-    state.shape = shape;
-    updateFields();
-    updateConfig();
-  }
-
-  function updateFields() {
-    const needsDiam = ['round', 'hexagon'].includes(state.shape);
-    const needsOval = state.shape === 'oval';
-
-    document.getElementById('field-length').style.display = needsDiam ? 'none' : '';
-    document.getElementById('field-width').style.display = (needsDiam) ? 'none' : '';
-    document.getElementById('field-diameter').style.display = needsDiam ? '' : 'none';
-
-    if (state.shape === 'square') {
-      document.querySelector('#field-width .field-label').textContent = 'Côté';
-      document.querySelector('#field-length .field-label').textContent = 'Côté (même valeur)';
-    } else if (state.shape === 'oval') {
-      document.querySelector('#field-length .field-label').textContent = 'Grand axe';
-      document.querySelector('#field-width .field-label').textContent = 'Petit axe';
-    } else if (state.shape === 'octagon') {
-      document.querySelector('#field-length .field-label').textContent = 'Longueur';
-      document.querySelector('#field-width .field-label').textContent = 'Largeur';
-    } else {
-      document.querySelector('#field-length .field-label').textContent = 'Longueur';
-      document.querySelector('#field-width .field-label').textContent = 'Largeur';
-    }
-  }
-
-  /* ─── MATERIAL SELECTOR ─────────────────────────────────── */
-  function selectMat(btn, mat) {
-    document.querySelectorAll('.mat-btn').forEach(b => {
-      b.classList.remove('active');
-      b.setAttribute('aria-checked', 'false');
-    });
-    btn.classList.add('active');
-    btn.setAttribute('aria-checked', 'true');
-    state.material = mat;
-    updateConfig();
-  }
-
-  /* ─── DROP RANGE ────────────────────────────────────────── */
-  function updateDrop(val) {
-    state.drop = parseInt(val);
-    document.getElementById('drop-val').textContent = val + ' cm';
-    updateConfig();
-  }
-
-  /* ─── CALCULATIONS ──────────────────────────────────────── */
-  function getDimensions() {
-    const drop = state.drop;
-    let L = parseFloat(document.getElementById('input-length').value) || 120;
-    let W = parseFloat(document.getElementById('input-width').value) || 80;
-    let D = parseFloat(document.getElementById('input-diameter').value) || 100;
-
-    if (state.shape === 'square') W = L;
-
-    const Lf = L + drop * 2;
-    const Wf = W + drop * 2;
-    const Df = D + drop * 2;
-
-    return { L, W, D, Lf, Wf, Df, drop };
-  }
-
-  function calcArea(shape, d) {
-    switch(shape) {
-      case 'rectangle': return (d.Lf * d.Wf) / 10000;
-      case 'square':    return (d.Lf * d.Lf) / 10000;
-      case 'round':     return Math.PI * Math.pow(d.Df / 2, 2) / 10000;
-      case 'oval':      return Math.PI * (d.Lf / 2) * (d.Wf / 2) / 10000;
-      case 'octagon':   return 2 * (1 + Math.sqrt(2)) * Math.pow(d.Lf / 2.414, 2) / 10000;
-      case 'hexagon':   return (3 * Math.sqrt(3) / 2) * Math.pow(d.Df / 2, 2) / 10000;
-      default:          return (d.Lf * d.Wf) / 10000;
-    }
-  }
-
-  function calcPerim(shape, d) {
-    switch(shape) {
-      case 'rectangle': return Math.round(2 * (d.Lf + d.Wf));
-      case 'square':    return Math.round(4 * d.Lf);
-      case 'round':     return Math.round(Math.PI * d.Df);
-      case 'oval': {
-        const a = d.Lf / 2, b = d.Wf / 2;
-        return Math.round(Math.PI * (3 * (a + b) - Math.sqrt((3 * a + b) * (a + 3 * b))));
-      }
-      case 'octagon':   return Math.round(8 * d.Lf / 2.414);
-      case 'hexagon':   return Math.round(6 * d.Df / 2);
-      default:          return 0;
-    }
-  }
-
-  function updateConfig() {
-    const d = getDimensions();
-    const area = calcArea(state.shape, d);
-    const perim = calcPerim(state.shape, d);
-    const areaDm2 = area * 100;
-    const price = Math.max(9.9, areaDm2 * prices[state.material]);
-
-    // Price box
-    const isDiam = ['round', 'hexagon'].includes(state.shape);
-    const dimStr = isDiam
-      ? `Ø${d.Df} cm`
-      : `${d.Lf} × ${d.Wf} cm`;
-    const matLabel = { transparent: 'Transparent', gold: 'Doré', crystal: 'Cristal' }[state.material];
-
-    document.getElementById('price-breakdown').textContent =
-      `${dimStr} · ${matLabel} · ${area.toFixed(3)} m²`;
-    document.getElementById('price-value').textContent = price.toFixed(2).replace('.', ',');
-
-    // Info chips
-    document.getElementById('info-area').textContent = area.toFixed(2) + ' m²';
-    document.getElementById('info-perim').textContent = perim + ' cm';
-
-    if (isDiam) {
-      document.getElementById('info-w').textContent = d.Df + ' cm';
-      document.getElementById('info-h').textContent = 'Ø';
-    } else if (state.shape === 'oval') {
-      document.getElementById('info-w').textContent = d.Lf + ' cm';
-      document.getElementById('info-h').textContent = d.Wf + ' cm';
-    } else {
-      document.getElementById('info-w').textContent = d.Lf + ' cm';
-      document.getElementById('info-h').textContent = d.Wf + ' cm';
-    }
-
-    drawShape(d);
-    state.length = d.L;
-    state.width = d.W;
-    state.diameter = d.D;
-  }
-
-  /* ─── CANVAS DRAW ───────────────────────────────────────── */
-  function drawShape(d) {
-    const canvas = document.getElementById('shape-canvas');
-    const ctx = canvas.getContext('2d');
-    const W = canvas.width, H = canvas.height;
-    ctx.clearRect(0, 0, W, H);
-
-    const col = matColors[state.material];
-    const pad = 30;
-
-    ctx.save();
-
-    // Gradient fill
-    const grd = ctx.createLinearGradient(0, 0, W, H);
-    grd.addColorStop(0, col.fill);
-    grd.addColorStop(0.5, col.shine);
-    grd.addColorStop(1, col.fill);
-
-    ctx.fillStyle = grd;
-    ctx.strokeStyle = col.stroke;
-    ctx.lineWidth = 2;
-    ctx.shadowColor = col.stroke;
-    ctx.shadowBlur = 18;
-
-    const cx = W / 2, cy = H / 2;
-
-    // Compute aspect ratio
-    const isDiam = ['round', 'hexagon'].includes(state.shape);
-    let rw, rh;
-
-    if (isDiam) {
-      const r = Math.min((W - pad * 2) / 2, (H - pad * 2) / 2);
-      rw = r; rh = r;
-    } else {
-      const ratio = Math.min((W - pad * 2) / d.Lf, (H - pad * 2) / d.Wf);
-      rw = (d.Lf * ratio) / 2;
-      rh = (d.Wf * ratio) / 2;
-    }
-
-    ctx.beginPath();
-
-    switch(state.shape) {
-      case 'rectangle':
-      case 'square':
-        roundRect(ctx, cx - rw, cy - rh, rw * 2, rh * 2, 8);
-        break;
-      case 'round':
-        ctx.arc(cx, cy, rw, 0, Math.PI * 2);
-        break;
-      case 'oval':
-        ctx.ellipse(cx, cy, rw, rh, 0, 0, Math.PI * 2);
-        break;
-      case 'octagon':
-        drawPolygon(ctx, cx, cy, rw, rh, 8, -Math.PI / 8);
-        break;
-      case 'hexagon':
-        drawPolygon(ctx, cx, cy, rw, rh, 6, 0);
-        break;
-    }
-
-    ctx.fill();
-    ctx.stroke();
-
-    // Grid lines on tablecloth
-    ctx.shadowBlur = 0;
-    ctx.save();
-    ctx.clip();
-    ctx.strokeStyle = 'rgba(255,255,255,0.18)';
-    ctx.lineWidth = 1;
-    const step = 24;
-    for (let x = cx - rw; x <= cx + rw + step; x += step) {
-      ctx.beginPath(); ctx.moveTo(x, cy - rh - 10); ctx.lineTo(x, cy + rh + 10); ctx.stroke();
-    }
-    for (let y = cy - rh; y <= cy + rh + step; y += step) {
-      ctx.beginPath(); ctx.moveTo(cx - rw - 10, y); ctx.lineTo(cx + rw + 10, y); ctx.stroke();
-    }
-    ctx.restore();
-
-    // Dimension arrows
-    ctx.shadowBlur = 0;
-    ctx.strokeStyle = 'rgba(251,191,36,0.7)';
-    ctx.fillStyle = 'rgba(251,191,36,0.9)';
-    ctx.lineWidth = 1.5;
-    ctx.font = '600 11px Montserrat, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
-    if (!isDiam) {
-      // Width arrow
-      const ay = cy + rh + 16;
-      drawArrow(ctx, cx - rw, ay, cx + rw, ay);
-      ctx.fillText(`${d.Lf} cm`, cx, ay + 13);
-
-      // Height arrow
-      const ax = cx + rw + 16;
-      ctx.save();
-      ctx.translate(ax + 13, cy);
-      ctx.rotate(Math.PI / 2);
-      ctx.fillText(`${d.Wf} cm`, 0, 0);
-      ctx.restore();
-      drawArrow(ctx, ax, cy - rh, ax, cy + rh);
-    } else {
-      const ay = cy + rw + 16;
-      drawArrow(ctx, cx - rw, ay, cx + rw, ay);
-      ctx.fillText(`Ø ${d.Df} cm`, cx, ay + 13);
-    }
-
-    ctx.restore();
-  }
-
-  function roundRect(ctx, x, y, w, h, r) {
-    ctx.moveTo(x + r, y);
-    ctx.lineTo(x + w - r, y);
-    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-    ctx.lineTo(x + w, y + h - r);
-    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-    ctx.lineTo(x + r, y + h);
-    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-    ctx.lineTo(x, y + r);
-    ctx.quadraticCurveTo(x, y, x + r, y);
-    ctx.closePath();
-  }
-
-  function drawPolygon(ctx, cx, cy, rw, rh, sides, offset = 0) {
-    for (let i = 0; i <= sides; i++) {
-      const angle = (2 * Math.PI / sides) * i + offset;
-      const x = cx + rw * Math.cos(angle);
-      const y = cy + rh * Math.sin(angle);
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    }
-    ctx.closePath();
-  }
-
-  function drawArrow(ctx, x1, y1, x2, y2) {
-    const headSize = 6;
-    const angle = Math.atan2(y2 - y1, x2 - x1);
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
-    [0, 1].forEach(end => {
-      const [ex, ey, ea] = end === 1 ? [x2, y2, angle] : [x1, y1, angle + Math.PI];
-      ctx.beginPath();
-      ctx.moveTo(ex, ey);
-      ctx.lineTo(ex - headSize * Math.cos(ea - 0.4), ey - headSize * Math.sin(ea - 0.4));
-      ctx.moveTo(ex, ey);
-      ctx.lineTo(ex - headSize * Math.cos(ea + 0.4), ey - headSize * Math.sin(ea + 0.4));
-      ctx.stroke();
-    });
-  }
-
-  /* ─── CART STATE ────────────────────────────────────────── */
-  let cartItems = [];
-  let cartCount = 0;
-
-  function openCart() {
-    document.getElementById('cart-drawer').classList.add('open');
-    document.getElementById('cart-drawer').setAttribute('aria-hidden','false');
-    document.getElementById('cart-overlay').classList.add('visible');
-    document.getElementById('cart-overlay').setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeCart() {
-    document.getElementById('cart-drawer').classList.remove('open');
-    document.getElementById('cart-drawer').setAttribute('aria-hidden','true');
-    document.getElementById('cart-overlay').classList.remove('visible');
-    document.getElementById('cart-overlay').setAttribute('aria-hidden','true');
-    document.body.style.overflow = '';
-  }
-
-  function renderCart() {
-    const list = document.getElementById('cart-items-list');
-    const emptyState = document.getElementById('cart-empty-state');
-    const totalEl = document.getElementById('cart-total-price');
-    const badge = document.getElementById('cart-badge');
-
-    // Remove existing items (not empty state)
-    Array.from(list.children).forEach(c => { if (c.id !== 'cart-empty-state') c.remove(); });
-
-    if (cartItems.length === 0) {
-      emptyState.style.display = '';
-      totalEl.textContent = '0,00 €';
-      badge.textContent = '0';
-      badge.classList.remove('visible');
-      return;
-    }
-
-    emptyState.style.display = 'none';
-    let total = 0;
-    cartItems.forEach((item, idx) => {
-      total += item.price;
-      const thumbColors = { transparent: '#dbeafe', gold: '#fbbf24', crystal: '#e0e7ff' };
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `
-        <div class="cart-item-thumb" style="background:${thumbColors[item.mat] || '#f5f5f5'}">📐</div>
-        <div class="cart-item-info">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-desc">${item.desc}</div>
-          <div class="cart-item-price">${item.price.toFixed(2).replace('.',',')} €</div>
-        </div>
-        <button class="cart-item-remove" onclick="removeCartItem(${idx})" aria-label="Supprimer cet article">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>`;
-      list.appendChild(div);
-    });
-
-    totalEl.textContent = total.toFixed(2).replace('.',',') + ' €';
-    badge.textContent = cartItems.length;
-    badge.classList.add('visible');
-  }
-
-  function removeCartItem(idx) {
-    cartItems.splice(idx, 1);
-    renderCart();
-  }
-
-  function proceedCheckout() {
-    if (cartItems.length === 0) return;
-    alert('Redirection vers la page de commande...\n(Intégration paiement à connecter)');
-  }
-
-  /* ─── ADD TO CART ───────────────────────────────────────── */
-  function addToCart() {
-    const btn = event.currentTarget;
-    const d = getDimensions();
-    const area = calcArea(state.shape, d);
-    const areaDm2 = area * 100;
-    const price = Math.max(9.9, areaDm2 * prices[state.material]);
-    const matLabel = { transparent: 'Transparent', gold: 'Doré', crystal: 'Cristal' }[state.material];
-    const shapeLabel = { rectangle: 'Rectangulaire', square: 'Carré', round: 'Ronde', oval: 'Ovale', octagon: 'Octogone', hexagon: 'Hexagone' }[state.shape];
-    const isDiam = ['round', 'hexagon'].includes(state.shape);
-    const dimStr = isDiam ? `Ø${d.Df} cm` : `${d.Lf} × ${d.Wf} cm`;
-
-    cartItems.push({
-      name: `Nappe PVC ${matLabel}`,
-      desc: `${shapeLabel} — ${dimStr}`,
-      price: price,
-      mat: state.material
-    });
-
-    renderCart();
-    openCart();
-
-    btn.textContent = '✓ Ajouté !';
-    btn.style.background = 'linear-gradient(135deg, #16a34a, #22c55e)';
-    setTimeout(() => {
-      btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Ajouter au panier';
-      btn.style.background = '';
-    }, 2500);
-  }
-
-  /* ─── MOBILE NAV ────────────────────────────────────────── */
-  function openMobileNav(btn) {
-    document.getElementById('mobile-nav').classList.add('open');
-    document.getElementById('mobile-nav').setAttribute('aria-hidden','false');
-    document.getElementById('mobile-overlay').classList.add('visible');
-    document.getElementById('mobile-overlay').setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
-    if (btn) btn.setAttribute('aria-expanded','true');
-  }
-
-  function closeMobileNav() {
-    document.getElementById('mobile-nav').classList.remove('open');
-    document.getElementById('mobile-nav').setAttribute('aria-hidden','true');
-    document.getElementById('mobile-overlay').classList.remove('visible');
-    document.getElementById('mobile-overlay').setAttribute('aria-hidden','true');
-    document.body.style.overflow = '';
-    const btn = document.querySelector('.hamburger');
-    if (btn) btn.setAttribute('aria-expanded','false');
-  }
-
-  /* ─── ANNOUNCEMENT BAR ──────────────────────────────────── */
-  (function initAnnBar() {
-    const bar = document.getElementById('header-top');
-    const msgs = bar.querySelectorAll('.ann-msg');
-    let current = 0;
-    let timer;
-
-    function showMsg(idx) {
-      msgs.forEach((m, i) => {
-        m.classList.remove('active','out');
-        if (i < idx) m.classList.add('out');
-      });
-      msgs[idx].classList.add('active');
-    }
-
-    function rotate() {
-      const next = (current + 1) % msgs.length;
-      msgs[current].classList.remove('active');
-      msgs[current].classList.add('out');
-      setTimeout(() => { msgs[current].classList.remove('out'); current = next; showMsg(current); }, 500);
-    }
-
-    showMsg(0);
-    timer = setInterval(rotate, 4000);
-    bar._stopTimer = () => clearInterval(timer);
-
-    // Adjust nav position
-    document.getElementById('navbar').classList.add('ann-visible');
-  })();
-
-  function closeAnnBar() {
-    const bar = document.getElementById('header-top');
-    bar.classList.add('hidden');
-    if (bar._stopTimer) bar._stopTimer();
-    document.getElementById('navbar').classList.remove('ann-visible');
-  }
-
-  /* ─── COUNTDOWN TIMER ───────────────────────────────────── */
-  (function initCountdown() {
-    const key = 'nappelux_cd_end';
-    let endTime = parseInt(localStorage.getItem(key) || '0');
-    const duration = 72 * 60 * 60 * 1000; // 72h
-
-    if (!endTime || Date.now() > endTime) {
-      endTime = Date.now() + duration;
-      localStorage.setItem(key, String(endTime));
-    }
-
-    function pad(n) { return String(n).padStart(2,'0'); }
-
-    function tick() {
-      const diff = Math.max(0, endTime - Date.now());
-      const h = Math.floor(diff / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
-      document.getElementById('cd-hours').textContent = pad(h);
-      document.getElementById('cd-minutes').textContent = pad(m);
-      document.getElementById('cd-seconds').textContent = pad(s);
-      if (diff > 0) requestAnimationFrame(tick);
-    }
-    tick();
-  })();
-
-  /* ─── NEWSLETTER ────────────────────────────────────────── */
-  function submitNewsletter(e) {
-    e.preventDefault();
-    const input = document.getElementById('newsletter-email');
-    const msg = document.getElementById('newsletter-msg');
-    const email = input.value.trim();
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      msg.textContent = 'Veuillez entrer une adresse e-mail valide.';
-      msg.className = 'newsletter-msg error';
-      return;
-    }
-
-    msg.textContent = '🎉 Merci ! Vous êtes bien inscrit(e) à notre newsletter.';
-    msg.className = 'newsletter-msg success';
-    input.value = '';
-    setTimeout(() => { msg.textContent = ''; msg.className = 'newsletter-msg'; }, 5000);
-  }
-
-  /* ─── WISHLIST TOGGLE ───────────────────────────────────── */
-  function toggleWishlist(btn, name) {
-    const wished = btn.classList.toggle('wished');
-    btn.innerHTML = wished
-      ? '<span aria-hidden="true">❤</span> Sauvegardé'
-      : '<span aria-hidden="true">❤</span> Favoris';
-    btn.setAttribute('aria-label', wished ? `Retirer ${name} des favoris` : `Ajouter ${name} aux favoris`);
-  }
-
-  /* ─── ORDER MATERIAL ────────────────────────────────────── */
-  function orderMaterial(mat) {
-    // Select material in configurator and scroll to it
-    const btn = document.querySelector(`.mat-btn[data-mat="${mat}"]`);
-    if (btn) { selectMat(btn, mat); }
-    document.getElementById('configurateur').scrollIntoView({ behavior: 'smooth' });
-  }
-
-  /* ─── PARTICLES ─────────────────────────────────────────── */
-  (function initParticles() {
-    const canvas = document.getElementById('particles-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let W, H;
-
-    function resize() {
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize, { passive: true });
-
-    class Particle {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * W;
-        this.y = Math.random() * H;
-        this.r = Math.random() * 2 + 0.5;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = -Math.random() * 0.5 - 0.1;
-        this.alpha = Math.random() * 0.6 + 0.2;
-        this.color = Math.random() > 0.5 ? '#CA8A04' : '#FBBF24';
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.alpha -= 0.0008;
-        if (this.alpha <= 0 || this.y < -10) this.reset();
-      }
-      draw() {
-        ctx.save();
-        ctx.globalAlpha = this.alpha;
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    for (let i = 0; i < 80; i++) particles.push(new Particle());
-
-    function loop() {
-      ctx.clearRect(0, 0, W, H);
-      particles.forEach(p => { p.update(); p.draw(); });
-      requestAnimationFrame(loop);
-    }
-    loop();
-  })();
-
-  /* ─── SCROLL REVEAL ─────────────────────────────────────── */
-  const revealEls = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => observer.observe(el));
-
-  /* ─── COUNTER ANIMATION ─────────────────────────────────── */
-  const counters = document.querySelectorAll('[data-count]');
-  const counterObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      const target = parseInt(el.dataset.count);
-      const suffix = target === 12000 ? '+' : target === 100 ? '%' : target === 48 ? 'h' : '';
-      let start = 0;
-      const step = target / 60;
-      const timer = setInterval(() => {
-        start = Math.min(start + step, target);
-        el.textContent = Math.floor(start).toLocaleString('fr-FR') + suffix;
-        if (start >= target) clearInterval(timer);
-      }, 16);
-      counterObs.unobserve(el);
-    });
-  }, { threshold: 0.5 });
-  counters.forEach(c => counterObs.observe(c));
-
-  /* ─── INIT ──────────────────────────────────────────────── */
-  updateConfig();
+/* STATE */
+const S={sh:'rectangle',dp:0,mat:'transparent'};
+const PR={transparent:1.85,gold:2.4,crystal:2.1};
+const CL={
+  transparent:{f:'rgba(200,230,255,.55)',s:'rgba(147,197,253,.9)',g:'rgba(255,255,255,.5)'},
+  gold:{f:'rgba(202,138,4,.65)',s:'rgba(251,191,36,.9)',g:'rgba(255,220,80,.5)'},
+  crystal:{f:'rgba(196,181,253,.5)',s:'rgba(167,139,250,.85)',g:'rgba(255,255,255,.6)'}
+};
+let CI=[];
+
+/* ANN BAR */
+const AM=['🚚 Livraison offerte dès 49€','🎁 -10% code : BIENVENUE10','⚡ Fabrication FR · 48h'];
+let ai=0,at;
+(()=>{
+  const e=document.getElementById('ann-t');
+  e.textContent=AM[0];
+  at=setInterval(()=>{
+    ai=(ai+1)%AM.length;
+    e.style.animation='none';
+    requestAnimationFrame(()=>{e.style.animation='';e.textContent=AM[ai]});
+  },4000);
+})();
+function closeAnn(){
+  const b=document.getElementById('ann');
+  b.style.cssText='max-height:0;opacity:0;padding:0;overflow:hidden;transition:all .4s';
+  clearInterval(at);
+}
+
+/* NAV SCROLL */
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('cmp',scrollY>60)},{passive:true});
+
+/* MOB NAV */
+function openMob(btn){btn.setAttribute('aria-expanded','true');document.getElementById('mnav').classList.add('on');document.getElementById('ov').classList.add('on');document.body.style.overflow='hidden'}
+function closeMob(){document.querySelector('.hbg').setAttribute('aria-expanded','false');document.getElementById('mnav').classList.remove('on');document.getElementById('ov').classList.remove('on');document.body.style.overflow=''}
+
+/* CART */
+function openCart(){document.getElementById('cart').classList.add('on');document.getElementById('ov').classList.add('on');document.body.style.overflow='hidden'}
+function closeCart(){document.getElementById('cart').classList.remove('on');document.getElementById('ov').classList.remove('on');document.body.style.overflow=''}
+function closeAll(){closeMob();closeCart()}
+
+function renderCart(){
+  const el=document.getElementById('citems'),b=document.getElementById('cbadge');
+  const tot=CI.reduce((s,i)=>s+i.p,0);
+  b.textContent=CI.length;b.classList.toggle('on',CI.length>0);
+  document.getElementById('ctot').textContent=tot.toFixed(2).replace('.',',')+' €';
+  if(!CI.length){el.innerHTML='<p class="cempty">Votre panier est vide.</p>';return}
+  el.innerHTML=CI.map((c,i)=>`<div class="ci"><div class="ci-th" style="background:${c.col}" aria-hidden="true"></div><div class="ci-info"><div class="ci-name">${c.name}</div><div class="ci-dim">${c.dim}</div></div><span class="ci-price">${c.p.toFixed(2).replace('.',',')} €</span><button class="ci-del" onclick="delCI(${i})" aria-label="Supprimer">✕</button></div>`).join('');
+}
+function delCI(i){CI.splice(i,1);renderCart()}
+
+/* ADD TO CART */
+function addCart(e){
+  const btn=e.currentTarget,d=gd();
+  const area=ca(S.sh,d),price=Math.max(9.9,area*100*PR[S.mat]);
+  const mn={transparent:'Transparent',gold:'Doré',crystal:'Cristal'}[S.mat];
+  const sn={rectangle:'Rect.',square:'Carré',round:'Ronde',oval:'Ovale',octagon:'Octog.',hexagon:'Hexag.'}[S.sh];
+  const isDiam=['round','hexagon'].includes(S.sh);
+  const col={transparent:'linear-gradient(135deg,#dbeafe,#e0f2fe)',gold:'linear-gradient(135deg,#ca8a04,#fbbf24)',crystal:'linear-gradient(135deg,#e0e7ff,#ddd6fe)'}[S.mat];
+  CI.push({name:`Nappe ${mn} — ${sn}`,dim:isDiam?`Ø${d.Df} cm`:`${d.Lf}×${d.Wf} cm`,p:price,col});
+  renderCart();
+  btn.textContent='✓ Ajouté !';btn.style.background='linear-gradient(135deg,#16a34a,#22c55e)';
+  setTimeout(()=>{btn.innerHTML='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Ajouter au panier';btn.style.background='';},2200);
+  openCart();
+}
+
+/* SHAPE/MAT */
+function ss(btn,sh){document.querySelectorAll('.sb').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-checked','false')});btn.classList.add('on');btn.setAttribute('aria-checked','true');S.sh=sh;uf();cp()}
+function sm(btn,mat){document.querySelectorAll('.mb2').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-checked','false')});btn.classList.add('on');btn.setAttribute('aria-checked','true');S.mat=mat;cp()}
+function uf(){
+  const d=['round','hexagon'].includes(S.sh);
+  document.getElementById('fl').style.display=d?'none':'';
+  document.getElementById('fw2').style.display=d?'none':'';
+  document.getElementById('fd').style.display=d?'':'none';
+  const ll=document.querySelector('#fl .fl'),wl=document.querySelector('#fw2 .fl');
+  if(S.sh==='square'){ll.textContent='Côté';wl.textContent='Côté'}
+  else if(S.sh==='oval'){ll.textContent='Grand axe';wl.textContent='Petit axe'}
+  else{ll.textContent='Longueur';wl.textContent='Largeur'}
+}
+function sd2(v){S.dp=+v;document.getElementById('dlbl').textContent=v+' cm';cp()}
+function om(mat){document.querySelectorAll('.mb2').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-checked','false')});const b=document.querySelector(`.mb2[data-m="${mat}"]`);if(b){b.classList.add('on');b.setAttribute('aria-checked','true')}S.mat=mat;cp();document.getElementById('cfg').scrollIntoView({behavior:'smooth'})}
+function tw(btn,n){const w=btn.classList.toggle('on');btn.textContent=w?`♥ Favori`:`♡ Favoris`}
+
+/* DIMS */
+function gd(){
+  const L=+document.getElementById('il').value||120;
+  const W=S.sh==='square'?L:(+document.getElementById('iw').value||80);
+  const D=+document.getElementById('id').value||100;
+  return{L,W,D,Lf:L+S.dp*2,Wf:W+S.dp*2,Df:D+S.dp*2};
+}
+function ca(sh,d){
+  switch(sh){case'rectangle':return d.Lf*d.Wf/10000;case'square':return d.Lf*d.Lf/10000;
+    case'round':return Math.PI*(d.Df/2)**2/10000;case'oval':return Math.PI*(d.Lf/2)*(d.Wf/2)/10000;
+    case'octagon':return 2*(1+Math.sqrt(2))*(d.Lf/2.414)**2/10000;
+    case'hexagon':return(3*Math.sqrt(3)/2)*(d.Df/2)**2/10000;default:return d.Lf*d.Wf/10000}
+}
+function cperim(sh,d){
+  switch(sh){case'rectangle':return Math.round(2*(d.Lf+d.Wf));case'square':return Math.round(4*d.Lf);
+    case'round':return Math.round(Math.PI*d.Df);
+    case'oval':{const a=d.Lf/2,b=d.Wf/2;return Math.round(Math.PI*(3*(a+b)-Math.sqrt((3*a+b)*(a+3*b))))}
+    case'octagon':return Math.round(8*d.Lf/2.414);case'hexagon':return Math.round(6*d.Df/2);default:return 0}
+}
+function cp(){
+  const d=gd(),area=ca(S.sh,d),perim=cperim(S.sh,d);
+  const price=Math.max(9.9,area*100*PR[S.mat]);
+  const isDiam=['round','hexagon'].includes(S.sh);
+  const ml={transparent:'Transparent',gold:'Doré',crystal:'Cristal'}[S.mat];
+  document.getElementById('pinfo').textContent=(isDiam?`Ø${d.Df}`:`${d.Lf}×${d.Wf}`)+` cm · ${ml} · ${area.toFixed(3)} m²`;
+  document.getElementById('pval').textContent=price.toFixed(2).replace('.',',');
+  document.getElementById('pa').textContent=area.toFixed(2)+' m²';
+  document.getElementById('pp2').textContent=perim+' cm';
+  document.getElementById('pl').textContent=(isDiam?d.Df:d.Lf)+' cm';
+  document.getElementById('pw').textContent=(isDiam?'Ø':d.Wf+' cm');
+  drawShape(d);
+}
+
+/* CANVAS */
+function drawShape(d){
+  const cv=document.getElementById('sc'),ctx=cv.getContext('2d');
+  const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+  const col=CL[S.mat],pad=30,cx=W/2,cy=H/2;
+  const isDiam=['round','hexagon'].includes(S.sh);
+  let rw,rh;
+  if(isDiam){const r=Math.min((W-pad*2)/2,(H-pad*2)/2);rw=rh=r}
+  else{const ratio=Math.min((W-pad*2)/d.Lf,(H-pad*2)/d.Wf);rw=d.Lf*ratio/2;rh=d.Wf*ratio/2}
+  const gr=ctx.createLinearGradient(cx-rw,cy-rh,cx+rw,cy+rh);
+  gr.addColorStop(0,col.f);gr.addColorStop(.5,col.g);gr.addColorStop(1,col.f);
+  ctx.save();ctx.fillStyle=gr;ctx.strokeStyle=col.s;ctx.lineWidth=2;ctx.shadowColor=col.s;ctx.shadowBlur=18;
+  ctx.beginPath();
+  if(S.sh==='rectangle'||S.sh==='square')rr(ctx,cx-rw,cy-rh,rw*2,rh*2,10);
+  else if(S.sh==='round')ctx.arc(cx,cy,rw,0,Math.PI*2);
+  else if(S.sh==='oval')ctx.ellipse(cx,cy,rw,rh,0,0,Math.PI*2);
+  else if(S.sh==='octagon')poly(ctx,cx,cy,rw,rh,8,-Math.PI/8);
+  else if(S.sh==='hexagon')poly(ctx,cx,cy,rw,rh,6,0);
+  ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.save();ctx.clip();
+  ctx.strokeStyle='rgba(255,255,255,.14)';ctx.lineWidth=1;
+  for(let x=cx-rw;x<=cx+rw+22;x+=22){ctx.beginPath();ctx.moveTo(x,cy-rh-8);ctx.lineTo(x,cy+rh+8);ctx.stroke()}
+  for(let y=cy-rh;y<=cy+rh+22;y+=22){ctx.beginPath();ctx.moveTo(cx-rw-8,y);ctx.lineTo(cx+rw+8,y);ctx.stroke()}
+  ctx.restore();
+  ctx.strokeStyle='rgba(251,191,36,.62)';ctx.fillStyle='rgba(251,191,36,.82)';ctx.lineWidth=1.5;
+  ctx.font='600 10px Montserrat,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  if(!isDiam){
+    const ay=cy+rh+14;arw(ctx,cx-rw,ay,cx+rw,ay);ctx.fillText(d.Lf+' cm',cx,ay+11);
+    const ax=cx+rw+14;ctx.save();ctx.translate(ax+11,cy);ctx.rotate(Math.PI/2);ctx.fillText(d.Wf+' cm',0,0);ctx.restore();arw(ctx,ax,cy-rh,ax,cy+rh);
+  }else{const ay=cy+rw+14;arw(ctx,cx-rw,ay,cx+rw,ay);ctx.fillText('Ø '+d.Df+' cm',cx,ay+11)}
+  ctx.restore();
+}
+function rr(ctx,x,y,w,h,r){ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath()}
+function poly(ctx,cx,cy,rw,rh,n,off=0){for(let i=0;i<=n;i++){const a=2*Math.PI/n*i+off;i===0?ctx.moveTo(cx+rw*Math.cos(a),cy+rh*Math.sin(a)):ctx.lineTo(cx+rw*Math.cos(a),cy+rh*Math.sin(a))}ctx.closePath()}
+function arw(ctx,x1,y1,x2,y2){const s=5,a=Math.atan2(y2-y1,x2-x1);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();[[x2,y2,a],[x1,y1,a+Math.PI]].forEach(([x,y,ang])=>{ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-s*Math.cos(ang-.4),y-s*Math.sin(ang-.4));ctx.moveTo(x,y);ctx.lineTo(x-s*Math.cos(ang+.4),y-s*Math.sin(ang+.4));ctx.stroke()})}
+
+/* COUNTDOWN */
+(()=>{
+  const K='nlx_end';let end=+localStorage.getItem(K);
+  if(!end||end<Date.now()){end=Date.now()+72*3600*1000;localStorage.setItem(K,end)}
+  function tick(){
+    const diff=end-Date.now();
+    if(diff<=0){['cdh','cdm','cds'].forEach(id=>document.getElementById(id).textContent='00');return}
+    document.getElementById('cdh').textContent=String(Math.floor(diff/3600000)).padStart(2,'0');
+    document.getElementById('cdm').textContent=String(Math.floor(diff%3600000/60000)).padStart(2,'0');
+    document.getElementById('cds').textContent=String(Math.floor(diff%60000/1000)).padStart(2,'0');
+    setTimeout(tick,1000);
+  }tick();
+})();
+
+/* NEWSLETTER */
+function snl(e){
+  e.preventDefault();
+  const v=document.getElementById('nle').value,m=document.getElementById('nlm');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.style.color='#f87171';m.textContent='Adresse email invalide.';return}
+  m.style.color='#86efac';m.textContent='✓ Merci ! Votre code : BIENVENUE10';
+  document.getElementById('nle').value='';
+}
+
+/* PARTICLES */
+(()=>{
+  const cv=document.getElementById('hcv'),ctx=cv.getContext('2d');
+  let W,H,pts=[];
+  function rsz(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+  rsz();window.addEventListener('resize',rsz,{passive:true});
+  class P{constructor(){this.r2()}r2(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.7+.4;this.vx=(Math.random()-.5)*.22;this.vy=-Math.random()*.38-.07;this.a=Math.random()*.48+.12;this.c=Math.random()>.5?'#CA8A04':'#FBBF24'}update(){this.x+=this.vx;this.y+=this.vy;this.a-=.0005;if(this.a<=0||this.y<-8)this.r2()}draw(){ctx.save();ctx.globalAlpha=this.a;ctx.fillStyle=this.c;ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fill();ctx.restore()}}
+  for(let i=0;i<65;i++)pts.push(new P());
+  function loop(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.update();p.draw()});requestAnimationFrame(loop)}
+  loop();
+})();
+
+/* SCROLL REVEAL */
+const ro=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*65);ro.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+
+/* COUNTER */
+const co=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target,target=+el.dataset.count;
+    const sfx=el.textContent.replace(/[0-9,\s]/g,'');
+    let v=0,step=target/55;
+    const t=setInterval(()=>{v=Math.min(v+step,target);el.textContent=Math.floor(v).toLocaleString('fr-FR')+sfx;if(v>=target)clearInterval(t)},16);
+    co.unobserve(el);
+  });
+},{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+/* INIT */
+cp();
 </script>
 </body>
 </html>
